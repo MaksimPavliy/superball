@@ -1,6 +1,7 @@
 ﻿using FriendsGamesTools;
 using FriendsGamesTools.Ads;
 using FriendsGamesTools.ECSGame.Player.Money;
+using FriendsGamesTools.Haptic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ namespace HC
         [SerializeField] private Button shareButton;
         [SerializeField] private Button adRewardButton;
         [SerializeField] GainedRewardView rewardView;
+        [SerializeField] Transform starsParent;
+   
+        StarView[] stars;
         double levelReward => HCLocationsView.instance.shownLocationView.winMoney;
         string shareText => "share text";
         public override string shownText => base.shownText + "Completed!";
@@ -22,10 +26,13 @@ namespace HC
             nextLevelButton?.onClick.AddListener(NextPressed);
             replayButton?.onClick.AddListener(RestartLevel);
             shareButton?.onClick.AddListener(delegate { UIView.instance.Share(shareText); });
-            adRewardButton.GetComponent<WatchAdButtonView>().SubscribeAdWatched(DoubleRewardPressed);
+          //  adRewardButton?.GetComponent<WatchAdButtonView>().SubscribeAdWatched(DoubleRewardPressed);
         }
+        void InitStars() =>
+            stars = starsParent.GetComponentsInChildren<StarView>();
         bool moneySoakIsPlaying => MoneySoakEffect.instance.isPlaying;
-
+        int starCount = 3;
+        float showDelay => 1f;
         async void DoubleRewardPressed()
         {
             adRewardButton.gameObject.SetActive(false);
@@ -51,12 +58,32 @@ namespace HC
             await Awaiters.EndOfFrame;
             ShowReward();
         }
-
-        public override void Show(bool show = true)
+        bool closed = false;
+        public async override void Show(bool show = true)
         {
-            base.Show(show);
+
             rewardView.SetReward(levelReward);
-            adRewardButton.gameObject.SetActive(true);
+            buttonsParent?.SetActive(false);
+            if (stars == null || stars.Length != starCount) InitStars();
+            foreach (StarView star in stars)
+            {
+                star.SetState(false);
+            }
+            await Awaiters.Seconds(showDelay);
+            closed = false;
+            Haptic.Vibrate(HapticType.Light);
+            base.Show(show);
+
+            float ratio = 0.5f;
+        
+            float[] thresholds = { 0f, 0.4f, 1f };
+            for (int i = 0; i < starCount; i++)
+            {
+                stars[i].SetState(ratio >= thresholds[i]);
+                await Awaiters.Seconds(0.5f);
+                Haptic.Vibrate(HapticType.Medium);
+            }
+            buttonsParent.SetActive(true);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace HC
     public abstract class EndLevelWindow : Window
     {
         [SerializeField] TextMeshProUGUI levelText;
+        [SerializeField] protected GameObject buttonsParent;
         public virtual string shownText => $"Level {HCRoot.instance.locations.currLocationInd+1} ";
         public virtual void Show(bool show = true)
         {
@@ -22,5 +23,6 @@ namespace HC
         public void NextLevel() => HCRoot.instance.NextLevel();
         public void ShowReward() => HCRoot.instance.ShowReward();
         public void GoToMain() => HCRoot.instance.GoToMain();
+        
     }
 }
