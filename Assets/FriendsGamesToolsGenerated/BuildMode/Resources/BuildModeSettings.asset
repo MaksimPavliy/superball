@@ -16,28 +16,34 @@ MonoBehaviour:
   IOSEnabled: 1
   AndroidEnabled: 1
   IOSSetNoEncryptionUsed: 0
-  releaseErrors: 'ADS:
+  releaseErrors: 'SHARE:
 
-    Debug gray ad windows enabled
+    ios game link not set
+
+    android game link not set
 
 
-    Application icon
-    not set for Unknown
+    TOUCHES:
 
-    Settings icon not set for Android
+    pics
+    for touches not set
 
-    Application
-    icon not set for Unknown
+    Application icon not set for Unknown
 
-    Settings icon not set for iPhone
+    Settings
+    icon not set for Android
 
-    Spotlight
+    Application icon not set for Unknown
+
+    Settings
     icon not set for iPhone
 
-    Store icon not set for iPhone
+    Spotlight icon not set for iPhone
 
-    splash should
-    be set
+    Store icon
+    not set for iPhone
+
+    splash should be set
 
     build mode should be release
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showAllModules: 0
   alphabetOrder: 0
-  shownParentModuleDefine: ECSGame
+  shownParentModuleDefine: FriendsGamesTools
   FGTEditable: 0
   updatesShown: 0
   updatesShowOnlyNotCompleted: 1
