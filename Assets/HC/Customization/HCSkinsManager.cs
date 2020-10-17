@@ -9,8 +9,8 @@ namespace HC
 
     public abstract class HCSkinsManager : MonoBehaviour 
     {
-        public HKSkinAsset[] SkinAssets;
-        List<HKSkinView> skinViews; //all skinnable objects should be set manually
+        public HCSkinAsset[] SkinAssets;
+        List<HCSkinView> skinViews; //all skinnable objects should be set manually
         protected virtual HCSkinsController controller => null;
         int lastIndex = -1;
         public void SetSkin(int index)  

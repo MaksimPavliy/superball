@@ -13,7 +13,7 @@ namespace HC
         private void Awake()
         {
             _restartLevelButton?.onClick.AddListener(delegate { HCRoot.instance.RestartLevel();});
-            _continueForAdButton.GetComponent<WatchAdButtonView>().SubscribeAdWatched(Continue);
+            _continueForAdButton?.GetComponent<WatchAdButtonView>().SubscribeAdWatched(Continue);
         }
         
         public void Continue()

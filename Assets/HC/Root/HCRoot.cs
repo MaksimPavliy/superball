@@ -57,7 +57,7 @@ namespace HC
         public void Lose() => SetState(GameState.LOSE);
         public void RestartLevel()
         {
-            ((HCLocationsView)HCLocationsView.instance).Clear();
+            HCLocationsView.instance.Clear();
             locations.RestartLocation();
             StartLevel();
         }

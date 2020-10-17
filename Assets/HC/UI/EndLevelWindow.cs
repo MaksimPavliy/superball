@@ -1,4 +1,5 @@
-﻿using FriendsGamesTools.UI;
+﻿using FriendsGamesTools.Haptic;
+using FriendsGamesTools.UI;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace HC
             shown = show;
             if (!show) return;
            if(levelText!=null) levelText.text = shownText;
+            Haptic.Vibrate(HapticType.Medium);
         }
         public void StartGame() => HCRoot.instance.StartLevel();
         public void OpenCustomization() => HCRoot.instance.OpenCustomization();

@@ -4,6 +4,7 @@ namespace HC
 {
     public class HCLocationsView : LocationsView<HCLocationView, ChangeLocationsWindow>
     {
+        public static new HCLocationsView instance => (HCLocationsView)LocationsView.instance;
         public new void Reset()
         {
             base.Reset();
