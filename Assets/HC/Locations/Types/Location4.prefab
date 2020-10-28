@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1945992534005447424, guid: 090b4699d7157c74d86843c032835e99,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945992534005447424, guid: 090b4699d7157c74d86843c032835e99,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2809910980331521000, guid: 090b4699d7157c74d86843c032835e99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,7 +75,14 @@ PrefabInstance:
     - target: {fileID: 2809910980331521001, guid: 090b4699d7157c74d86843c032835e99,
         type: 3}
       propertyPath: m_Name
-      value: _Location
+      value: Location4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476502668773407826, guid: 090b4699d7157c74d86843c032835e99,
+        type: 3}
+      propertyPath: m_text
+      value: 'level 5
+
+        stub'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 090b4699d7157c74d86843c032835e99, type: 3}
