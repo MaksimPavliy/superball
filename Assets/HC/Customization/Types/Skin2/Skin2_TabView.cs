@@ -1,9 +1,13 @@
-﻿namespace HC
+﻿using System.Collections.Generic;
+
+namespace HC
 {
-    public class Skin2_TabView : HCSkinsTabView<CustSkin2>
+    public class Skin2_TabView : HCSkinsTabView<ProgressSkin>
     {
         public override string TabName => "Backgrounds";
         public override string TabHint => "Unlock backgrounds by passing levels.";
+
+        protected override IReadOnlyList<SkinViewConfig> viewConfigs => ProgressSkinsViewConfig.instance.items;
     }
 }
   

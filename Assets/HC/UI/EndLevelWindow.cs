@@ -1,15 +1,14 @@
 ﻿using FriendsGamesTools.Haptic;
-using FriendsGamesTools.UI;
 using TMPro;
 using UnityEngine;
 
 namespace HC
 {
-    public abstract class EndLevelWindow : Window
+    public abstract class EndLevelWindow : HCWindow
     {
         [SerializeField] TextMeshProUGUI levelText;
         [SerializeField] protected GameObject buttonsParent;
-        protected bool hasAds => HCuiConfig.instance.HasAds;
+        protected bool proposeAds => HCAdsManager.AdsProposingEnabled;
         public virtual string shownText => $"LEVEL {HCRoot.instance.locations.currLocationInd+1} ";
         public virtual void Show(bool show = true)
         {

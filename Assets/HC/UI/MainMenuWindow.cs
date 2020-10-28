@@ -10,10 +10,9 @@ namespace HC
         [SerializeField] private Button _bottonCustomization;
         private void Awake()
         {
-            _buttonPlay.onClick.AddListener(delegate{HCRoot.instance.StartLevel();});
-            _bottonCustomization.onClick.AddListener(delegate {HCRoot.instance.OpenCustomization();});
-    }
-        public void Show(bool show=true)=> shown = show;
-
+            _buttonPlay.onClick.AddListener(delegate { HCRoot.instance.StartLevel(); });
+            _bottonCustomization.onClick.AddListener(delegate { HCRoot.instance.OpenCustomization(); });
+        }
+        public void Show(bool show = true) => shown = show;
     }
 }

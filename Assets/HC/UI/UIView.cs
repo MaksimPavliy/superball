@@ -10,7 +10,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace HC
-{   public class UIView : MonoBehaviourHasInstance<UIView>
+{
+    public class UIView : MonoBehaviourHasInstance<UIView>
     {
         public CoreGameUI coreGame;
         public MainMenuWindow mainMenu => Windows.Get<MainMenuWindow>();

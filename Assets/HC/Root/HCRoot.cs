@@ -25,8 +25,13 @@ namespace HC
     {
         public HCLocationsController locations;
         public HCMoneyController money;
-        public HCSkinsManager skin1Manager;
+        public MoneySkinController moneySkinManager;
+        public ProgressSkinController progressSkinManager;
+
+        /// //// 
+
         public GameState State = GameState.INIT;
+
 
         protected override void Awake()
         {

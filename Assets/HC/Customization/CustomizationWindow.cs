@@ -1,4 +1,5 @@
-﻿using FriendsGamesTools;
+﻿using System;
+using FriendsGamesTools;
 using FriendsGamesTools.UI;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace HC
 {
-    public class CustomizationWindow : Window
+    public class CustomizationWindow : HCWindow
     {
         [SerializeField] Button closeButton;
         [SerializeField] Button unlockButton;
@@ -19,13 +20,15 @@ namespace HC
         bool unlockAvailable => activeTabIndex == 0;
         int activeTabIndex = 0;
         HCSkinsTabView activeTab => activeTabIndex < tabs.Length ? tabs[activeTabIndex] : null;
-        bool enoughMoney => activeTab.enoughMoney;
-        bool allUnlocked => activeTab.allUnlocked;
         private void Awake()
         {
-            closeButton?.onClick.AddListener(delegate { HCRoot.instance.GoToMain(); });
-            unlockButton?.onClick.AddListener(delegate { activeTab.UnlockRandom(); });
-            scrollRect.onValueChanged.AddListener(delegate { ScrollValueChanged(); });
+            if (closeButton != null)
+                closeButton.onClick.AddListener(root.GoToMain);
+            if (scrollRect != null)
+                scrollRect.onValueChanged.AddListener(scrollValue => ScrollValueChanged());
+            throw new Exception("whats with commented?");
+            //if (unlockButton != null)
+            //    unlockButton.onClick.AddListener(delegate { activeTab.UnlockRandom(); });
         }
         void ScrollValueChanged()
         {
@@ -42,8 +45,9 @@ namespace HC
                 tab.UpdateView();
             }
             ScrollValueChanged();
-            unlockPriceText.text = ((double)activeTab.unlockPrice).ToStringWithSuffixes();
-            unlockButton.interactable = !allUnlocked && enoughMoney;
+            throw new Exception("whats with commented?");
+            //unlockPriceText.text = ((double)activeTab.unlockPrice).ToStringWithSuffixes();
+            //unlockButton.interactable = !allUnlocked && enoughMoney;
         }
         private void OnEnable() => UpdateView();
         public void Show(bool show = true)

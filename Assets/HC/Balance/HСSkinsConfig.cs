@@ -1,7 +1,10 @@
 ﻿using FriendsGamesTools.DebugTools;
 
-public class HСSkinsConfig : BalanceSettings<HСSkinsConfig>
+namespace HC
 {
-    public double basePrice = 100;
-    public double priceIncrement = 100;
+    public class HСSkinsConfig : BalanceSettings<HСSkinsConfig>
+    {
+        public double basePrice = 100;
+        public double priceIncrement = 100;
+    }
 }

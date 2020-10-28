@@ -1,6 +1,6 @@
 ﻿namespace HC
 {
-    public class Skin2_SlotView : HCSkinSlotView<CustSkin2>
+    public class Skin2_SlotView : HCSkinSlotView<ProgressSkin>
     {
     }
 }

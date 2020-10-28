@@ -20,7 +20,7 @@ namespace HC
         [SerializeField] GameObject selectionParent;
         [SerializeField] ParticleSystem unlockParticles;
         protected virtual HCSkinsController controller => null;
-        bool locked => controller.GetSkins()[index].locked;
+        bool locked => controller.skins[index].locked;
 
         public void Unlock()  =>unlockParticles?.gameObject.SetActive(true);
         public void Select(bool select = true) => selectionParent.SetActive(select);
@@ -29,20 +29,16 @@ namespace HC
         {
             availableParent.SetActive(!locked);
             unAvailableParent.SetActive(locked);
-            selectionParent.SetActive(controller.skinsData.activeIndex == index);
+            selectionParent.SetActive(controller.activeSkinInd == index);
         }
         public int index { private set; get; } = -1;
-        public void Init(int index, Sprite sprite, int price, HCSkinsTabView tabParent)
+        public void Init(int index, Sprite sprite, HCSkinsTabView tabParent)
         {
             this.index = index;
             image.sprite = sprite;
             this.tabParent = tabParent;
             availableParent.GetComponent<Button>()?.onClick.AddListener(Take);
             Select(false);
-            
         }
-
-
-
     }
 }

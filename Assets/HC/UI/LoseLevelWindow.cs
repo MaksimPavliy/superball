@@ -24,7 +24,7 @@ namespace HC
         {
             if (show)
             {
-                continueForAdButton?.gameObject.SetActive(hasAds);
+                continueForAdButton?.gameObject.SetActive(proposeAds);
                 await Awaiters.Seconds(showDelay);
             }
             base.Show(show);

@@ -17,8 +17,7 @@ namespace HC
         [SerializeField] Transform starsParent;
         StarView[] stars;
         double levelReward => HCLocationsView.instance.shownLocationView.winMoney;
-        bool hasItemProgress => HCuiConfig.instance.HasItemProgress;
-        bool hasShare => HCuiConfig.instance.HasShareOnWin;
+        bool hasItemProgress => root.progressSkinManager.lockedSkinExists;
         float x3Chance => 0.25f;
         int xRewardForAd = 2;
         int GetXRewardForAd()=> Utils.Random(0, 1f) < x3Chance ? 3 : 2;
@@ -27,8 +26,10 @@ namespace HC
         
         private void Awake()
         {
-            nextLevelButton?.onClick.AddListener(NextPressed);
-            shareButton?.onClick.AddListener(delegate { UIView.instance.Share(shareText); });
+            if (nextLevelButton != null)
+                nextLevelButton.onClick.AddListener(NextPressed);
+            if (shareButton != null)
+                shareButton.onClick.AddListener(() => UIView.instance.Share(shareText));
 #if ADS
             if(hasAds) adRewardButton?.GetComponent<WatchAdButtonView>()?.SubscribeAdWatched(XRewardPressed);
 #endif
@@ -73,8 +74,7 @@ namespace HC
                 base.Show(show);
                 return;
             }
-            shareButton?.gameObject.SetActive(hasShare);
-            adRewardButton?.gameObject.SetActive(hasAds);
+            adRewardButton?.gameObject.SetActive(proposeAds);
             xRewardForAd = GetXRewardForAd();
             rewardView.SetReward(levelReward);
             buttonsParent?.SetActive(false);

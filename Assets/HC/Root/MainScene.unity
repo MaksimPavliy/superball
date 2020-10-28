@@ -3393,6 +3393,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cbc6388e0e452b42b34167816a7a00b, type: 2}
   - {fileID: 11400000, guid: 577f76e2d2a0af344a631eca63430791, type: 2}
   - {fileID: 11400000, guid: bb0b7e5052436f94cb06cbdd3c835e18, type: 2}
+  skinViews: []
+  lastIndex: -1
 --- !u!4 &835722395
 Transform:
   m_ObjectHideFlags: 0
@@ -3422,6 +3424,8 @@ MonoBehaviour:
   SkinAssets:
   - {fileID: 11400000, guid: 9d00ede211f64014a9598e39ae32cbf5, type: 2}
   - {fileID: 11400000, guid: 250e3a898f0d71843979ec8e2e29d1ae, type: 2}
+  skinViews: []
+  lastIndex: -1
 --- !u!1 &874592711
 GameObject:
   m_ObjectHideFlags: 0
@@ -4733,7 +4737,7 @@ PrefabInstance:
     - target: {fileID: 5631543171747842844, guid: 64c33f2578364b34683f40bfa67ac04f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.3981934
+      value: -2.3984375
       objectReference: {fileID: 0}
     - target: {fileID: 5631543171747842845, guid: 64c33f2578364b34683f40bfa67ac04f,
         type: 3}
@@ -5861,7 +5865,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194601599}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6744,7 +6748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.68981546}
-  m_AnchoredPosition: {x: 0, y: -1.7849121}
+  m_AnchoredPosition: {x: 0, y: -1.7851562}
   m_SizeDelta: {x: 0, y: -3.5684814}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276493000
@@ -7328,7 +7332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -73.8}
+  m_AnchoredPosition: {x: 0, y: -73.80078}
   m_SizeDelta: {x: 0, y: 147.60786}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1495899316
@@ -10241,7 +10245,6 @@ MonoBehaviour:
   loadOnAwakeInDebug: 0
   saveOnPauseOrExitInDebug: 0
   runningType: 0
-  skin1Manager: {fileID: 835722394}
   State: 0
 --- !u!4 &1960826944
 Transform:
@@ -10981,7 +10984,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -49.999992, y: 0}
+  m_AnchoredPosition: {x: -49.999985, y: 0}
   m_SizeDelta: {x: 83.40558, y: 78.10997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2114753151
