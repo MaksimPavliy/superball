@@ -13,7 +13,9 @@ namespace HC
         private void Awake()
         {
             restartLevelButton?.onClick.AddListener(RestartLevel);
+#if ADS
             continueForAdButton?.GetComponent<WatchAdButtonView>()?.SubscribeAdWatched(ContinueForAd);
+#endif
         }
 
         public void ContinueForAd() => Continue();

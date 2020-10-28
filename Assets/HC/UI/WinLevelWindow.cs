@@ -29,7 +29,9 @@ namespace HC
         {
             nextLevelButton?.onClick.AddListener(NextPressed);
             shareButton?.onClick.AddListener(delegate { UIView.instance.Share(shareText); });
+#if ADS
             if(hasAds) adRewardButton?.GetComponent<WatchAdButtonView>()?.SubscribeAdWatched(XRewardPressed);
+#endif
         }
         void InitStars() =>
             stars = starsParent.GetComponentsInChildren<StarView>();

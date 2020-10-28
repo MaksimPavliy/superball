@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HCAdsManager : AdsManager
+public class HCAdsManager
+#if ADS
+    : AdsManager
+#else
+    : MonoBehaviour
+#endif
 {
 }

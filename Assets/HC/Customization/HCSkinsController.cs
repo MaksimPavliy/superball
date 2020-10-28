@@ -10,7 +10,6 @@ namespace HC
     {
         public int index;
         public bool locked;
-        public bool bought;
         public int price;
     }
 
@@ -66,7 +65,7 @@ namespace HC
             var manager = skinsManager;
             foreach (var skin in manager.SkinAssets)
             {
-                buff.Add(new HCSkin { index = skin.Index, locked = skin.Locked, bought = skin.Index == 0, price = skin.price });
+                buff.Add(new HCSkin { index = skin.Index, locked = skin.Locked, price = skin.price });
             }
             entity.ModifyComponent((ref HCSkinsData skins) => { skins.inited = true; skins.skinsCount = manager.SkinAssets.Length; });
             if (!AnySkinLocked()) entity.ModifyComponent((ref HCSkinsData skins) => { skins.allUnlocked = true; });
@@ -88,7 +87,6 @@ namespace HC
             var buff = entity.GetBuffer<HCSkin>();
             var skin = buff[index];
             if (HCRoot.instance.money.amount < skin.price) return;
-            skin.bought = true;
             buff[index] = skin;
             HCRoot.instance.money.PayMoney(skin.price);
         }
