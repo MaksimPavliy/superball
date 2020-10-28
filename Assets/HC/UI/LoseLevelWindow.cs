@@ -7,21 +7,24 @@ namespace HC
 {
     public class LoseLevelWindow: EndLevelWindow
     {
-        [SerializeField] private Button _restartLevelButton;
-        [SerializeField] private Button _continueForAdButton;
-        public override string shownText => base.shownText + "Failed!";
+        [SerializeField] private Button restartLevelButton;
+        [SerializeField] private Button continueForAdButton;
+        public override string shownText => base.shownText + "FAILED!";
         private void Awake()
         {
-            _restartLevelButton?.onClick.AddListener(delegate { HCRoot.instance.RestartLevel();});
-            _continueForAdButton?.GetComponent<WatchAdButtonView>().SubscribeAdWatched(Continue);
+            restartLevelButton?.onClick.AddListener(RestartLevel);
+            continueForAdButton?.GetComponent<WatchAdButtonView>()?.SubscribeAdWatched(ContinueForAd);
         }
-        
-        public void Continue()
+
+        public void ContinueForAd() => Continue();
+        float showDelay => 1.5f;
+        public override async void Show(bool show = true)
         {
-            HCRoot.instance.RestartLevel();
-        }
-        public override void Show(bool show = true)
-        {
+            if (show)
+            {
+                continueForAdButton?.gameObject.SetActive(hasAds);
+                await Awaiters.Seconds(showDelay);
+            }
             base.Show(show);
         }
     }

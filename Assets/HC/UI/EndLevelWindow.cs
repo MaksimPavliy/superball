@@ -9,7 +9,8 @@ namespace HC
     {
         [SerializeField] TextMeshProUGUI levelText;
         [SerializeField] protected GameObject buttonsParent;
-        public virtual string shownText => $"Level {HCRoot.instance.locations.currLocationInd+1} ";
+        protected bool hasAds => HCuiConfig.instance.HasAds;
+        public virtual string shownText => $"LEVEL {HCRoot.instance.locations.currLocationInd+1} ";
         public virtual void Show(bool show = true)
         {
             shown = show;
@@ -21,8 +22,9 @@ namespace HC
         public void OpenCustomization() => HCRoot.instance.OpenCustomization();
         public void RestartLevel() => HCRoot.instance.RestartLevel();
         public void NextLevel() => HCRoot.instance.NextLevel();
-        public void ShowReward() => HCRoot.instance.ShowReward();
+        public void ShowItemProgress() => HCRoot.instance.ShowItemProgress();
         public void GoToMain() => HCRoot.instance.GoToMain();
-        
+        public void Continue() => HCRoot.instance.Continue();
+
     }
 }

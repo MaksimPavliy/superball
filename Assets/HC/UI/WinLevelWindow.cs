@@ -11,40 +11,45 @@ namespace HC
     public class WinLevelWindow: EndLevelWindow
     {
         [SerializeField] private Button nextLevelButton;
-        [SerializeField] private Button replayButton;
         [SerializeField] private Button shareButton;
         [SerializeField] private Button adRewardButton;
         [SerializeField] GainedRewardView rewardView;
         [SerializeField] Transform starsParent;
-   
         StarView[] stars;
         double levelReward => HCLocationsView.instance.shownLocationView.winMoney;
-        string shareText => "share text";
-        public override string shownText => base.shownText + "Completed!";
+        bool hasItemProgress => HCuiConfig.instance.HasItemProgress;
+        bool hasShare => HCuiConfig.instance.HasShareOnWin;
+        float x3Chance => 0.25f;
+        int xRewardForAd = 2;
+        int GetXRewardForAd()=> Utils.Random(0, 1f) < x3Chance ? 3 : 2;
+        protected string shareText => "share text";
+        public override string shownText => base.shownText + "COMPLETED!";
+        
         private void Awake()
         {
             nextLevelButton?.onClick.AddListener(NextPressed);
-            replayButton?.onClick.AddListener(RestartLevel);
             shareButton?.onClick.AddListener(delegate { UIView.instance.Share(shareText); });
-          //  adRewardButton?.GetComponent<WatchAdButtonView>().SubscribeAdWatched(DoubleRewardPressed);
+            if(hasAds) adRewardButton?.GetComponent<WatchAdButtonView>()?.SubscribeAdWatched(XRewardPressed);
         }
         void InitStars() =>
             stars = starsParent.GetComponentsInChildren<StarView>();
         bool moneySoakIsPlaying => MoneySoakEffect.instance.isPlaying;
         int starCount = 3;
         float showDelay => 1f;
-        async void DoubleRewardPressed()
+        async void XRewardPressed()
         {
             adRewardButton.gameObject.SetActive(false);
             rewardView.PlayTween();
             await Awaiters.Seconds(0.25f);
-            rewardView.SetReward(levelReward * 3);
+            rewardView.SetReward(levelReward * xRewardForAd);
             await Awaiters.Seconds(1f);
             NextWindowAwaited(3);
           
         }
         void NextPressed()
         {
+            if (closed) return;
+            closed = true;
             NextWindowAwaited(1);
             rewardView.SetReward(levelReward);
         }
@@ -56,14 +61,22 @@ namespace HC
             await Awaiters.EndOfFrame;
             await Awaiters.EndOfFrame;
             await Awaiters.EndOfFrame;
-            ShowReward();
+            if (hasItemProgress) ShowItemProgress(); else NextLevel();
         }
         bool closed = false;
         public async override void Show(bool show = true)
         {
-
+            if (!show)
+            {
+                base.Show(show);
+                return;
+            }
+            shareButton?.gameObject.SetActive(hasShare);
+            adRewardButton?.gameObject.SetActive(hasAds);
+            xRewardForAd = GetXRewardForAd();
             rewardView.SetReward(levelReward);
             buttonsParent?.SetActive(false);
+
             if (stars == null || stars.Length != starCount) InitStars();
             foreach (StarView star in stars)
             {

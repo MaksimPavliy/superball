@@ -53,7 +53,7 @@ namespace HC
             inGameTimer = 0;
         }
         public void Win() => SetState(GameState.WIN);
-        public void ShowReward() => SetState(GameState.REWARD);
+        public void ShowItemProgress() => SetState(GameState.REWARD);
         public void Lose() => SetState(GameState.LOSE);
         public void RestartLevel()
         {
@@ -63,9 +63,10 @@ namespace HC
         }
         public void OpenCustomization() => SetState(GameState.CUSTOMIZATION);
         public void GoToMain() => SetState(GameState.MAIN_MENU);
+        public void Continue() => RestartLevel();
         public void NextLevel()
         {
-            ((HCLocationsView)HCLocationsView.instance).Clear();
+            (HCLocationsView.instance).Clear();
             locations.ChangeLocation();
             GoToMain();
         }
