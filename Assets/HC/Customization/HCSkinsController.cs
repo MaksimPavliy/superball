@@ -16,41 +16,34 @@ namespace HC
     public struct HCSkinsData : IComponentData
     {
         public int activeIndex;
-        public bool inited;
         public int unlockPrice;
         public int skinsCount;
         public bool allUnlocked;
     }
 
-    public abstract class HCSkinsController<T> : HCSkinsController where T: struct,IComponentData
+    public abstract class HCSkinsController<T> : HCSkinsController where T : struct, IComponentData
     {
         public override Entity entity => ECSUtils.GetSingleEntity<T>();
         public override HCSkinsManager skinsManager => GetManager<T>();
         public override void InitDefault()
         {
-            var e = ECSUtils.CreateEntity(new T());
             base.InitDefault();
+            ECSUtils.CreateEntity(new T());
         }
     }
-        public abstract class HCSkinsController : Controller
+    public abstract class HCSkinsController : Controller
     {
         public virtual Entity entity => Entity.Null;
         public HCSkinsData skinsData => entity.GetComponentData<HCSkinsData>();
         HCSkinsManager skinsManagersParent => HCRoot.instance.skin1Manager;
         public virtual HCSkinsManager skinsManager => null;
         public override int updateEvery => 2;
-        bool skinSet = false;
         protected virtual int priceIncrease => 50;//SkinsConfig.instance.increasePricePerUnlock;
         public override void InitDefault()
         {
             base.InitDefault();
-            entity.AddComponent(new HCSkinsData { activeIndex = 0, inited = false, unlockPrice = -1, allUnlocked = false });
+            entity.AddComponent(new HCSkinsData { activeIndex = 0, unlockPrice = -1, allUnlocked = false });
             InitSkins();
-        }
-        public override void OnInited()
-        {
-            base.OnInited();
-            skinSet = false;
         }
 
         protected override void OnUpdate()
@@ -67,7 +60,7 @@ namespace HC
             {
                 buff.Add(new HCSkin { index = skin.Index, locked = skin.Locked, price = skin.price });
             }
-            entity.ModifyComponent((ref HCSkinsData skins) => { skins.inited = true; skins.skinsCount = manager.SkinAssets.Length; });
+            entity.ModifyComponent((ref HCSkinsData skins) => { skins.skinsCount = manager.SkinAssets.Length; });
             if (!AnySkinLocked()) entity.ModifyComponent((ref HCSkinsData skins) => { skins.allUnlocked = true; });
         }
         public DynamicBuffer<HCSkin> GetSkins() => entity.GetBuffer<HCSkin>();
@@ -116,10 +109,10 @@ namespace HC
             entity.ModifyComponent((ref HCSkinsData skins) => { skins.activeIndex = index; });
         }
 
-        protected HCSkinsManager<T> GetManager<T>() where T:struct,IComponentData
+        protected HCSkinsManager<T> GetManager<T>() where T : struct, IComponentData
         {
             var skinsParent = skinsManagersParent;
-          var managers = skinsParent.GetComponents<HCSkinsManager>();
+            var managers = skinsParent.GetComponents<HCSkinsManager>();
             foreach (var manager in managers)
             {
                 if (manager is HCSkinsManager<T>) return manager as HCSkinsManager<T>;

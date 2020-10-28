@@ -2,7 +2,7 @@
 
 namespace HC
 {
-    public abstract class HCSkinPartView : MonoBehaviour
+    public abstract class HCSkinPartView : MonoBehaviour//remove
     {
         public GameObject[] Parts;
         public void SetActiveSkin(int index)

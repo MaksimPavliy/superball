@@ -21,7 +21,6 @@ namespace HC
         void OnFixedUpdate(float fixedDeltaTIme);
     }
 
-    public struct HCMeta : IComponentData { bool _; }
     public class HCRoot : GameRoot<HCRoot>
     {
         public HCLocationsController locations;
@@ -38,7 +37,6 @@ namespace HC
                 if (c is IFixedUpdateble f) fixedControllers.Add(c);
 
             }
-            ECSUtils.CreateEntity(new HCMeta { });
         }
 
         #region MainLogic
