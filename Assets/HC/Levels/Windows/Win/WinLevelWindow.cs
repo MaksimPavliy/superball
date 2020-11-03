@@ -52,7 +52,7 @@ namespace HC
             xAdRewardForButton.Safe(() => xAdRewardForButton.gameObject.SetActive(true));
         }
 #else
-        AwakeAdReward(){}
+        void AwakeAdReward(){}
         void InitRewardForAd()
         {
             xRewardForAd = 2;

@@ -10,10 +10,7 @@ namespace HC
         public static async Task<bool> Showing() => await Show<UnlockProgressSkinWindow>().AskingForUnlock();
         [SerializeField] Image ico, icoFilled;
         [SerializeField] WatchAdButtonView unlockButton;
-        private void Awake()
-        {
-            unlockButton.SubscribeAdWatched(OnAdWatched);
-        }
+        private void Awake() => unlockButton.SubscribeAdWatched(OnAdWatched);
         public override void OnClosePressed() => ReceiveAnswer(false);
         void OnAdWatched() => ReceiveAnswer(true);
         void ReceiveAnswer(bool unlock)

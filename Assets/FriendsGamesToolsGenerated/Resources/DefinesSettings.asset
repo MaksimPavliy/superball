@@ -17,7 +17,6 @@ MonoBehaviour:
   - ECS_PLAYER
   - SHARE
   - ECS_LOCATIONS
-  - ADS
   - UI
   - BUILD_MODES
   - DEBUG_CONFIG

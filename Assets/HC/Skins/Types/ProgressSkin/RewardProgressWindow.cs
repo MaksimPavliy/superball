@@ -31,10 +31,10 @@ namespace HC
             multiplyRewardButton.SetActiveSafe(false);
             nextLevelButton.SetActiveSafe(false);
             await GivingRewardAnimated(1);
-            multiplyRewardButton.SetActiveSafe(true);
+            multiplyRewardButton.SetActiveSafe(HCAdsManager.AdsProposingEnabled);
             await Awaiters.Seconds(1f);
             await Awaiters.While(() => showingAnim);
-            restartLevelButton.SetActiveSafe(!controller.unlockAvailable);
+            restartLevelButton.SetActiveSafe(!controller.unlockAvailable && HCAdsManager.AdsProposingEnabled);
             nextLevelButton.SetActiveSafe(true);
         }
         async void OnMultiplyRewardPressed()

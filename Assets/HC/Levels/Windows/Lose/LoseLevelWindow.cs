@@ -15,9 +15,7 @@ namespace HC
         {
             base.Awake();
             restartLevelButton.Safe(() => restartLevelButton.onClick.AddListener(OnRestartLevelPressed));
-#if ADS
             continueForAdButton.Safe(()=> continueForAdButton.SubscribeAdWatched(OnContinueAdWatched));
-#endif
         }
         private void OnContinueAdWatched()
         {
