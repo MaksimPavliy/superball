@@ -1,4 +1,5 @@
-﻿using FriendsGamesTools;
+﻿using System.Threading.Tasks;
+using FriendsGamesTools;
 using FriendsGamesTools.Ads;
 using TMPro;
 using UnityEngine;
@@ -10,40 +11,65 @@ namespace HC
     {
         public static void Show() => Show<RewardProgressWindow>();
         public override string shownText => base.shownText + "\nCOMPLETED!";
-        [SerializeField] private Button _nextLevelButton;
-        [SerializeField] private WatchAdButtonView _doubleRewardButton;
+        [SerializeField] private Button nextLevelButton;
+        [SerializeField] private WatchAdButtonView multiplyRewardButton;
+        [SerializeField] private WatchAdButtonView restartLevelButton;
         [SerializeField] Image progressBar;
         [SerializeField] TextMeshProUGUI progressText;
+        ProgressSkinController controller => root.progressSkin;
         protected override void Awake()
         {
             base.Awake();
-            _nextLevelButton.Safe(() => _nextLevelButton.onClick.AddListener(() => root.levels.ChangeLocation()));
-            _doubleRewardButton.Safe(() => _doubleRewardButton.SubscribeAdWatched(() => root.levels.GiveWinProgress(2)));
+            nextLevelButton.Safe(() => nextLevelButton.onClick.AddListener(() => OnNextLevelPressed()));
+            restartLevelButton.Safe(() => restartLevelButton.SubscribeAdWatched(OnRestartLevelPressed));
+            multiplyRewardButton.Safe(() => multiplyRewardButton.SubscribeAdWatched(OnMultiplyRewardPressed));
         }
         protected override async void OnEnable()
         {
             base.OnEnable();
-            var startValue = root.progressSkinManager.progress;
-            var startSkinInd = root.progressSkinManager.skinIndToUnlock;
-            root.levels.GiveWinProgress(1);
-            var afterX1Value = root.progressSkinManager.progress;
-            var afterSkinInd = root.progressSkinManager.skinIndToUnlock;
-            var showUnlockSkin = startSkinInd < afterSkinInd;
-            if (showUnlockSkin) afterX1Value = 1;
+            restartLevelButton.SetActiveSafe(false);
+            multiplyRewardButton.SetActiveSafe(false);
+            nextLevelButton.SetActiveSafe(false);
+            await GivingRewardAnimated(1);
+            multiplyRewardButton.SetActiveSafe(true);
+            await Awaiters.Seconds(1f);
+            await Awaiters.While(() => showingAnim);
+            restartLevelButton.SetActiveSafe(!controller.unlockAvailable);
+            nextLevelButton.SetActiveSafe(true);
+        }
+        async void OnMultiplyRewardPressed()
+        {
+            multiplyRewardButton.SetActiveSafe(false);
+            await GivingRewardAnimated(4);
+        }
+        bool showingAnim;
+        async Task GivingRewardAnimated(int multiplier)
+        {
+            await Awaiters.While(() => showingAnim);
+            showingAnim = true;
+            var startValue = controller.progress;
+            root.levels.GiveWinProgress(multiplier);
+            var endValue = controller.progress;
             await AsyncUtils.SecondsWithProgress(0.5f, progress => {
-                var value = Mathf.Lerp(startValue, afterX1Value, Mathf.SmoothStep(0, 1, progress));
+                var value = Mathf.Lerp(startValue, endValue, Mathf.SmoothStep(0, 1, progress));
                 UpdateFillValue(value);
             });
-            if (showUnlockSkin)
+            if (controller.unlockAvailable)
             {
-                UpdateFillValue(0);
-                
+                var unlocked = await UnlockProgressSkinWindow.Showing();
+                controller.UnlockOrLooseSkin(unlocked);
             }
+            showingAnim = false;
         }
         private void UpdateFillValue(float value)
         {
             progressBar.fillAmount = value;
             progressText.text = value.ToShownPercents();
+        }
+        protected void OnNextLevelPressed()
+        {
+            shown = false;
+            root.levels.ChangeLocation();
         }
     }
 }

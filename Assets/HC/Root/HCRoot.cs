@@ -6,8 +6,8 @@ namespace HC
     {
         public HCLocationsController levels;
         public HCMoneyController money;
-        public MoneySkinController moneySkinManager;
-        public ProgressSkinController progressSkinManager;
+        public MoneySkinController moneySkin;
+        public ProgressSkinController progressSkin;
 
         protected override void OnWorldInited()
         {

@@ -38,7 +38,7 @@ namespace HC
         }
         public virtual void ActivateSkin(int ind)
             => entity.ModifyComponent((ref HCSkinsData skins) => skins.activeSkinInd = ind );
-        public virtual void UnlockSkin(int ind) => skins.ModifyItem(ind, (ref HCSkin itemData) => itemData.locked = false);
+        protected virtual void UnlockSkin(int ind) => skins.ModifyItem(ind, (ref HCSkin itemData) => itemData.locked = false);
     }
 
     public abstract class HCSkinsController<T> : HCSkinsController where T : struct, IComponentData

@@ -72,7 +72,7 @@ namespace HC
             root.money.AddMoneySoaked(money);
             e.ModifyComponent((ref Level l) =>
             {
-                if (root.progressSkinManager.anySkinLocked)
+                if (root.progressSkin.anySkinLocked)
                     l.state = Level.State.win;
                 else
                     l.state = Level.State.inMenu;
@@ -80,7 +80,7 @@ namespace HC
         }
         public void GiveWinProgress(int multiplier)
         {
-            root.progressSkinManager.GiveWinProgress(multiplier);
+            root.progressSkin.GiveWinProgress(multiplier);
             e.ModifyComponent((ref Level l) => l.state = Level.State.inMenu);
         }
         public void Play()

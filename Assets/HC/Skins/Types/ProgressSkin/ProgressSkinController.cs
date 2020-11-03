@@ -2,6 +2,7 @@
 using FriendsGamesTools;
 using FriendsGamesTools.ECSGame;
 using Unity.Entities;
+using UnityEngine;
 
 namespace HC
 {
@@ -16,7 +17,7 @@ namespace HC
         public override IReadOnlyList<SkinViewConfig> viewConfigs => ProgressSkinsViewConfig.instance.items;
         ProgressSkin data => entity.GetComponentData<ProgressSkin>();
         public int percents => data.percentsProgress;
-        public float progress => percents * 0.01f;
+        public float progress => Mathf.Clamp01(percents * 0.01f);
         public int skinIndToUnlock => data.skinIndToUnlock;
         public override void InitDefault()
         {
@@ -32,16 +33,20 @@ namespace HC
             var percents = Utils.Random(config.percentsPerLevelMin, config.percentsPerLevelMax);
             percents *= multiplier;
             percents += this.percents;
-            if (percents >= 100)
-            {
-                percents = 0;
-                UnlockSkin(skinIndToUnlock);
-                skinIndToUnlock = GetNextSkinIndToUnlock(skinIndToUnlock);
-            }
-
             entity.ModifyComponent((ref ProgressSkin p)=> {
                 p.percentsProgress = percents;
                 p.skinIndToUnlock = skinIndToUnlock;
+            });
+        }
+        public bool unlockAvailable => percents >= 100;
+        public void UnlockOrLooseSkin(bool unlocked)
+        {
+            if (!unlockAvailable) return;
+            if (unlocked)
+                UnlockSkin(skinIndToUnlock);
+            entity.ModifyComponent((ref ProgressSkin p) => {
+                p.percentsProgress = 0;
+                p.skinIndToUnlock = GetNextSkinIndToUnlock(p.skinIndToUnlock);
             });
         }
         int GetNextSkinIndToUnlock(int prevSkinIndToUnlock)

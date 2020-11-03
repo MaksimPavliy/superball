@@ -101,7 +101,7 @@ namespace HC
             await Awaiters.Until(() => !moneySoakIsPlaying);
             await AsyncUtils.FramesCount(3);
             shown = false;
-            if (root.progressSkinManager.anySkinLocked)
+            if (root.progressSkin.anySkinLocked)
                 RewardProgressWindow.Show();
             else
                 root.levels.ChangeLocation();
