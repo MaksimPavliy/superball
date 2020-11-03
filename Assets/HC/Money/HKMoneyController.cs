@@ -1,14 +1,16 @@
 ﻿using FriendsGamesTools.ECSGame.Player.Money;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HCMoneyController : PlayerMoneyController
+namespace HC
 {
-    public void AddWinMoney(double amount) => AddMoneySoaked(amount);
-    public override void InitDefault()
+    public class HCMoneyController : PlayerMoneyController
     {
-        base.InitDefault();
-        SetStartMoney(HСGeneralConfig.instance.StartMoney);
+        public new int amount => Mathf.RoundToInt((float)base.amount);
+        public void AddWinMoney(int amount) => AddMoneySoaked(amount);
+        public override void InitDefault()
+        {
+            base.InitDefault();
+            SetStartMoney(HСMoneyConfig.instance.startMoney);
+        }
     }
 }

@@ -3,6 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HCAdsManager : AdsManager
+namespace HC
 {
+    public class HCAdsManager
+#if ADS
+    : AdsManager<HCAdsManager>
+#else
+    : MonoBehaviour
+#endif
+    {
+        public static bool AdsProposingEnabled =>
+#if ADS
+    true;
+#else
+    false;
+#endif
+    }
 }

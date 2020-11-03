@@ -1,7 +1,5 @@
 #######      FGT generated      #######
 .gradle/
-[Bb]uild/
-[Bb]uilds/
 Screenshots/
 LocalSettings/
 LocalSettings.meta
@@ -12,6 +10,12 @@ ArtSourceSpritesPostProcessed/
 Temp/
 Library/
 Logs/
+#######          Builds         #######
+[Bb]uild/
+[Bb]uilds/
+*.apk
+*.obb
+*.exe
 ####### Visual Studio generated #######
 JetBrains/
 JetBrains.meta
@@ -28,7 +32,6 @@ obj/
 *.user
 *.unityproj
 *.booproj
-*.apk
 *.opensdf
 *.sdf
 *.DotSettings
