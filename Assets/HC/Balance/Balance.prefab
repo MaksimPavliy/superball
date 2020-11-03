@@ -140,10 +140,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - ico: {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
+  - ico: {fileID: 21300000, guid: e5c04fbf69177804995700cf2d803785, type: 3}
     startUnlocked: 1
-  - ico: {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
+    icoFilled: {fileID: 21300000, guid: 60f26b70c288ee44abeddb98e6d663da, type: 3}
+  - ico: {fileID: 21300000, guid: e5c04fbf69177804995700cf2d803785, type: 3}
     startUnlocked: 0
+    icoFilled: {fileID: 21300000, guid: 60f26b70c288ee44abeddb98e6d663da, type: 3}
+  - ico: {fileID: 21300000, guid: e5c04fbf69177804995700cf2d803785, type: 3}
+    startUnlocked: 0
+    icoFilled: {fileID: 21300000, guid: 60f26b70c288ee44abeddb98e6d663da, type: 3}
 --- !u!1 &7470818062114265918
 GameObject:
   m_ObjectHideFlags: 0

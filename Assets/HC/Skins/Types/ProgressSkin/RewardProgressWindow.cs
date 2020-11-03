@@ -14,7 +14,7 @@ namespace HC
         [SerializeField] private Button nextLevelButton;
         [SerializeField] private WatchAdButtonView multiplyRewardButton;
         [SerializeField] private WatchAdButtonView restartLevelButton;
-        [SerializeField] Image progressBar;
+        [SerializeField] Image skinIco, skinIcoFilled;
         [SerializeField] TextMeshProUGUI progressText;
         ProgressSkinController controller => root.progressSkin;
         protected override void Awake()
@@ -58,12 +58,13 @@ namespace HC
             {
                 var unlocked = await UnlockProgressSkinWindow.Showing();
                 controller.UnlockOrLooseSkin(unlocked);
+                root.levels.ChangeLocation();
             }
             showingAnim = false;
         }
         private void UpdateFillValue(float value)
         {
-            progressBar.fillAmount = value;
+            ProgressSkinItemView.Show(skinIco, skinIcoFilled, controller.skinIndToUnlock, value);
             progressText.text = value.ToShownPercents();
         }
         protected void OnNextLevelPressed()

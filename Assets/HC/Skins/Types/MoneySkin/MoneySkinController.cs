@@ -21,9 +21,6 @@ namespace HC
             root.money.PayMoney(nextSkinPrice);
             var skinInd = Utils.GetIndList(skins.Length).Filter(ind => skins[ind].locked).RandomElement();
             UnlockSkin(skinInd);
-            ActivateSkin(skinInd);
         }
     }
-
-    
 }

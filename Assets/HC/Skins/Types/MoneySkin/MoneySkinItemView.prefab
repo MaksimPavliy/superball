@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00972cda4ac9a4e62891aeeee1f15450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 949665218815981148}
+  ico: {fileID: 949665218815981148}
   activateButton: {fileID: 1452419487177274479}
   selectionParent: {fileID: 5627731878169987375}
   unlockedParent: {fileID: 3119017799980562860}

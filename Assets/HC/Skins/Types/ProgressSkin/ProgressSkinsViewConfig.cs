@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FriendsGamesTools;
+using UnityEngine;
 
 namespace HC
 {
@@ -10,6 +11,6 @@ namespace HC
     }
     [Serializable] public class ProgressSkinViewConfig : SkinViewConfig
     {
-
+        public Sprite icoFilled;
     }
 }

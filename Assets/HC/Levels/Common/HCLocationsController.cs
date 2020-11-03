@@ -1,4 +1,5 @@
-﻿using FriendsGamesTools.ECSGame;
+﻿using FriendsGamesTools;
+using FriendsGamesTools.ECSGame;
 using FriendsGamesTools.ECSGame.Locations;
 using Unity.Entities;
 using UnityEngine;
@@ -19,6 +20,12 @@ namespace HC
         Level data => e.GetComponentData<Level>();
         public Level.State state => data.state;
         public int levelsPlayed => data.levelsPlayed;
+        public override bool loop => true;
+        public override int GetSourceLocationInd(int locationInd)
+        {
+            if (locationInd < locationsCount) return locationInd;
+            return Mathf.Abs((int)Utils.ToHash(locationInd)) % locationsCount;
+        }
         public override void InitDefault()
         {
             base.InitDefault();
@@ -70,18 +77,10 @@ namespace HC
         {
             var money = HСMoneyConfig.instance.levelWinMoney * multiplier;
             root.money.AddMoneySoaked(money);
-            e.ModifyComponent((ref Level l) =>
-            {
-                if (root.progressSkin.anySkinLocked)
-                    l.state = Level.State.win;
-                else
-                    l.state = Level.State.inMenu;
-            });
         }
         public void GiveWinProgress(int multiplier)
         {
             root.progressSkin.GiveWinProgress(multiplier);
-            e.ModifyComponent((ref Level l) => l.state = Level.State.inMenu);
         }
         public void Play()
         {

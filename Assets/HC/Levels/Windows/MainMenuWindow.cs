@@ -9,6 +9,7 @@ namespace HC
         {
             HCRoot.instance.levels.GoToMenu();
             Show<MainMenuWindow>();
+            LevelBasedView.SetLevelText(HCLocationsView.instance.ShownLocationName);
         }
         [SerializeField] private Button _buttonPlay;
         [SerializeField] private Button _bottonCustomization;

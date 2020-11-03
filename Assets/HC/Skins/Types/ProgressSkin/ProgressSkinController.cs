@@ -18,6 +18,7 @@ namespace HC
         ProgressSkin data => entity.GetComponentData<ProgressSkin>();
         public int percents => data.percentsProgress;
         public float progress => Mathf.Clamp01(percents * 0.01f);
+        public float GetProgress(int skinInd) => skinInd == skinIndToUnlock ? progress : (IsLocked(skinInd) ? 0 : 1);
         public int skinIndToUnlock => data.skinIndToUnlock;
         public override void InitDefault()
         {
@@ -57,7 +58,9 @@ namespace HC
             do
             {
                 skinIndToUnlock++;
-            } while (IsLocked(skinIndToUnlock));
+                if (skinIndToUnlock >= skinsCount)
+                    skinIndToUnlock = 0;
+            } while (!IsLocked(skinIndToUnlock));
             return skinIndToUnlock;
         }
     }

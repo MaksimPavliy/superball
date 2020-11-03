@@ -25,6 +25,7 @@ namespace HC
         public int activeSkinInd => entity.GetComponentData<HCSkinsData>().activeSkinInd;
         public DynamicBuffer<HCSkin> skins => entity.GetBuffer<HCSkin>();
         public bool IsLocked(int ind) => skins[ind].locked;
+        public int skinsCount => skins.Length;
         public override int updateEvery => 2;
         public new HCRoot root => HCRoot.instance;
         public override void InitDefault()
@@ -38,7 +39,11 @@ namespace HC
         }
         public virtual void ActivateSkin(int ind)
             => entity.ModifyComponent((ref HCSkinsData skins) => skins.activeSkinInd = ind );
-        protected virtual void UnlockSkin(int ind) => skins.ModifyItem(ind, (ref HCSkin itemData) => itemData.locked = false);
+        protected virtual void UnlockSkin(int ind)
+        {
+            skins.ModifyItem(ind, (ref HCSkin itemData) => itemData.locked = false);
+            ActivateSkin(ind);
+        }
     }
 
     public abstract class HCSkinsController<T> : HCSkinsController where T : struct, IComponentData
