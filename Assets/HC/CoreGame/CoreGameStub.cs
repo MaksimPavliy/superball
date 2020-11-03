@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using FriendsGamesTools.ECSGame;
+using UnityEngine;
 
 namespace HC
 {
     public class CoreGameStub : MonoBehaviour
     {
-        HCLocationsController levels => HCRoot.instance.levels;
+        LevelBasedController levels => HCRoot.instance.levels;
         [SerializeField] GameObject buttonsParent;
         private void Update()
         {

@@ -12,11 +12,5 @@ namespace HC
     : MonoBehaviour
 #endif
     {
-        public static bool AdsProposingEnabled =>
-#if ADS
-    true;
-#else
-    false;
-#endif
     }
 }
