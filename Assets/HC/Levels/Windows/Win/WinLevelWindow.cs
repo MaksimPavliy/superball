@@ -11,7 +11,7 @@ namespace HC
 {
     public class WinLevelWindow: EndLevelWindow
     {
-        public static void Show() => Show<WinLevelWindow>();
+        public static void Show() => ShowWithDelay<WinLevelWindow>(0.5f);
         [SerializeField] private Button nextLevelButton;
         [SerializeField] private Button shareButton;
         [SerializeField] private WatchAdButtonView xAdRewardForButton;
@@ -34,6 +34,7 @@ namespace HC
 #if ADS
         async void OnXRewardAdWatched()
         {
+            buttonsParent.SetActive(false);
             xAdRewardForButton.gameObject.SetActive(false);
             rewardView.PlayTween();
             await Awaiters.Seconds(0.25f);
@@ -63,6 +64,7 @@ namespace HC
         void InitStars() => stars = starsParent.GetComponentsInChildren<StarView>();
         protected override async void OnEnable()
         {
+            base.OnEnable();
             InitRewardForAd();
             rewardView.SetReward(levelReward);
             buttonsParent.SetActive(false);
@@ -72,11 +74,9 @@ namespace HC
                 InitStars();
             stars.ForEach(s => s.SetState(false));
 
-            const float showDelay = 1f;
-            await Awaiters.Seconds(showDelay);
+            await Awaiters.Seconds(1);
 
             Haptic.Vibrate(HapticType.Light);
-            base.OnEnable();
             const float ratio = 0.5f;
             float[] thresholds = { 0f, 0.4f, 1f };
             for (int i = 0; i < starCount; i++)
@@ -89,17 +89,18 @@ namespace HC
         }
 
         void NextPressed() {
-            shown = false;
             ShowNextWindow(1);
         }
 
         bool moneySoakIsPlaying => MoneySoakEffect.instance.isPlaying;
         public async void ShowNextWindow(int moneyMultiplier)
         {
+            buttonsParent.SetActive(false);
             root.levels.GiveWinMoney(moneyMultiplier);
             await Awaiters.Until(() => moneySoakIsPlaying);
             await Awaiters.Until(() => !moneySoakIsPlaying);
             await AsyncUtils.FramesCount(3);
+            shown = false;
             if (root.progressSkinManager.anySkinLocked)
                 RewardProgressWindow.Show();
             else

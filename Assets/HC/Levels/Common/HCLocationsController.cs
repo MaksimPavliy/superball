@@ -7,7 +7,7 @@ namespace HC
 {
     public struct Level : IComponentData
     {
-        public enum State { inMenu, playing, winReceivingMoney, winReceivingProgress, lose }
+        public enum State { inMenu, playing, win, lose }
         public State state;
         public int levelsPlayed;
     }
@@ -15,7 +15,7 @@ namespace HC
     {
         HCLocationsView view => HCLocationsView.instance;
         public override int locationsCount => view.locations.Count;
-        protected override bool canChangePrivate => data.state == Level.State.lose || data.state == Level.State.winReceivingProgress;
+        protected override bool canChangePrivate => data.state == Level.State.lose || data.state == Level.State.win;
         Level data => e.GetComponentData<Level>();
         public Level.State state => data.state;
         public int levelsPlayed => data.levelsPlayed;
@@ -23,11 +23,6 @@ namespace HC
         {
             base.InitDefault();
             e.AddComponent(new Level { });
-        }
-        public override void OnInited()
-        {
-            base.OnInited();
-            GoToMenu();
         }
         public void OnLocationSet(int newLocationInd)
         {
@@ -57,7 +52,7 @@ namespace HC
             var maxLevel = loop ? int.MaxValue : locationsCount - 1;
             var levelToUnlock = Mathf.Min(maxLevel, currLocationInd + 1);
             e.ModifyComponent((ref Level l) => {
-                l.state = Level.State.winReceivingMoney;
+                l.state = Level.State.win;
                 l.levelsPlayed++;
             });
         }
@@ -78,7 +73,7 @@ namespace HC
             e.ModifyComponent((ref Level l) =>
             {
                 if (root.progressSkinManager.anySkinLocked)
-                    l.state = Level.State.winReceivingProgress;
+                    l.state = Level.State.win;
                 else
                     l.state = Level.State.inMenu;
             });

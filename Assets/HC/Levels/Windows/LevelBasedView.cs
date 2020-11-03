@@ -1,6 +1,7 @@
 ﻿using FriendsGamesTools;
 using FriendsGamesTools.UI;
 using TMPro;
+using UnityEngine;
 
 namespace HC
 {
@@ -13,6 +14,11 @@ namespace HC
         public RewardProgressWindow rewardWindow => Windows.Get<RewardProgressWindow>();
         public SkinsWindow skinsWindow => Windows.Get<SkinsWindow>();
 
-        public TextMeshProUGUI levelText;
+        [SerializeField] TextMeshProUGUI levelText;
+        public static void SetLevelText(string text)
+        {
+            if (instance != null)
+                instance.levelText.text = text;
+        }
     }
 }

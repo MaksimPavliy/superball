@@ -504,6 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeOthers: 1
+  parent: {fileID: 7639043603102656166}
   buttonsParent: {fileID: 7639043603829046042}
   restartLevelButton: {fileID: 2604231783325592512}
   continueForAdButton: {fileID: 7639043604963136799}

@@ -9,7 +9,6 @@ namespace HC
         private void Update()
         {
             var isPlaying = levels.state == Level.State.playing;
-            LevelBasedView.instance.levelText.gameObject.SetActive(!isPlaying);
             buttonsParent.SetActive(isPlaying);
         }
         public void OnWinPressed() => levels.DebugWin();

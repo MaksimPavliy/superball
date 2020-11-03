@@ -19,7 +19,7 @@ namespace HC
         private void Awake()
         {
             if (closeButton != null)
-                closeButton.onClick.AddListener(root.levels.GoToMenu);
+                closeButton.onClick.AddListener(MainMenuWindow.Show);
             if (scrollRect != null)
                 scrollRect.onValueChanged.AddListener(scrollValue => UpdateView());
         }

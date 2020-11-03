@@ -17,18 +17,16 @@ namespace HC
             continueForAdButton.Safe(()=> continueForAdButton.SubscribeAdWatched(OnContinueAdWatched));
 #endif
         }
-        public static async void Show()
-        {
-            var instance = Windows.Get<LoseLevelWindow>();
-            instance.continueForAdButton?.gameObject.SetActive(instance.proposeAds);
-            const float showDelay = 1.5f;
-            await Awaiters.Seconds(showDelay);
-            instance.shown = true;
-        }
         private void OnContinueAdWatched()
         {
             shown = false;
             root.levels.RestartLocation();
+        }
+        public static void Show() => ShowWithDelay<LoseLevelWindow>(0.5f);
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            continueForAdButton?.gameObject.SetActive(proposeAds);
         }
     }
 }

@@ -5,7 +5,11 @@ namespace HC
 {
     public class MainMenuWindow : HCWindow
     {
-        public static void Show() => Show<MainMenuWindow>();
+        public static void Show()
+        {
+            HCRoot.instance.levels.GoToMenu();
+            Show<MainMenuWindow>();
+        }
         [SerializeField] private Button _buttonPlay;
         [SerializeField] private Button _bottonCustomization;
         private void Awake() {

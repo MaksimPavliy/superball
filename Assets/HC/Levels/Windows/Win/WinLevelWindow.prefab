@@ -93,7 +93,7 @@ MonoBehaviour:
   restartLevelButton: {fileID: 0}
   nextLevelButton: {fileID: 1086455160017020607}
   shareButton: {fileID: 1086455159785675922}
-  xAdRewardForButton: {fileID: 0}
+  xAdRewardForButton: {fileID: 4698555800283906452}
   rewardView: {fileID: 4698555800149127168}
   starsParent: {fileID: 2773703862824783157}
 --- !u!1 &4698555799920461642

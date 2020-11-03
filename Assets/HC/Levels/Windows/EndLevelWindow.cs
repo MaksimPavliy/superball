@@ -11,25 +11,20 @@ namespace HC
         [SerializeField] protected GameObject buttonsParent;
         [SerializeField] private Button restartLevelButton;
         protected bool proposeAds => HCAdsManager.AdsProposingEnabled;
-        public virtual string shownText => $"LEVEL {HCRoot.instance.levels.currLocationInd+1} ";
-        protected TextMeshProUGUI levelText => LevelBasedView.instance.levelText;
+        public virtual string shownText => HCLocationsView.instance.ShownLocationName;
         protected virtual void OnEnable()
         {
-            levelText.Safe(() => levelText.text = shownText);
+            LevelBasedView.SetLevelText(shownText);
             Haptic.Vibrate(HapticType.Medium);
         }
         protected virtual void Awake()
         {
-            restartLevelButton.Safe(() => restartLevelButton.onClick.AddListener(root.levels.RestartLocation));
-
+            restartLevelButton.Safe(() => restartLevelButton.onClick.AddListener(OnRestartLevelPressed));
         }
-
-        //public void StartGame() => HCRoot.instance.StartLevel();
-        //public void OpenCustomization() => HCRoot.instance.OpenCustomization();
-        //public void RestartLevel() => HCRoot.instance.RestartLevel();
-        //public void NextLevel() => HCRoot.instance.NextLevel();
-        //public void ShowItemProgress() => HCRoot.instance.ShowItemProgress();
-        //public void GoToMain() => HCRoot.instance.GoToMain();
-        //public void Continue() => HCRoot.instance.Continue();
+        protected virtual void OnRestartLevelPressed()
+        {
+            shown = false;
+            root.levels.RestartLocation();
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace HC
         public override IReadOnlyList<SkinViewConfig> viewConfigs => ProgressSkinsViewConfig.instance.items;
         ProgressSkin data => entity.GetComponentData<ProgressSkin>();
         public int percents => data.percentsProgress;
+        public float progress => percents * 0.01f;
         public int skinIndToUnlock => data.skinIndToUnlock;
         public override void InitDefault()
         {
