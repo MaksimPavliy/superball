@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: DefinesSettings
   m_EditorClassIdentifier: 
   defines:
+  - ANALYTICS
   - UTILS
   - ECS_PLAYER
   - SHARE
   - ECS_LOCATIONS
   - ECS_SKINS
+  - FACEBOOK
   - ADS
   - UI
   - BUILD_MODES
   - ECS_LEVEL_BASED
+  - PUSH_WRAPPER
   - DEBUG_CONFIG
   - ECS_GAMEROOT
   - DEBUG_TOOLS
@@ -30,7 +33,12 @@ MonoBehaviour:
   - TOUCHES
   - DEBUG_PANEL
   - DEBUG_LOGS
+  - SCREENSHOTS
+  - PUSH_MANAGER
   - ECSGame
+  - PUSH
   - WINDOWS
+  - DEBUG_PERFORMANCE
+  - SDKs
   - EDITOR_TOOLS
   - HAPTIC
