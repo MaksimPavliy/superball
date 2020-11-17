@@ -14,36 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mode: 0
   IOSEnabled: 1
-  AndroidEnabled: 1
-  IOSSetNoEncryptionUsed: 0
-  releaseErrors: 'SHARE:
+  AndroidEnabled: 0
+  IOSSetNoEncryptionUsed: 1
+  releaseErrors: 'FACEBOOK:
 
-    ios game link not set
+    not configured
 
-    android game link not set
+    SHARE:
+
+    ios game link not
+    set
 
 
     TOUCHES:
 
-    pics
-    for touches not set
+    pics for touches not set
 
-    Application icon not set for Unknown
-
-    Settings icon
-    not set for Android
-
-    Application icon not set for Unknown
-
-    Settings icon
-    not set for iPhone
-
-    Spotlight icon not set for iPhone
-
-    Store icon not
-    set for iPhone
-
-    splash should be set
+    app name in PlayerSettings.productName=Cube
+    World but in fb sdk appName=App Name
 
     build mode should be release
 

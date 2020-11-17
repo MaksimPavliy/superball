@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb282e706eff5d148903110bc045824d, type: 3}
   m_Name: FGTLocalSettings
   m_EditorClassIdentifier: 
-  showAllModules: 0
+  showAllModules: 1
   alphabetOrder: 0
   shownParentModuleDefine: FriendsGamesTools
   FGTEditable: 0
