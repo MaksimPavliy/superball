@@ -5,7 +5,7 @@ namespace HC
 {
     public class CoreGameStub : MonoBehaviour
     {
-        LevelBasedController levels => HCRoot.instance.levels;
+        LevelBasedController levels => HCRoot.instance.locations;
         [SerializeField] GameObject buttonsParent;
         private void Update()
         {

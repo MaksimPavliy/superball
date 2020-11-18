@@ -6,7 +6,7 @@ namespace HC
 {
     public class HCRoot : GameRoot<HCRoot>
     {
-        public HCLocationsController levels;
+        public HCLocationsController locations;
         public HCMoneyController money;
         public MoneySkinController moneySkin;
         public ProgressSkinController progressSkin;
@@ -44,15 +44,15 @@ namespace HC
                     case GameState.MAIN_MENU:
                         break;
                     case GameState.IN_GAME:
-                        HCAnalyticsManager.LevelStart(levels.currLocationInd.ToString());
+                        HCAnalyticsManager.LevelStart(locations.currLocationInd.ToString());
                         break;
                     case GameState.CUSTOMIZATION:
                         break;
                     case GameState.WIN:
-                        HCAnalyticsManager.LevelFinish(levels.currLocationInd.ToString());
+                        HCAnalyticsManager.LevelFinish(locations.currLocationInd.ToString());
                         break;
                     case GameState.LOSE:
-                        HCAnalyticsManager.LevelFailed(levels.currLocationInd.ToString());
+                        HCAnalyticsManager.LevelFailed(locations.currLocationInd.ToString());
                         break;
                 }
 
