@@ -2611,7 +2611,6 @@ MonoBehaviour:
   loadOnAwakeInDebug: 1
   saveOnPauseOrExitInDebug: 0
   runningType: 0
-  State: 0
 --- !u!4 &1960826944
 Transform:
   m_ObjectHideFlags: 0
