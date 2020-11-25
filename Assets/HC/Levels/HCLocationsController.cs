@@ -3,7 +3,7 @@ using Unity.Entities;
 
 namespace HC
 {
-    public class HCLocationsController : LevelBasedController
+    public class HCLevelsController : LevelBasedController
     {
         protected override (bool win, bool lose) CheckWinLose() => (false, false);
         HСMoneyConfig moneyConfig => HСMoneyConfig.instance;

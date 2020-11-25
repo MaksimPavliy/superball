@@ -6,7 +6,7 @@ namespace HC
 {
     public class HCRoot : GameRoot<HCRoot>
     {
-        public HCLocationsController levels;
+        public HCLevelsController levels;
         public HCMoneyController money;
         public MoneySkinController moneySkin;
         public ProgressSkinController progressSkin;
