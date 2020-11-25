@@ -760,6 +760,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5523515007403510419, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523515007403510419, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523515007403510419, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523515007403510419, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523515007403510419, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8793943826046094821, guid: 9f5a6f67ce2ba8c449ae377ebfde9073,
         type: 3}
       propertyPath: m_SizeDelta.x

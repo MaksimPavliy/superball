@@ -1,4 +1,6 @@
-﻿using FriendsGamesTools.ECSGame;
+﻿using FriendsGamesTools;
+using FriendsGamesTools.ECSGame;
+using TMPro;
 using UnityEngine;
 
 namespace HC
@@ -7,6 +9,13 @@ namespace HC
     {
         LevelBasedController levels => HCRoot.instance.levels;
         [SerializeField] GameObject buttonsParent;
+        [SerializeField] TextMeshProUGUI instanceLabel;
+        static int instancesCount;
+        private void Awake()
+        {
+            instanceLabel.Safe(() => instanceLabel.text = instancesCount.ToString());
+            instancesCount++;
+        }
         private void Update()
         {
             var isPlaying = levels.state == Level.State.playing;

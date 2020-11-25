@@ -27,47 +27,5 @@ namespace HC
 
             PushNotificationsManager.Send(title, desc, when);
         }
-
-        public GameState State = GameState.INIT;
-        GameState lastState;
-        bool stateChanged => State != lastState;
-
-        protected override void Update()
-        {
-            if (stateChanged)
-            {
-                lastState = State;
-                switch (State)
-                {
-                    case GameState.INIT:
-                        break;
-                    case GameState.MAIN_MENU:
-                        break;
-                    case GameState.IN_GAME:
-                        HCAnalyticsManager.LevelStart(levels.currLocationInd.ToString());
-                        break;
-                    case GameState.CUSTOMIZATION:
-                        break;
-                    case GameState.WIN:
-                        HCAnalyticsManager.LevelFinish(levels.currLocationInd.ToString());
-                        break;
-                    case GameState.LOSE:
-                        HCAnalyticsManager.LevelFailed(levels.currLocationInd.ToString());
-                        break;
-                }
-
-            }
-        }
-    }
-
-    public enum GameState
-    {
-        INIT,
-        MAIN_MENU,
-        IN_GAME,
-        CUSTOMIZATION,
-        WIN,
-        REWARD,
-        LOSE,
     }
 }
