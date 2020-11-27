@@ -16,22 +16,15 @@ MonoBehaviour:
   IOSEnabled: 1
   AndroidEnabled: 0
   IOSSetNoEncryptionUsed: 1
-  releaseErrors: 'FACEBOOK:
+  releaseErrors: 'SHARE:
 
-    not configured
-
-    SHARE:
-
-    ios game link not
-    set
+    ios game link not set
 
 
     TOUCHES:
 
-    pics for touches not set
-
-    app name in PlayerSettings.productName=Cube
-    World but in fb sdk appName=App Name
+    pics for
+    touches not set
 
     build mode should be release
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4292c959eff840c3b02bf27047b938c, type: 3}
   m_Name: FBSettings
   m_EditorClassIdentifier: 
-  FacebookAppName: App Name
-  FacebookAppId: 0
+  FacebookAppName: HCTemplate
+  FacebookAppId: 395802747701150

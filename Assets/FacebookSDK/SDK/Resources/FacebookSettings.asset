@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 395802747701150
   appLabels:
-  - App Name
+  - HCTemplate
   cookie: 1
   logging: 1
   status: 1
