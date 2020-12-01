@@ -1,4 +1,5 @@
-﻿using FriendsGamesTools.ECSGame;
+﻿using FriendsGamesTools;
+using FriendsGamesTools.ECSGame;
 using Unity.Entities;
 
 namespace HC
@@ -9,6 +10,7 @@ namespace HC
         HСMoneyConfig moneyConfig => HСMoneyConfig.instance;
         public override int levelWinMoney => moneyConfig.levelWinMoney;
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
+        public override int winStarsCount => 2;
         public override void Play()
         {
             base.Play();

@@ -41,6 +41,7 @@ MonoBehaviour:
   - PUSH
   - WINDOWS
   - DEBUG_PERFORMANCE
+  - HC_TEMPLATE
   - ECS_SKIN_MONEY
   - SDKs
   - EDITOR_TOOLS
