@@ -11,6 +11,13 @@ namespace HC
         public override int levelWinMoney => moneyConfig.levelWinMoney;
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
         public override int winStarsCount => 2;
+
+        public override void RestartLocation()
+        {
+            base.RestartLocation();
+            LevelsView.instance?.Reset();
+        }
+
         public override void Play()
         {
             base.Play();
