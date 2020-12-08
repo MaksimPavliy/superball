@@ -17,8 +17,8 @@ MonoBehaviour:
   selected: 0
   iosScreens:
   - name: 6.5-inch iPhones
-    desc: Xs, 11 Max, 11 Pro MAX
-    resolution: {x: 1242, y: 2688}
+    desc: 'highest resolution - iPhone 12 Pro MAX '
+    resolution: {x: 1284, y: 2778}
     margins:
       topMargin: 120
       bottomMargin: 120
