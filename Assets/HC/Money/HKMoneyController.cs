@@ -10,7 +10,7 @@ namespace HC
         public override void InitDefault()
         {
             base.InitDefault();
-            SetStartMoney(HСMoneyConfig.instance.startMoney);
+            SetStartMoney(0);
         }
     }
 }
