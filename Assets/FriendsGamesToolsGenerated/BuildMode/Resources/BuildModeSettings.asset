@@ -18,13 +18,15 @@ MonoBehaviour:
   IOSSetNoEncryptionUsed: 1
   releaseErrors: 'SHARE:
 
-    ios game link not set
+    ios game name not set
+
+    apple App Id not set
 
 
     TOUCHES:
 
-    pics for
-    touches not set
+    pics
+    for touches not set
 
     build mode should be release
 
