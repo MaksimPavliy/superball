@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsParent: {fileID: 5870083520419996841}
-  instanceLabel: {fileID: 0}
+  instanceLabel: {fileID: 3891207117652923722}
 --- !u!33 &7589148120931314418
 MeshFilter:
   m_ObjectHideFlags: 0

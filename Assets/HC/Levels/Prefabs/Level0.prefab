@@ -65,7 +65,14 @@ PrefabInstance:
     - target: {fileID: 7038488476397796206, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
       propertyPath: m_Name
-      value: BaseLevel
+      value: Level0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135953670887841388, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: m_text
+      value: 'level 0
+
+        stub'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab2e14aa0974d0e489de2c87b2d1ff32, type: 3}
