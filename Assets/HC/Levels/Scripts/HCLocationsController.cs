@@ -15,7 +15,7 @@ namespace HC
         public override void RestartLocation()
         {
             base.RestartLocation();
-            LevelsView.instance?.Reset();
+            HCLevelsView.instance?.Reset();
         }
 
         public override void Play()

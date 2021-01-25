@@ -2,8 +2,8 @@
 
 namespace HC
 {
-    public class HCLevelsView: LevelsView
+    public class HCLevelsView: LevelsView<HCLevelView>
     {
-
+        public override void ShowChangeLocationWindow(){}
     }
 }
