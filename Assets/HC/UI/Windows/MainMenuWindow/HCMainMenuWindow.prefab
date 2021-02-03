@@ -121,7 +121,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 5af771a7690e8a646af2a7933e9ab5e5, type: 2}
+      objectReference: {fileID: 2100000, guid: 7caf66a6a2aca364ab5215c0887e81b5, type: 2}
     - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex

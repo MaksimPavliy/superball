@@ -67,6 +67,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3863150068274396186, guid: c219aff41e3bb43dabce78f75c1f6bff,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 34870005bebd25947be6fd88f59f2266,
+        type: 2}
+    - target: {fileID: 3863150068274396186, guid: c219aff41e3bb43dabce78f75c1f6bff,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7caf66a6a2aca364ab5215c0887e81b5, type: 2}
     - target: {fileID: 6326430638866552272, guid: c219aff41e3bb43dabce78f75c1f6bff,
         type: 3}
       propertyPath: m_AnchorMin.y
