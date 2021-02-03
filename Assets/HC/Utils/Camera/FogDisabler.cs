@@ -6,7 +6,7 @@ namespace HcUtils
 {
  //Disables fog for a current render.
  //It's handy to use it to disable for UI camera
-    public class FogDisabled : MonoBehaviour
+    public class FogDisabler : MonoBehaviour
     {
         bool previousFogState;
         void OnPreRender()
