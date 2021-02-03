@@ -7,7 +7,7 @@ namespace HC
     public class HCLevelsController : LevelBasedController
     {
         protected override (bool win, bool lose) CheckWinLose() => (false, false);
-        HСMoneyConfig moneyConfig => HСMoneyConfig.instance;
+        HCMoneyConfig moneyConfig => HCMoneyConfig.instance;
         public override int levelWinMoney => moneyConfig.levelWinMoney;
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
         public override int winStarsCount => 2;
