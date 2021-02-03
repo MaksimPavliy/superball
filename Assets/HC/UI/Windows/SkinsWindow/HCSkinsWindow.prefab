@@ -74,6 +74,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1619134059949090981, guid: f0f4357db06b549ab807245bf281b2e6,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: d40ed95deeb91434fa50d7b5121f5146, type: 2}
     - target: {fileID: 1619134059949090983, guid: f0f4357db06b549ab807245bf281b2e6,
         type: 3}
       propertyPath: m_SizeDelta.x
