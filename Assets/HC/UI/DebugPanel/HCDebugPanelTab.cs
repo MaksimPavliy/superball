@@ -8,6 +8,7 @@ namespace HC
     {
         [SerializeField] Toggle is60FPStoggle;
         [SerializeField] Image[] bgColors;
+        [SerializeField] Text cameraIndex;
 
         public override (string tab, string name) whereToShow => ("HC","HC");
 
@@ -16,11 +17,30 @@ namespace HC
             base.AwakePlaying();
 
             is60FPStoggle.onValueChanged.AddListener((is60fps) => SetTargetFPS(is60fps));
+            
+           
         }
-
+        private void Start()
+        {
+            ChangeCameraIndex(HCGeneralConfig.instance.CameraIndex);
+        }
         void SetTargetFPS(bool is60fps)
         {
             Application.targetFrameRate = is60fps ? 60 : 30;
+        }
+
+        public void ChangeCameraIndex(int index)
+        {
+            var selector = HCLevelsView.instance.shownLocationView.GetComponent<HcUtils.CameraSelector>();
+            if (!selector) return;
+
+            var newInd = (HCGeneralConfig.instance.CameraIndex + Mathf.Clamp(index, -1, 1) + selector.Count) % selector.Count;
+
+            HCGeneralConfig.instance.CameraIndex = newInd;
+
+            selector.SetActiveCamera(newInd);
+            cameraIndex.text = newInd.ToString();
+
         }
 
         public void SetBackgroundColor(int index)
