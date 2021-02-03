@@ -8,9 +8,9 @@ namespace HC
     {
         protected override (bool win, bool lose) CheckWinLose() => (false, false);
         HCMoneyConfig moneyConfig => HCMoneyConfig.instance;
-        public override int levelWinMoney => moneyConfig.levelWinMoney;
+        public override int levelWinMoney => moneyConfig.levelWinMoneyBase+currLocationInd*moneyConfig.levelWinMoneyCoef;
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
-        public override int winStarsCount => 2;
+        public override int winStarsCount => Utils.Random(0,1f)<=0.7f?3:2;
 
         public override void RestartLocation()
         {
