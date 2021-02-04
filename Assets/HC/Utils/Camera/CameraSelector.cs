@@ -16,27 +16,27 @@ namespace HcUtils
         [SerializeField]
         private Transform cameraParent;
 
-        [SerializeField] 
-        
+        [SerializeField]
         private Transform cinematicTransform;
-        private Transform targetTransform = null;
+
+        protected Transform targetTransform = null;
         private bool cinematic = false;
         public int Count => cameras.Count;
         
         int lastCameraIndex = -1;
-        int activeIndex => HCGeneralConfig.instance.CameraIndex;
+        protected virtual int activeIndex => 0;
 
-        private void Start()
+        protected virtual void Start()
         {
             SetActiveCamera(activeIndex);
         }
 
-        public void StartCinematic()
+        protected virtual void StartCinematic()
         {
             cinematic = true;
             targetTransform = cinematicTransform;
         }
-        public void SetActiveCamera(int index)
+        public virtual void SetActiveCamera(int index)
         {
             for (int i = 0; i < cameras.Count; i++)
             {
@@ -50,7 +50,7 @@ namespace HcUtils
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (targetTransform)
             {
