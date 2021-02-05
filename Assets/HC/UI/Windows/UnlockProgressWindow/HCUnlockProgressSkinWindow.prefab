@@ -52,6 +52,17 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1094626299248416541, guid: 5cc98211087536f40951e4d98a726fc6,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 34870005bebd25947be6fd88f59f2266,
+        type: 2}
+    - target: {fileID: 1094626299248416541, guid: 5cc98211087536f40951e4d98a726fc6,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7caf66a6a2aca364ab5215c0887e81b5, type: 2}
     - target: {fileID: 1094626300036810249, guid: 5cc98211087536f40951e4d98a726fc6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,7 +171,7 @@ PrefabInstance:
     - target: {fileID: 1094626300036810250, guid: 5cc98211087536f40951e4d98a726fc6,
         type: 3}
       propertyPath: m_Name
-      value: UnlockProgressSkinWindow
+      value: HCUnlockProgressSkinWindow
       objectReference: {fileID: 0}
     - target: {fileID: 1094626300036810250, guid: 5cc98211087536f40951e4d98a726fc6,
         type: 3}

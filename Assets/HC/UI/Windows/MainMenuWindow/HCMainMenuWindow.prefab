@@ -121,12 +121,54 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -389992190741306184, guid: f30aebe5e48af0a4cb5da3263c1472e0,
-        type: 2}
+      objectReference: {fileID: 2100000, guid: 7caf66a6a2aca364ab5215c0887e81b5, type: 2}
     - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_text
+      value: 'Tap to play
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_subTextObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 34870005bebd25947be6fd88f59f2266,
+        type: 2}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 971871355900423489, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4853619756848919502, guid: 469984e3ea1294e539b639e1eb4c340c,
         type: 3}
@@ -149,6 +191,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
+      objectReference: {fileID: -6136496538129817544, guid: 34870005bebd25947be6fd88f59f2266,
+        type: 2}
+    - target: {fileID: 4853619758028480975, guid: 469984e3ea1294e539b639e1eb4c340c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4853619758051167515, guid: 469984e3ea1294e539b639e1eb4c340c,
         type: 3}
