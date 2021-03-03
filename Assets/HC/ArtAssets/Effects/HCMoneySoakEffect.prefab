@@ -52,6 +52,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 23407be53af024ebaa2a4c496ae3db1a, type: 2}
+    - target: {fileID: 2694870748439702037, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1582066229
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694870748439702037, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2694870748439702039, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
         type: 3}
       propertyPath: m_Layer
@@ -77,10 +87,30 @@ PrefabInstance:
       propertyPath: countingDuration
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4375409276391623162, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1582066229
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375409276391623162, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4622382218903440973, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
         type: 3}
       propertyPath: m_MaxParticleSize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622382218903440973, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1582066229
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622382218903440973, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7072293443135669521, guid: ab22f7a3b0d3a954596d9c40eb2fe4ab,
         type: 3}
