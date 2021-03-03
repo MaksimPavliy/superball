@@ -33,6 +33,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 271850619368480215, guid: 01bc3a3195fff4185a304b48640fc79b,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 865223139144476416, guid: 01bc3a3195fff4185a304b48640fc79b,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -112,6 +117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113473611339074290, guid: 01bc3a3195fff4185a304b48640fc79b,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4698555799672918705, guid: 01bc3a3195fff4185a304b48640fc79b,
         type: 3}
@@ -285,6 +295,11 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 7caf66a6a2aca364ab5215c0887e81b5, type: 2}
+    - target: {fileID: 5055350670552419381, guid: 01bc3a3195fff4185a304b48640fc79b,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5056422904822624062, guid: 01bc3a3195fff4185a304b48640fc79b,
         type: 3}
       propertyPath: m_AnchorMin.y
