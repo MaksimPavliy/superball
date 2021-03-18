@@ -14,18 +14,26 @@ namespace HC
         protected override void OnWorldInited()
         {
             base.OnWorldInited();
+
             MainMenuWindow.Show();
         }
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
 
-            var title = "";
-            var desc = "We miss you! :(";
-            var when = DateTime.Now.AddDays(1);
+            SetPushNotification();
+        }
 
-            PushNotificationsManager.Send(title, desc, when);
+        private void SetPushNotification()
+        {
+            PushNotificationsManager.AddNotificationConfig(
+                "after_game_time",
+               () => true,
+               () => "",
+               () => "We miss you! :(",
+               () => DateTime.Now.AddDays(1)
+                );
         }
     }
 }
