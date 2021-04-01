@@ -14,7 +14,7 @@ namespace HC
     : MonoBehaviour
 #endif
     {
-        private bool InterstitialTimerReady => GetTotalSeconds(DateTime.UtcNow) - _lastInterstitialSecondsTimestamp >= interstitialMinimumInterval;
+        public bool InterstitialTimerReady => GetTotalSeconds(DateTime.UtcNow) - _lastInterstitialSecondsTimestamp >= interstitialMinimumInterval;
         private long _lastInterstitialSecondsTimestamp = -1;
         private int interstitialMinimumInterval = 40;
 
@@ -36,7 +36,7 @@ namespace HC
         public UnityEvent OnAdShownChanged = new UnityEvent();
 
 
-        public void ShowInter(Action onSuccess, Action onHidden)
+        public void ShowInterstitial(string nameInAnalytics, Action onSuccess, Action onHidden)
         {
             if (!InterstitialTimerReady) return;
 
@@ -50,6 +50,8 @@ namespace HC
             {
                 onAdSuccess?.Invoke();
 
+                HCAnalyticsManager.OnAdShowingFinished(AdType.Interstitial, nameInAnalytics, "watched");
+
                 onAdSuccess = null;
                 onAdFailed = null;
 
@@ -57,22 +59,27 @@ namespace HC
             });
         }
 
-        public void ShowRewarded(Action onSuccess, Action onHidden)
+        public void ShowRewarded(string nameInAnalytics, Action onSuccess, Action onHidden)
         {
             AdShown = true;
 
             onAdSuccess = onSuccess;
             onAdFailed = onHidden;
-
-            rewarded.Show(() =>
+            HCAnalyticsManager.OnAdPressed(AdType.RewardedVideo, nameInAnalytics);
+            rewarded.Show(success =>
             {
                 AdShown = false;
+                if (success)
+                {
                     onAdSuccess?.Invoke();
-                    onAdSuccess = null;
-                    Debug.Log("rewarded competed");
+                    HCAnalyticsManager.OnAdShowingFinished(AdType.RewardedVideo, nameInAnalytics, "watched");
+                }
+                onAdSuccess = null;
+                   
+
             });
         }
-
+        
         protected override void OnInterstitialHidden()
         {
             base.OnInterstitialHidden();
