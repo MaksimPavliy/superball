@@ -41,6 +41,7 @@ Assets/UnityVS/Editor/UnityVS.VersionSpecific.dll.meta
 Assets/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll
 Assets/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Messaging.dll
 .idea/
+.vsconfig
 #######       OS generated      #######
 .DS_Store
 .DS_Store?
