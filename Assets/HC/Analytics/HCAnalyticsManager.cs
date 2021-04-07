@@ -1,5 +1,6 @@
 ﻿using FriendsGamesTools.Ads;
 using FriendsGamesTools.Analytics;
+using UnityEngine;
 
 namespace HC
 {
@@ -32,6 +33,7 @@ namespace HC
                 ("ad_type", type.ToString()),
                 ("placement", placement),
                 ("result", "start"));
+            Debug.Log("ad watch pressed");
         }
 
         public static void OnAdShowingFinished(AdType type, string placement, string result)
@@ -41,6 +43,8 @@ namespace HC
                 ("ad_type", type.ToString()),
                 ("placement", placement),
                 ("result", result));
+
+            Debug.Log($"ad watch finished with {result}");
         }
     }
 }
