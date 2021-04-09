@@ -1,38 +1,30 @@
 ﻿using FriendsGamesTools.Ads;
-using System;
+using UnityEngine;
+
 namespace HC
 {
     public class HCWatchAdButtonView : WatchAdButtonView
     {
-        private string nameInAnalytics;
-        public void SubscribeAdWatched(string nameInAnalytics, Action onWatched)
-        {
-            SubscribeAdWatched(onWatched);
-            this.nameInAnalytics = nameInAnalytics;
-        }
-        public void SubscribeAdWatched(string nameInAnalytics, Action<bool> onWatchFinished)
-        {
-            SubscribeAdWatched(onWatchFinished);
-            this.nameInAnalytics = nameInAnalytics;
-        }
-        public void SubscribeWatchAdPressed(string nameInAnalytics, Action onWatchAdPressed)
-        {
-            SubscribeWatchAdPressed(onWatchAdPressed);
-            this.nameInAnalytics = nameInAnalytics;
-        }
+        public NameInAnalytics nameInAnalytics;
+        public GameObject adLoadingParent;
 
         protected override void InterstitialShow()
         {
-            HCAdsManager.instance.ShowInterstitial(nameInAnalytics,
-                delegate { onWatchFinished.Invoke(true); },
-                delegate { onWatchFinished.Invoke(false); });
+            HCAdsManager.instance.ShowInterstitial(nameInAnalytics.ToString(),
+                () => onWatchFinished.Invoke(true),
+                () => onWatchFinished.Invoke(false));
         }
+
         protected override void RewardedShow()
         {
+            HCAdsManager.instance.ShowRewarded(nameInAnalytics.ToString(),
+                 () => onWatchFinished.Invoke(true));
+        }
 
-            HCAdsManager.instance.ShowRewarded(nameInAnalytics,
-                delegate { onWatchFinished.Invoke(true); },
-                delegate { onWatchFinished.Invoke(false); });
+        private void Update()
+        {
+            if (adLoadingParent != null)
+                adLoadingParent.gameObject.SetActive(!available);
         }
     }
 }

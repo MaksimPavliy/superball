@@ -1,9 +1,6 @@
 ﻿using FriendsGamesTools.Ads;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace HC
 {
@@ -21,32 +18,31 @@ namespace HC
         private bool _adShown = false;
         Action onAdSuccess;
         Action onAdFailed;
+
         public bool AdShown
         {
             private set
             {
                 _adShown = value;
-                OnAdShownChanged.Invoke();
             }
             get
             {
                 return _adShown;
             }
         }
-        public UnityEvent OnAdShownChanged = new UnityEvent();
-
 
         public void ShowInterstitial(string nameInAnalytics, Action onSuccess, Action onHidden)
         {
             if (!InterstitialTimerReady) return;
 
             if (!interstitial.available) return;
+
             AdShown = true;
 
             onAdSuccess = onSuccess;
             onAdFailed = onHidden;
 
-            interstitial.Show(()=>
+            interstitial.Show(() =>
             {
                 onAdSuccess?.Invoke();
 
@@ -59,42 +55,39 @@ namespace HC
             });
         }
 
-        public void ShowRewarded(string nameInAnalytics, Action onSuccess, Action onHidden)
+        public void ShowRewarded(string nameInAnalytics, Action onSuccess)
         {
             AdShown = true;
 
             onAdSuccess = onSuccess;
-            onAdFailed = onHidden;
-            HCAnalyticsManager.OnAdPressed(AdType.RewardedVideo, nameInAnalytics);
+
+            HCAnalyticsManager.OnAdPressed(AdType.RewardedVideo, nameInAnalytics, HCAdsManager.instance.rewarded.available);
+
             rewarded.Show(success =>
             {
                 AdShown = false;
+
                 if (success)
                 {
                     onAdSuccess?.Invoke();
+
                     HCAnalyticsManager.OnAdShowingFinished(AdType.RewardedVideo, nameInAnalytics, "watched");
                 }
-                onAdSuccess = null;
-                   
 
+                onAdSuccess = null;
             });
         }
-        
+
         protected override void OnInterstitialHidden()
         {
             base.OnInterstitialHidden();
 
             ResetInterstitialTimer();
         }
-        protected override void OnRewardedShown()
-        {
-            base.OnRewardedShown();
-            Debug.Log("rewarded shown");
-        }
+
         protected override void OnRewardedHidden(bool success)
         {
             base.OnRewardedHidden(success);
-            Debug.Log("rewarded hidden");
 
             onAdFailed?.Invoke();
             AdShown = false;
@@ -105,6 +98,7 @@ namespace HC
         {
             return (long)(dateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
         }
+
         private void ResetInterstitialTimer()
         {
             _lastInterstitialSecondsTimestamp = GetTotalSeconds(DateTime.UtcNow);
