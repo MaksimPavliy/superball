@@ -1,6 +1,5 @@
 ﻿using FriendsGamesTools;
 using FriendsGamesTools.Ads;
-using UnityEngine;
 
 namespace HC
 {
@@ -8,8 +7,6 @@ namespace HC
     {
         public static void LevelStart(string levelNumber)
         {
-            Debug.Log(EndGameType.lose);
-
             SendFB("Level started", ("level number", levelNumber));
 
             IncAndSaveCounters(CountersType.level_count);
