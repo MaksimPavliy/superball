@@ -1,4 +1,6 @@
-﻿using Facebook.Unity;
+﻿#if FACEBOOK
+using Facebook.Unity;
+#endif
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ namespace HC
 
         private static void SendFB(string eventName, params (string key, object value)[] parameters)
         {
+#if FACEBOOK
             var dict = new Dictionary<string, object>();
             if (parameters != null)
             {
@@ -21,6 +24,7 @@ namespace HC
             }
 
             FB.LogAppEvent(eventName, null, dict);
+#endif
         }
 
         private static void SendAM(string eventName, params (string key, object value)[] parameters)
