@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: DefinesSettings
   m_EditorClassIdentifier: 
   defines:
-  - ANALYTICS
   - UTILS
   - ECS_PLAYER
   - SHARE
