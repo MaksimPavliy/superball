@@ -46,5 +46,12 @@ namespace HC
 
             Debug.Log($"ad watch finished with {result}");
         }
+
+        public static void OnRateUs(int result)
+        {
+            Send("rate_us",
+               ("show_reason", "new_version"),
+               ("rate_result", result));
+        }
     }
 }
