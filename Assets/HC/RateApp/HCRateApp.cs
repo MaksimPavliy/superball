@@ -23,7 +23,7 @@ namespace HC
         private float timeFromLastShown => TimeController.totalTime - data.lastShownTime;
         private bool LastGameIsWin => root.Get<HCLevelsController>().LastGameIsWin; //set it manually on each win or lose
 
-        public bool ToShow => IsRateUsToShowAzur();
+        public bool ToShow => false;//IsRateUsToShowAzur();
         public override void InitDefault()
         {
             base.InitDefault();
