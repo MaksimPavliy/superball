@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1743bff053104e6cb68e5cc58fb8db3, type: 3}
   m_Name: ShareSettings
   m_EditorClassIdentifier: 
-  gameLinkAndroid: 
-  gameLinkIOS: 
+  gameNameIOS: 
