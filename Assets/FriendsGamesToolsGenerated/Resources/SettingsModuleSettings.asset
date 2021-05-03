@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SettingsModuleSettings
   m_EditorClassIdentifier: 
   window:
-    prefab: {fileID: 0}
+    prefab: {fileID: 7064373444295986802, guid: 2c5f0b8457c331c45a2c34a1fd9aa50a,
+      type: 3}
   headerFont: {fileID: 0}
   captionFont: {fileID: 0}
   infoFont: {fileID: 0}
