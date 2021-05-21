@@ -53,4 +53,5 @@
 *.jar filter=lfs diff=lfs merge=lfs -text
 **/YandexMobileMetrica filter=lfs diff=lfs merge=lfs -text
 **/YandexMobileMetricaCrashes filter=lfs diff=lfs merge=lfs -text
+*.aar
 */Fonts/*.asset filter=lfs diff=lfs merge=lfs -text
