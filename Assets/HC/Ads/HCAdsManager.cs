@@ -11,6 +11,7 @@ namespace HC
     : MonoBehaviour
 #endif
     {
+#if ADS
         public bool InterstitialTimerReady => GetTotalSeconds(DateTime.UtcNow) - _lastInterstitialSecondsTimestamp >= interstitialMinimumInterval;
         private long _lastInterstitialSecondsTimestamp = -1;
         private int interstitialMinimumInterval = 40;
@@ -103,5 +104,7 @@ namespace HC
         {
             _lastInterstitialSecondsTimestamp = GetTotalSeconds(DateTime.UtcNow);
         }
+#endif
     }
+
 }

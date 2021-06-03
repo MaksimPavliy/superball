@@ -19,7 +19,6 @@ MonoBehaviour:
   - ECS_LOCATIONS
   - ECS_SKINS
   - FACEBOOK
-  - ADS
   - UI
   - BUILD_MODES
   - ECS_LEVEL_BASED

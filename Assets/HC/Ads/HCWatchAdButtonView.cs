@@ -7,7 +7,7 @@ namespace HC
     {
         public NameInAnalytics nameInAnalytics;
         public GameObject adLoadingParent;
-
+#if ADS
         protected override void InterstitialShow()
         {
             HCAdsManager.instance.ShowInterstitial(nameInAnalytics.ToString(),
@@ -26,5 +26,6 @@ namespace HC
             if (adLoadingParent != null)
                 adLoadingParent.gameObject.SetActive(!available);
         }
+#endif
     }
 }
