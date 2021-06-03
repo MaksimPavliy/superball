@@ -6,7 +6,6 @@ namespace HC
 {
     public class HCDebugPanelTab : DebugPanelItemView
     {
-        [SerializeField] Toggle is60FPStoggle;
         [SerializeField] Image[] bgColors;
         [SerializeField] Text cameraIndex;
 
@@ -15,20 +14,11 @@ namespace HC
         protected override void AwakePlaying()
         {
             base.AwakePlaying();
-
-            is60FPStoggle.onValueChanged.AddListener((is60fps) => SetTargetFPS(is60fps));
-            
-           
         }
         private void Start()
         {
             ChangeCameraIndex(HCGeneralConfig.instance.CameraIndex);
         }
-        void SetTargetFPS(bool is60fps)
-        {
-            Application.targetFrameRate = is60fps ? 60 : 30;
-        }
-
         public void ChangeCameraIndex(int index)
         {
             var selector = HCLevelsView.instance.shownLocationView.GetComponent<HcUtils.CameraSelector>();
