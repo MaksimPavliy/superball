@@ -1,6 +1,4 @@
-﻿using HC;
-
-namespace HcUtils
+﻿namespace HcUtils
 {
     public class HCAdButtonBlocker : AdButtonBlocker
     {
