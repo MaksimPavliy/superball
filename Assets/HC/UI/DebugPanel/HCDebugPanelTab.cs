@@ -21,15 +21,15 @@ namespace HC
         }
         public void ChangeCameraIndex(int index)
         {
-            var selector = HCLevelsView.instance.shownLocationView.GetComponent<HcUtils.CameraSelector>();
-            if (!selector) return;
+        //    var selector = HCLevelsView.instance.shownLocationView.GetComponent<HcUtils.CameraSelector>();
+        //    if (!selector) return;
 
-            var newInd = (HCGeneralConfig.instance.CameraIndex + Mathf.Clamp(index, -1, 1) + selector.Count) % selector.Count;
+        //    var newInd = (HCGeneralConfig.instance.CameraIndex + Mathf.Clamp(index, -1, 1) + selector.Count) % selector.Count;
 
-            HCGeneralConfig.instance.CameraIndex = newInd;
+        //    HCGeneralConfig.instance.CameraIndex = newInd;
 
-            selector.SetActiveCamera(newInd);
-            cameraIndex.text = newInd.ToString();
+        //    selector.SetActiveCamera(newInd);
+        //    cameraIndex.text = newInd.ToString();
 
         }
 
