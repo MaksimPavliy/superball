@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!225 &879917211348413955
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120682431729170946}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &6225313392520970672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,18 +30,6 @@ MonoBehaviour:
   notAvailableParent: {fileID: 0}
   nameInAnalytics: 0
   adLoadingParent: {fileID: 0}
---- !u!225 &879917211348413955
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120682431729170946}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &8051507934692735122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +176,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1189356499219833260, guid: c219aff41e3bb43dabce78f75c1f6bff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 985.302
+      objectReference: {fileID: 0}
     - target: {fileID: 1307740651112825906, guid: c219aff41e3bb43dabce78f75c1f6bff,
         type: 3}
       propertyPath: m_AnchorMin.y
