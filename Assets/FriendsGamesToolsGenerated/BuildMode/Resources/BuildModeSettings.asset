@@ -28,15 +28,12 @@ MonoBehaviour:
     pics
     for touches not set
 
-    apple team id should be FGI''s
+    .gitignore is not set correctly
 
-    .gitignore is not
-    set correctly
+    .gitattributes
+    is not set correctly
 
-    .gitattributes is not set correctly
-
-    build mode should
-    be release
+    build mode should be release
 
 '
   configs: []
