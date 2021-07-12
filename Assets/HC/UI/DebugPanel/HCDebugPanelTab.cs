@@ -66,7 +66,10 @@ namespace HC
 
             HCGeneralConfig.instance.CameraIndex = newInd;
             cameraIndex.text = newInd.ToString();
-            // CameraSwitch.Instance.CameraActivation(HCGeneralConfig.instance.CameraIndex);
+            
+            if (!CameraSwitch.instance) return;
+            
+            CameraSwitch.instance.ActivateCamera(HCGeneralConfig.instance.CameraIndex);
         }
 
     }
