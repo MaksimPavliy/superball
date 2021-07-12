@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 namespace HcUtils
 {
-    public class FogColorSkinSetter : SkinSetSetter
+    public class FogColorThemeSetter : ThemeSetter
     {
         public Color[] colors;
 
-        protected override void SetSkin(int ind)
+        protected override void SetTheme(int ind)
         {
             RenderSettings.fogColor = colors[ind];
         }

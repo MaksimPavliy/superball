@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace HcUtils
 {
-    public class CameraSkinSetter : SkinSetSetter
+    public class CameraThemeSetter : ThemeSetter
     {
         private new Camera camera;
         public Color[] colors;
@@ -13,8 +13,9 @@ namespace HcUtils
         }
 
 
-        protected override void SetSkin(int ind)
+        protected override void SetTheme(int ind)
         {
+            if (!camera) return;
             camera.backgroundColor = colors[ind];
         }
     }
