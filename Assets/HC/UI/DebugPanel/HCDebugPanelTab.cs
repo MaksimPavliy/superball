@@ -7,10 +7,8 @@ namespace HC
 {
     public class HCDebugPanelTab : DebugPanelItemView
     {
-        [SerializeField] Image[] bgColors;
         [SerializeField] Text cameraIndex;
         [SerializeField] Button[] skinSetButtons;
-
         public override (string tab, string name) whereToShow => ("HC","HC");
 
         protected override void AwakePlaying()
@@ -22,6 +20,7 @@ namespace HC
                 int index = i;
                 skinSetButtons[i].onClick.AddListener(delegate { SetSkinSet(index); });
             }
+
         }
         private void Start()
         {
@@ -32,12 +31,13 @@ namespace HC
             base.OnEnable();
             for (int i = 0; i < skinSetButtons.Length; i++)
             {
-                SetButtonSelected(skinSetButtons[i], i == SkinSet.activeSet);
+                SetButtonSelected(skinSetButtons[i], i == ThemeSet.activeThemeIndex);
             }
+
         }
         public void SetSkinSet(int index)
         {
-            SkinSet.SkinSetChanged?.Invoke(index);
+            ThemeSet.ThemeSetChanged?.Invoke(index);
 
             for (int i = 0; i < skinSetButtons.Length; i++)
             {
@@ -54,6 +54,10 @@ namespace HC
             button.colors = colors;
         }
 
+        public void SetButtonColor(Button button, bool active)
+        {
+            button.image.color = active ? Color.green : Color.white;
+        }
         public void ChangeCameraIndex(int index)
         {
             int camerasCount = 5;
@@ -65,9 +69,5 @@ namespace HC
             // CameraSwitch.Instance.CameraActivation(HCGeneralConfig.instance.CameraIndex);
         }
 
-        public void SetBackgroundColor(int index)
-        {
-            Camera.main.backgroundColor = bgColors[index].color;
-        }
     }
 }
