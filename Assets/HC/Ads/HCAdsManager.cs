@@ -43,6 +43,8 @@ namespace HC
             onAdSuccess = onSuccess;
             onAdFailed = onHidden;
 
+            HCAnalyticsManager.OnAdPressed(AdType.Interstitial, nameInAnalytics, interstitial.available);
+
             interstitial.Show(() =>
             {
                 onAdSuccess?.Invoke();
