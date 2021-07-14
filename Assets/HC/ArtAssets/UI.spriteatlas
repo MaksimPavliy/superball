@@ -33,6 +33,18 @@ SpriteAtlas:
       m_Overridden: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -40,12 +52,15 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 0
       enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c3d31de3eac39304691edf8b6144d09b, type: 3}
     - {fileID: 102900000, guid: 34d97542feb6b5b4ebef90f103802815, type: 3}
-    totalSpriteSurfaceArea: 2286226
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 49fb1f4084b2fe44dae07e5cace67bac, type: 3}
@@ -82,6 +97,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8fc01c293b05cf543a57cdce8df04ab4, type: 3}
   - {fileID: 21300000, guid: eae319491b9138440905f97e4ec99af3, type: 3}
   - {fileID: 21300000, guid: c9cc0179952e88d4f9398e570bfc338b, type: 3}
+  - {fileID: 21300000, guid: 6e2923793918a1440b490dd74f2df39f, type: 3}
   - {fileID: 21300000, guid: 9b63bf3a8809bd646a14a9fd202d5fd5, type: 3}
   - {fileID: 21300000, guid: 85d4ec6a63ea8b7408b7f9f712e49b7f, type: 3}
   - {fileID: 21300000, guid: 08c4347aa3fd8e445a6822df6733b2f3, type: 3}
@@ -135,6 +151,7 @@ SpriteAtlas:
   - slot_selection
   - icon_star_slot
   - button_red
+  - icon_ad2
   - icon_coin
   - icon_ad
   - cross
@@ -153,5 +170,6 @@ SpriteAtlas:
   - skinProgress_shape
   - icon_replay
   - finger_frame1
+  m_RenderDataMap: {}
   m_Tag: UI
   m_IsVariant: 0
