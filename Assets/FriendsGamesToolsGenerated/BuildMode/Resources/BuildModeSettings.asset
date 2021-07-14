@@ -28,12 +28,11 @@ MonoBehaviour:
     pics
     for touches not set
 
-    .gitignore is not set correctly
-
-    .gitattributes
-    is not set correctly
-
     build mode should be release
 
 '
-  configs: []
+  configs:
+  - howToApply: 2
+    settingName: .gitignore
+  - howToApply: 2
+    settingName: .gitattributes

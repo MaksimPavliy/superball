@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2239773e330fcf04db324de9aa778f6e, type: 3}
   m_Name: TouchSettings
   m_EditorClassIdentifier: 
-  picNormal: {fileID: 0}
-  picPressed: {fileID: 0}
+  picNormal: {fileID: 21300000, guid: 3d5300df9c24ab743aed97618e2afafb, type: 3}
+  picPressed: {fileID: 21300000, guid: 78177b4f4bdc39b459049c795ad6749a, type: 3}
   okIfNoPics: 0
