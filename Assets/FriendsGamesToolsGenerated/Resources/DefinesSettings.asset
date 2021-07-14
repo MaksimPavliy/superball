@@ -29,6 +29,7 @@ MonoBehaviour:
   - ECS_GAME_TIME
   - PLUGINS
   - ECS_PLAYER_MONEY
+  - GDPR
   - SETTINGS
   - TOUCHES
   - RATE_APP_BASIC

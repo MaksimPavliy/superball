@@ -25,6 +25,15 @@ namespace HC
             SetPushNotification();
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+#if GDPR
+            FriendsGamesTools.GDPRWindow.ShowIfNeeded();
+#endif
+        }
+
         private void SetPushNotification()
         {
             PushNotificationsManager.AddNotificationConfig(

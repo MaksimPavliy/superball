@@ -16,19 +16,23 @@ MonoBehaviour:
   IOSEnabled: 1
   AndroidEnabled: 0
   IOSSetNoEncryptionUsed: 1
-  releaseErrors: 'SHARE:
+  releaseErrors: 'GDPR:
+
+    terms of use should be set
+
+    privacy policy should
+    be set
+
+
+    SHARE:
 
     ios game name not set
 
     apple App Id not set
 
 
-    TOUCHES:
-
-    pics
-    for touches not set
-
-    build mode should be release
+    build
+    mode should be release
 
 '
   configs:
