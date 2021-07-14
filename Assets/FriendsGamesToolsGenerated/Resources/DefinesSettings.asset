@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defines:
   - UTILS
+  - FACEBOOK_DISABLED
   - ECS_PLAYER
   - SHARE
   - ECS_LOCATIONS
   - ECS_SKINS
-  - FACEBOOK
   - UI
   - BUILD_MODES
   - ECS_LEVEL_BASED
