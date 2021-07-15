@@ -63,7 +63,7 @@ namespace HC
         public static void OnAdPressed(AdType type, string placement, bool available)
         {
             SendAM("video_ads_available",
-                  ("ad_type", type),
+                  ("ad_type", GetAdType(type)),
                   ("placement", placement),
                   ("result", available ? "success" : "not_available"),
                   ("connection", internet));
@@ -71,7 +71,7 @@ namespace HC
             if (available)
             {
                 SendAM("video_ads_started",
-                    ("ad_type", type),
+                    ("ad_type", GetAdType(type)),
                     ("placement", placement),
                     ("result", "start"),
                     ("connection", internet)
@@ -86,13 +86,18 @@ namespace HC
             if (isWatchedSent) return;
 
             SendAM("video_ads_watch",
-                  ("ad_type", type),
+                  ("ad_type", GetAdType(type)),
                   ("placement", placement),
                   ("result", state),
                   ("connection", internet)
                   );
 
             isWatchedSent = true;
+        }
+
+        private static string GetAdType(AdType type)
+        {
+            return type == AdType.Interstitial ? "interstitial" : type == AdType.RewardedVideo ? "rewarded" : "NONE";
         }
 
         public static void OnRateUs(int result)
