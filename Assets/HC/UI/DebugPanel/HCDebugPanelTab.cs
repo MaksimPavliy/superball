@@ -31,7 +31,7 @@ namespace HC
             base.OnEnable();
             for (int i = 0; i < skinSetButtons.Length; i++)
             {
-                SetButtonSelected(skinSetButtons[i], i == ThemeSet.activeThemeIndex);
+                SetButtonSelected(skinSetButtons[i], i == ThemeSet.activeSet);
             }
 
         }
