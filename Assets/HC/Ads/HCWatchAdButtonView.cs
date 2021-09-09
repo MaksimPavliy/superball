@@ -5,7 +5,6 @@ namespace HC
 {
     public class HCWatchAdButtonView : WatchAdButtonView
     {
-        public NameInAnalytics nameInAnalytics;
         public GameObject adLoadingParent;
 #if ADS
         protected override void InterstitialShow()
