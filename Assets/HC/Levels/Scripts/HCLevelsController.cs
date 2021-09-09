@@ -24,6 +24,7 @@ namespace HC
         {
             base.Play();
 
+            GameManager.instance.OnPlay();
             HCAnalyticsManager.LevelStart(currLocationInd.ToString());
         }
 
