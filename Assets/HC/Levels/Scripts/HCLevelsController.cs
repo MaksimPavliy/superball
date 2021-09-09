@@ -40,5 +40,11 @@ namespace HC
             LastGameIsWin = false;
             HCAnalyticsManager.LevelFailed(currLocationInd.ToString());
         }
+
+        public override void DebugChangeLocation(int newLocationInd)
+        {
+            base.DebugChangeLocation(newLocationInd);
+            GoToMenu();
+        }
     }
 }
