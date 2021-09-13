@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": {
-      "version": "file:../Assets/Plugins/com.google.external-dependency-manager-1.2.165.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -13,7 +7,7 @@
       "dependencies": {}
     },
     "com.unity.burst": {
-      "version": "1.5.4",
+      "version": "1.5.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -22,7 +16,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.7.4",
+      "version": "2.7.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -70,7 +64,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.3",
+      "version": "1.2.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

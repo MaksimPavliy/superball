@@ -14,25 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mode: 0
   IOSEnabled: 1
-  AndroidEnabled: 0
-  IOSSetNoEncryptionUsed: 1
-  releaseErrors: 'GDPR:
-
-    terms of use should be set
-
-    privacy policy should
-    be set
-
-
-    SHARE:
+  AndroidEnabled: 1
+  releaseErrors: 'SHARE:
 
     ios game name not set
 
     apple App Id not set
 
 
-    build
-    mode should be release
+    android
+    package id not set in main AndroidManifest
+
+    build mode should be release
 
 '
   configs:
@@ -40,3 +33,5 @@ MonoBehaviour:
     settingName: .gitignore
   - howToApply: 2
     settingName: .gitattributes
+  - howToApply: 2
+    settingName: DEPENDENCY_MANAGER_KILLING
