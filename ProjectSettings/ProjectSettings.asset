@@ -13,12 +13,12 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: FriendsGamesIncubator
-  productName: HCTemplate
+  productName: Superball
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
-  m_ShowUnitySplashScreen: 0
-  m_ShowUnitySplashLogo: 0
+  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 0.5
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -146,8 +146,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.friendsgamesincubator.fgttest
-    iPhone: com.friendsgamesincubator.fgttest
+    Android: com.friendsgamesincubator.superball
+    iPhone: com.friendsgamesincubator.superball
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -903,9 +903,14 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Build: 1
+    Analytics: 0
+    Build: 0
+    Collab: 0
     Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -919,10 +924,10 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: c863e6d9-6ba0-4157-8f8b-74abb2af83f1
+  cloudProjectId: c445277a-5128-4d4c-94eb-388b8c8f8642
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Cube World
+  projectName: Superball
   organizationId: friends-games-incubator
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

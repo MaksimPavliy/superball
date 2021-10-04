@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/HC/Root/MainSceneLoader/Loader.unity
+    path: Assets/Superball/Root/MainSceneLoader/Loader.unity
     guid: e5fbbb1efdcb0f84ebeecd528562661d
   - enabled: 1
-    path: Assets/HC/Root/MainScene.unity
+    path: Assets/Superball/Root/MainScene.unity
     guid: d0128b0f6469f314c84b31792fbc8eda
   m_configObjects: {}
