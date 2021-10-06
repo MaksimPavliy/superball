@@ -1,9 +1,10 @@
+using FriendsGamesTools;
 using Superball;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleGeneration : MonoBehaviour
+public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
 {
     [SerializeField] private GameObject[] obstacles;
     private int randomOption;
@@ -11,12 +12,27 @@ public class ObstacleGeneration : MonoBehaviour
     private int previousRandomOption;
     private float counter;
     private IEnumerator _spawn;
+    private List<GameObject> _objects = new List<GameObject>();
 
-    // Start is called before the first frame update
     void Start()
     {
         _spawn = Spawn();
         EventSignature();
+        for (int i = 0; i < _objects.Count; i++)
+        {
+            Destroy(_objects[i]);
+        }
+        _objects.Clear();
+    }
+
+    public void AddObstacles(GameObject obstacle)
+    {
+        _objects.Add(obstacle);
+    }
+
+    public void RemoveObstacles(GameObject obstacle)
+    {
+        _objects.Remove(obstacle);
     }
 
     private void EventSignature()
@@ -68,17 +84,20 @@ public class ObstacleGeneration : MonoBehaviour
         previousRandomOption = randomOption;
 
         firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), 6f, 2f), Quaternion.identity);
+        firstObstaclePos.transform.SetParent(transform);
 
         while (randomOption == previousRandomOption)
             randomOption = Random.Range(0, obstacles.Length);
 
         if (Random.value < 0.5f)
         {
-            Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 6f, 2f), Quaternion.identity);
+           var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 6f, 2f), Quaternion.identity);
+            obs.transform.SetParent(transform);
         }
         else
         {
-            Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 6f, 2f), Quaternion.identity);
+            var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 6f, 2f), Quaternion.identity);
+            obs.transform.SetParent(transform);
         }
     }
 
@@ -88,10 +107,13 @@ public class ObstacleGeneration : MonoBehaviour
         previousRandomOption = randomOption;
 
         firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(firstObstX, Random.Range(2f, 3f), 2f), Quaternion.identity);
+        firstObstaclePos.transform.SetParent(transform);
 
         while (randomOption == previousRandomOption)
             randomOption = Random.Range(0, obstacles.Length);
 
-        Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
+        var obs = Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
+        obs.transform.SetParent(transform);
+
     }
 }

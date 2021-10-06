@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288578922379748315, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6481259711891889319, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
       propertyPath: ball
@@ -109,6 +114,11 @@ PrefabInstance:
       propertyPath: pipe
       value: 
       objectReference: {fileID: 6536019399915510665}
+    - target: {fileID: 6481259711891889319, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: speed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6531922952988987730, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
       propertyPath: m_LocalPosition.x

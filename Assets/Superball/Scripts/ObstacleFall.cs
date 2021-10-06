@@ -11,6 +11,8 @@ public class ObstacleFall : MonoBehaviour
 
     private void Start()
     {
+        ObstacleGeneration.instance.AddObstacles(this.gameObject);
+
         if (transform.position.x <= -3.5f)
         {
             spawnedLeft = true;
@@ -25,6 +27,11 @@ public class ObstacleFall : MonoBehaviour
         {
             spawnedTop = true;
         }
+    }
+
+    private void OnDestroy()
+    {
+        ObstacleGeneration.instance.RemoveObstacles(this.gameObject);
     }
 
     void Update()
