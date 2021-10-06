@@ -1,3 +1,4 @@
+using Superball;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,36 @@ public class ObstacleGeneration : MonoBehaviour
     private GameObject firstObstaclePos;
     private int previousRandomOption;
     private float counter;
+    private IEnumerator _spawn;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Spawn());
+        _spawn = Spawn();
+        EventSignature();
+    }
+
+    private void EventSignature()
+    {
+        GameManager.instance.PlayPressed.AddListener(OnPlay);
+        GameManager.instance.Lose.AddListener(DoLose);
+    }
+
+    private void OnPlay()
+    {
+        StartCoroutine(_spawn);
+    }
+
+    private void DoLose()
+    {
+        StopCoroutine(_spawn);
+    }
+
+    private void OnDestroy()
+    {
+        if (!GameManager.instance) return;
+        GameManager.instance.PlayPressed.RemoveListener(OnPlay);
+        GameManager.instance.Lose.RemoveListener(DoLose);
     }
 
     IEnumerator Spawn()

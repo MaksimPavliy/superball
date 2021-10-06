@@ -1,4 +1,6 @@
 using SplineMesh;
+using Superball;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +23,18 @@ public class Pipe : MonoBehaviour
     private void Start()
     {   
         GeneratePipe();
+        GameManager.instance.Lose.AddListener(ClearSpline);
+    }
+
+    private void ClearSpline()
+    {
+        Destroy(currentSpline, 1f);
+    }
+
+    private void OnDestroy()
+    {
+        if (!GameManager.instance) return;
+        GameManager.instance.Lose.RemoveListener(ClearSpline);
     }
 
     private void Update()

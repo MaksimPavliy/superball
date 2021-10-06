@@ -1,4 +1,5 @@
 ﻿using SplineMesh;
+using Superball;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,9 +27,46 @@ public class Ball : MonoBehaviour
    /* private bool InTube => enteredRightTube && enteredLeftTube;*/
 
     bool freeFlight = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.simulated = false;
+        EventSignature();
+    }
+
+    private void EventSignature()
+    {
+        GameManager.instance.PlayPressed.AddListener(OnPlay);
+        GameManager.instance.Won.AddListener(DoWin);
+        GameManager.instance.Lose.AddListener(DoLose);
+    }
+
+    public void OnPlay()
+    {
+        rb.simulated = true;
+    }
+
+    public void DoWin()
+    {
+        Destroy(gameObject);
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        Destroy(deathParticles, 2f);
+    }
+
+    public void DoLose()
+    {
+        Destroy(gameObject);
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        Destroy(deathParticles, 2f);
+    }
+
+    private void OnDestroy()
+    {
+        if (!GameManager.instance) return;
+        GameManager.instance.PlayPressed.RemoveListener(OnPlay);
+        GameManager.instance.Won.RemoveListener(DoWin);
+        GameManager.instance.Lose.RemoveListener(DoLose);
     }
 
     private void Update()
@@ -72,16 +110,15 @@ public class Ball : MonoBehaviour
             velocity = rb.velocity;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "ground" && groundEdge.GetComponent<BoxCollider2D>().enabled == true)
+        if (collision.CompareTag("ground") && groundEdge.GetComponent<BoxCollider2D>().enabled == true)
         {
-            Destroy(gameObject);
-            Instantiate(deathParticles, transform.position, Quaternion.identity);
-            Destroy(deathParticles, 2f);
+            GameManager.instance.DoLose();
         }
 
-        if (collision.tag == "leftTube" && velocity.y < 0)
+        if (collision.CompareTag("leftTube") && velocity.y < 0)
         {
             //входим в трубу только если мы ещё не в ней
             if (freeFlight)
@@ -93,7 +130,7 @@ public class Ball : MonoBehaviour
             }
         }
 
-        if (collision.tag == "rightTube" && velocity.y < 0)
+        if (collision.CompareTag("rightTube") && velocity.y < 0)
         {
             //входим в трубу только если мы ещё не в ней
             if (freeFlight)
@@ -105,11 +142,9 @@ public class Ball : MonoBehaviour
             }
         }
 
-        if (collision.tag == "obstacle" && GetComponent<CircleCollider2D>().transform.position.y > groundEdge.transform.position.y)
+        if (collision.CompareTag("obstacle") && GetComponent<CircleCollider2D>().transform.position.y > groundEdge.transform.position.y)
         {
-            Destroy(gameObject);
-            Instantiate(deathParticles, transform.position, Quaternion.identity);
-            Destroy(deathParticles, 2f);
+            GameManager.instance.DoLose();
         }
     }
 
@@ -148,7 +183,7 @@ public class Ball : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "leftTube" && rb.velocity.y > 0 || collision.tag == "rightTube" && rb.velocity.y > 0)
+        if (collision.CompareTag("leftTube") && rb.velocity.y > 0 || collision.CompareTag("rightTube") && rb.velocity.y > 0)
         {
             //включаем свободный полёт только когда мячик уже покинул землю, чтобы не было повторных коллизий с трубой
             jumpCounter++;
