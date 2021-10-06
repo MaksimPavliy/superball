@@ -19,9 +19,12 @@ public class Pipe : MonoBehaviour
     private GameObject currentSpline;
     [SerializeField] private GameObject[] splines;
     private int counter;
+    private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
+    private bool _randomSpline => _config.randomSpline;
 
     private void Start()
-    {   
+    {
+        counter = _config.indexSpline;
         GeneratePipe();
         GameManager.instance.Lose.AddListener(ClearSpline);
     }
@@ -39,6 +42,7 @@ public class Pipe : MonoBehaviour
 
     private void Update()
     {
+        if (!_randomSpline) return;
         ChangePipe();
     }
 

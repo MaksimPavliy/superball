@@ -5,5 +5,7 @@ namespace Superball
     public class SuperballGeneralConfig : BalanceSettings<SuperballGeneralConfig>
     {
         public int CameraIndex = 0;
+        public bool randomSpline;
+        public int indexSpline;
     }
 }
