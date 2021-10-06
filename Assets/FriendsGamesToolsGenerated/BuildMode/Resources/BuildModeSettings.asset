@@ -22,10 +22,8 @@ MonoBehaviour:
     apple App Id not set
 
 
-    android
-    package id not set in main AndroidManifest
-
-    build mode should be release
+    build
+    mode should be release
 
 '
   configs:
