@@ -17,6 +17,18 @@ PrefabInstance:
       propertyPath: groundEdge
       value: 
       objectReference: {fileID: 650531832199780147}
+    - target: {fileID: 3912885899198352992, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 3634815445306344030, guid: bcad4c28b949628489d0ff04f49526ab,
+        type: 3}
+    - target: {fileID: 3912885899198352992, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: _deathParticles
+      value: 
+      objectReference: {fileID: 3634815445306344030, guid: bcad4c28b949628489d0ff04f49526ab,
+        type: 3}
     - target: {fileID: 4026683821904244081, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
       propertyPath: m_Enabled

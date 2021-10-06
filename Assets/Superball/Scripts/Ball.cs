@@ -8,10 +8,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [SerializeField] private GameObject groundEdge;
-    [SerializeField] GameObject deathParticles;
+    [SerializeField] private ParticleSystem _deathParticles;
     public Spline spline;
     private CurveSample sample;
-    private Rigidbody2D rb;
+    private Rigidbody2D _rigidbody;
     private Vector3 gForce = new Vector3(0f, 0f, 9.8f);
 
     private bool enteredLeftTube;
@@ -27,11 +27,12 @@ public class Ball : MonoBehaviour
    /* private bool InTube => enteredRightTube && enteredLeftTube;*/
 
     bool freeFlight = true;
+    private Vector2 tempVelocity;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.simulated = false;
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.simulated = false;
         EventSignature();
     }
 
@@ -44,21 +45,20 @@ public class Ball : MonoBehaviour
 
     public void OnPlay()
     {
-        rb.simulated = true;
+        _rigidbody.simulated = true;
     }
 
     public void DoWin()
     {
-        Destroy(gameObject);
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
-        Destroy(deathParticles, 2f);
     }
 
     public void DoLose()
     {
+        ParticleSystem ps = Instantiate(_deathParticles, transform.position, Quaternion.identity);
+        ps.gameObject.transform.up = tempVelocity.normalized;
+        ps.Play();
         Destroy(gameObject);
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
-        Destroy(deathParticles, 2f);
+        Destroy(ps.gameObject, 2f);
     }
 
     private void OnDestroy()
@@ -107,8 +107,13 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            velocity = rb.velocity;
+            velocity = _rigidbody.velocity;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        tempVelocity = _rigidbody.velocity;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -161,13 +166,13 @@ public class Ball : MonoBehaviour
         //мячик никогда не будет чётко в одной и той же точке и скорость будет немного теряться
         if (inVelocity == Vector3.zero)
         {
-            inVelocity = rb.velocity;
+            inVelocity = _rigidbody.velocity;
         }
         //начальная скорость, которую используем для движения по трубе
         velocity = inVelocity;
 
         //во время движения по труде нам не нужно влияние физики на мячик
-        rb.isKinematic = true;
+        _rigidbody.isKinematic = true;
 
         freeFlight = false;
     }
@@ -178,12 +183,12 @@ public class Ball : MonoBehaviour
         enteredRightTube = false;
 
         //на выходе из трубы снова включаем силы для ригидбоди и задаём начальную скорость, обратную скорости входа
-        rb.isKinematic = false;
-        rb.velocity = -inVelocity;
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = -inVelocity;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("leftTube") && rb.velocity.y > 0 || collision.CompareTag("rightTube") && rb.velocity.y > 0)
+        if (collision.CompareTag("leftTube") && _rigidbody.velocity.y > 0 || collision.CompareTag("rightTube") && _rigidbody.velocity.y > 0)
         {
             //включаем свободный полёт только когда мячик уже покинул землю, чтобы не было повторных коллизий с трубой
             jumpCounter++;
