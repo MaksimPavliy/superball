@@ -23,7 +23,7 @@ public class ObstacleFall : MonoBehaviour
             spawnedRight = true;
         }
 
-        if (transform.position.y == 6f)
+        if (transform.position.y == 9f)
         {
             spawnedTop = true;
         }

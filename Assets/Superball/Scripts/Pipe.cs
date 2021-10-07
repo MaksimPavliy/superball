@@ -19,8 +19,10 @@ public class Pipe : MonoBehaviour
     private GameObject currentSpline;
     [SerializeField] private GameObject[] splines;
     private int counter;
+
     private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
     private bool _randomSpline => _config.randomSpline;
+    private float _sensitivityTouch => _config.sensitivityTouch;
 
     private void Start()
     {
@@ -52,7 +54,7 @@ public class Pipe : MonoBehaviour
         clickPosition.x = clickPosition.x > 1 ? 1 : clickPosition.x;
         clickPosition.x = clickPosition.x < -1 ? -1 : clickPosition.x;
 
-        pipe.position = Vector2.MoveTowards(pipe.position, new Vector2(clickPosition.x, pipe.position.y), speed * Time.deltaTime);
+        pipe.position = Vector2.MoveTowards(pipe.position, new Vector2(clickPosition.x * _sensitivityTouch, pipe.position.y), speed * Time.deltaTime);
 
         for (int i = 0; i < nodes.Length; i++)
         {

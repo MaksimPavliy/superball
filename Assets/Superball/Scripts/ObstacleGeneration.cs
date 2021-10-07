@@ -62,17 +62,18 @@ public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
     {
         for (; ;)
         {
+            counter = Random.Range(0, 6);
             if (counter !=2 && counter!=5)
                 TopSpawn();
 
             if (counter == 2f)
-                SideSpawn(-6f, -3.5f);
+                SideSpawn(-9f, -6.5f);
 
             if (counter == 5f)
-                SideSpawn(6f, 3.5f);
+                SideSpawn(9f, 6.5f);
 
-            counter++;
-            counter = counter >= 6 ? 0 : counter;
+            //counter++;
+            //counter = counter >= 6 ? 0 : counter;
 
             yield return new WaitForSeconds(3.2f);
         }
@@ -83,7 +84,7 @@ public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
         randomOption = Random.Range(0, obstacles.Length);
         previousRandomOption = randomOption;
 
-        firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), 6f, 2f), Quaternion.identity);
+        firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), 9f, 2f), Quaternion.identity);
         firstObstaclePos.transform.SetParent(transform);
 
         while (randomOption == previousRandomOption)
@@ -91,12 +92,12 @@ public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
 
         if (Random.value < 0.5f)
         {
-           var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 6f, 2f), Quaternion.identity);
+           var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 9f, 2f), Quaternion.identity);
             obs.transform.SetParent(transform);
         }
         else
         {
-            var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 6f, 2f), Quaternion.identity);
+            var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 9f, 2f), Quaternion.identity);
             obs.transform.SetParent(transform);
         }
     }

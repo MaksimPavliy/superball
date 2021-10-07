@@ -7,5 +7,7 @@ namespace Superball
         public int CameraIndex = 0;
         public bool randomSpline;
         public int indexSpline;
+        public float sensitivityTouch = 2f;
+
     }
 }
