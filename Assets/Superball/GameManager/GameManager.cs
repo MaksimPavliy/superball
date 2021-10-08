@@ -8,9 +8,9 @@ namespace Superball
     public class GameManager: MonoBehaviourHasInstance<GameManager>
     {
         [HideInInspector] public UnityEvent PlayPressed = new UnityEvent();
-        [HideInInspector] public UnityEvent Won = new UnityEvent();
-        [HideInInspector] public UnityEvent Lose = new UnityEvent();
+        [HideInInspector] public UnityEvent LevelComplete = new UnityEvent();
         private bool isPlaying;
+        private int _score => ScoreManager.instance.Score;
 
         public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
 
@@ -20,18 +20,18 @@ namespace Superball
             PlayPressed?.Invoke();
         }
 
-        public void DoWin()
+        public void OnLevelComplete()
         {
-            GameRoot.instance.Get<SuperballLevelsController>().DoWin();
-            Won?.Invoke();
+            GameRoot.instance.Get<SuperballLevelsController>().DoLose();
+            GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
+            //FinishScore.instance.UpdateFinishScore();
+            LevelComplete?.Invoke();
             IsPlaying = false;
         }
 
-        public void DoLose()
+        public void OnReset()
         {
-            GameRoot.instance.Get<SuperballLevelsController>().DoLose();
-            Lose?.Invoke();
-            IsPlaying = false;
+            ScoreManager.instance.ClearScore();
         }
     }
 }

@@ -2,77 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleFall : MonoBehaviour
+namespace Superball
 {
-    private float fallSpeed = 2f;
-    private bool spawnedLeft;
-    private bool spawnedRight;
-    private bool spawnedTop;
-
-    private void Start()
+    public class ObstacleFall : MonoBehaviour
     {
-        ObstacleGeneration.instance.AddObstacles(this.gameObject);
+        private float fallSpeed = 2f;
+        private bool spawnedLeft;
+        private bool spawnedRight;
+        private bool spawnedTop;
 
-        if (transform.position.x <= -3.5f)
+        private void Start()
         {
-            spawnedLeft = true;
+            ObstacleGeneration.instance.AddObstacles(this.gameObject);
+
+            if (transform.position.x <= -3.5f)
+            {
+                spawnedLeft = true;
+            }
+
+            if (transform.position.x >= 3.5f)
+            {
+                spawnedRight = true;
+            }
+
+            if (transform.position.y == 9f)
+            {
+                spawnedTop = true;
+            }
         }
 
-        if (transform.position.x >= 3.5f)
+        private void OnDestroy()
         {
-            spawnedRight = true;
+            ObstacleGeneration.instance.RemoveObstacles(this.gameObject);
         }
 
-        if (transform.position.y == 9f)
+        void Update()
         {
-            spawnedTop = true;
-        }
-    }
+            if (spawnedLeft)
+            {
+                RightMovement();
+            }
 
-    private void OnDestroy()
-    {
-        ObstacleGeneration.instance.RemoveObstacles(this.gameObject);
-    }
+            if (spawnedRight)
+            {
+                LeftMovement();
+            }
 
-    void Update()
-    {
-        if (spawnedLeft)
-        {
-            RightMovement();
-        }
-
-        if (spawnedRight)
-        {
-            LeftMovement();
+            if (spawnedTop)
+            {
+                BottomMovement();
+            }
         }
 
-        if (spawnedTop)
+        private void RightMovement()
         {
-            BottomMovement();
+            transform.position += new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
+
+            if (transform.position.x >= 6f)
+                Destroy(gameObject);
         }
-    }
 
-    private void RightMovement()
-    {
-        transform.position += new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
+        private void LeftMovement()
+        {
+            transform.position -= new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
 
-        if (transform.position.x >= 6f)
-            Destroy(gameObject);
-    }
+            if (transform.position.x <= -6f)
+                Destroy(gameObject);
+        }
 
-    private void LeftMovement()
-    {
-        transform.position -= new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
+        private void BottomMovement()
+        {
+            transform.position -= new Vector3(0, fallSpeed * Time.deltaTime, 0f);
 
-        if (transform.position.x <= -6f)
-            Destroy(gameObject);
-    }
-
-    private void BottomMovement()
-    {
-        transform.position -= new Vector3(0, fallSpeed * Time.deltaTime, 0f);
-
-        if (transform.position.y < -2.5f)
-            Destroy(gameObject);
+            if (transform.position.y < -2.5f)
+                Destroy(gameObject);
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Superball
             base.RestartLocation();
 
             SuperballLevelsView.instance?.Reset();
+            GameManager.instance.OnReset();
         }
 
         public override void Play()
@@ -25,6 +26,7 @@ namespace Superball
             base.Play();
 
             GameManager.instance.OnPlay();
+            ScoreManager.instance.ActiveScoreText(true);
             HCAnalyticsManager.LevelStart(currLocationInd.ToString());
         }
 
@@ -39,6 +41,7 @@ namespace Superball
         {
             base.OnLose();
             LastGameIsWin = false;
+            ScoreManager.instance.ActiveScoreText(false);
             HCAnalyticsManager.LevelFailed(currLocationInd.ToString());
         }
 

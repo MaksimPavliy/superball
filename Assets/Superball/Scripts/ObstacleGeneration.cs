@@ -4,117 +4,120 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
+namespace Superball
 {
-    [SerializeField] private GameObject[] obstacles;
-    private int randomOption;
-    private GameObject firstObstaclePos;
-    private int previousRandomOption;
-    private float counter;
-    private IEnumerator _spawn;
-    private List<GameObject> _objects = new List<GameObject>();
-
-    void Start()
+    public class ObstacleGeneration : MonoBehaviourHasInstance<ObstacleGeneration>
     {
-        _spawn = Spawn();
-        EventSignature();
-        for (int i = 0; i < _objects.Count; i++)
+        [SerializeField] private GameObject[] obstacles;
+        private int randomOption;
+        private GameObject firstObstaclePos;
+        private int previousRandomOption;
+        private float counter;
+        private IEnumerator _spawn;
+        private List<GameObject> _objects = new List<GameObject>();
+
+        void Start()
         {
-            Destroy(_objects[i]);
+            _spawn = Spawn();
+            EventSignature();
+            for (int i = 0; i < _objects.Count; i++)
+            {
+                Destroy(_objects[i]);
+            }
+            _objects.Clear();
         }
-        _objects.Clear();
-    }
 
-    public void AddObstacles(GameObject obstacle)
-    {
-        _objects.Add(obstacle);
-    }
-
-    public void RemoveObstacles(GameObject obstacle)
-    {
-        _objects.Remove(obstacle);
-    }
-
-    private void EventSignature()
-    {
-        GameManager.instance.PlayPressed.AddListener(OnPlay);
-        GameManager.instance.Lose.AddListener(DoLose);
-    }
-
-    private void OnPlay()
-    {
-        StartCoroutine(_spawn);
-    }
-
-    private void DoLose()
-    {
-        StopCoroutine(_spawn);
-    }
-
-    private void OnDestroy()
-    {
-        if (!GameManager.instance) return;
-        GameManager.instance.PlayPressed.RemoveListener(OnPlay);
-        GameManager.instance.Lose.RemoveListener(DoLose);
-    }
-
-    IEnumerator Spawn()
-    {
-        for (; ;)
+        public void AddObstacles(GameObject obstacle)
         {
-            counter = Random.Range(0, 6);
-            if (counter !=2 && counter!=5)
-                TopSpawn();
-
-            if (counter == 2f)
-                SideSpawn(-9f, -6.5f);
-
-            if (counter == 5f)
-                SideSpawn(9f, 6.5f);
-
-            //counter++;
-            //counter = counter >= 6 ? 0 : counter;
-
-            yield return new WaitForSeconds(3.2f);
+            _objects.Add(obstacle);
         }
-    }
 
-    private void TopSpawn()
-    {
-        randomOption = Random.Range(0, obstacles.Length);
-        previousRandomOption = randomOption;
+        public void RemoveObstacles(GameObject obstacle)
+        {
+            _objects.Remove(obstacle);
+        }
 
-        firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), 9f, 2f), Quaternion.identity);
-        firstObstaclePos.transform.SetParent(transform);
+        private void EventSignature()
+        {
+            GameManager.instance.PlayPressed.AddListener(OnPlay);
+            GameManager.instance.LevelComplete.AddListener(DoLose);
+        }
 
-        while (randomOption == previousRandomOption)
+        private void OnPlay()
+        {
+            StartCoroutine(_spawn);
+        }
+
+        private void DoLose()
+        {
+            StopCoroutine(_spawn);
+        }
+
+        private void OnDestroy()
+        {
+            if (!GameManager.instance) return;
+            GameManager.instance.PlayPressed.RemoveListener(OnPlay);
+            GameManager.instance.LevelComplete.RemoveListener(DoLose);
+        }
+
+        IEnumerator Spawn()
+        {
+            for (; ; )
+            {
+                counter = Random.Range(0, 6);
+                if (counter != 2 && counter != 5)
+                    TopSpawn();
+
+                if (counter == 2f)
+                    SideSpawn(-9f, -6.5f);
+
+                if (counter == 5f)
+                    SideSpawn(9f, 6.5f);
+
+                //counter++;
+                //counter = counter >= 6 ? 0 : counter;
+
+                yield return new WaitForSeconds(3.2f);
+            }
+        }
+
+        private void TopSpawn()
+        {
             randomOption = Random.Range(0, obstacles.Length);
+            previousRandomOption = randomOption;
 
-        if (Random.value < 0.5f)
-        {
-           var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 9f, 2f), Quaternion.identity);
-            obs.transform.SetParent(transform);
+            firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), 9f, 2f), Quaternion.identity);
+            firstObstaclePos.transform.SetParent(transform);
+
+            while (randomOption == previousRandomOption)
+                randomOption = Random.Range(0, obstacles.Length);
+
+            if (Random.value < 0.5f)
+            {
+                var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, 9f, 2f), Quaternion.identity);
+                obs.transform.SetParent(transform);
+            }
+            else
+            {
+                var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 9f, 2f), Quaternion.identity);
+                obs.transform.SetParent(transform);
+            }
         }
-        else
+
+        private void SideSpawn(float firstObstX, float secondObstX)
         {
-            var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, 9f, 2f), Quaternion.identity);
-            obs.transform.SetParent(transform);
-        }
-    }
-
-    private void SideSpawn(float firstObstX, float secondObstX)
-    {
-        randomOption = Random.Range(0, obstacles.Length);
-        previousRandomOption = randomOption;
-
-        firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(firstObstX, Random.Range(2f, 3f), 2f), Quaternion.identity);
-        firstObstaclePos.transform.SetParent(transform);
-
-        while (randomOption == previousRandomOption)
             randomOption = Random.Range(0, obstacles.Length);
+            previousRandomOption = randomOption;
 
-        var obs = Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
-        obs.transform.SetParent(transform);
+            firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(firstObstX, Random.Range(2f, 3f), 2f), Quaternion.identity);
+            firstObstaclePos.transform.SetParent(transform);
 
+            while (randomOption == previousRandomOption)
+                randomOption = Random.Range(0, obstacles.Length);
+
+            var obs = Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
+            obs.transform.SetParent(transform);
+
+        }
     }
 }
