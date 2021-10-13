@@ -7,6 +7,7 @@ namespace Superball
     public class LevelSelector : MonoBehaviour
     {
         [SerializeField] GameObject[] backgrounds;
+        [SerializeField] Material[] splineMaterials;
         [SerializeField] Ball ball;
         [SerializeField] GameObject background;
         private bool changed = true;
@@ -32,8 +33,9 @@ namespace Superball
                 counter = counter > backgrounds.Length - 1 ? 0 : counter;
 
                 changed = true;
+                Vector3 position = background?background.transform.position:Vector3.zero;
                 Destroy(background);
-                background = Instantiate(backgrounds[counter], new Vector3(0f, -0.28f, 2f), Quaternion.identity);
+                background = Instantiate(backgrounds[counter], position, Quaternion.identity);
             }
         }
     }

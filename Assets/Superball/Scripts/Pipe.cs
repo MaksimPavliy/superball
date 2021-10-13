@@ -1,3 +1,4 @@
+using FriendsGamesTools;
 using SplineMesh;
 using Superball;
 using System;
@@ -26,11 +27,13 @@ namespace Superball
         private bool _randomSpline => _config.randomSpline;
         private float _sensitivityTouch => _config.sensitivityTouch;
 
+        private float maxOffset = 5.4f;
         private void Start()
         {
             counter = _config.indexSpline;
             GeneratePipe();
             GameManager.instance.LevelComplete.AddListener(ClearSpline);
+            Joystick.instance.Dragged += OnDragged;
         }
 
         private void ClearSpline()
@@ -40,6 +43,7 @@ namespace Superball
 
         private void OnDestroy()
         {
+            Joystick.instance.Dragged -= OnDragged;
             if (!GameManager.instance) return;
             GameManager.instance.LevelComplete.RemoveListener(ClearSpline);
         }
@@ -50,21 +54,28 @@ namespace Superball
             ChangePipe();
         }
 
-        private void OnMouseDrag()
+        
+        private void OnDragged(Vector2 dir)
         {
-            Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            clickPosition.x = clickPosition.x > 1 ? 1 : clickPosition.x;
-            clickPosition.x = clickPosition.x < -1 ? -1 : clickPosition.x;
-
-            pipe.position = Vector2.MoveTowards(pipe.position, new Vector2(clickPosition.x * _sensitivityTouch, pipe.position.y), speed * Time.deltaTime);
+            //Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //clickPosition.x = clickPosition.x > 1 ? 1 : clickPosition.x;
+            //clickPosition.x = clickPosition.x < -1 ? -1 : clickPosition.x;
+            var position = pipe.position + Vector3.right*dir.x * _sensitivityTouch*Time.deltaTime;
+            position.x= Mathf.Clamp(position.x, -maxOffset/2f, maxOffset/2f);
+            pipe.position = position;
+            
 
             for (int i = 0; i < nodes.Length; i++)
             {
                 /*  transform.TransformPoint(nodes[i].Position);*/
                 /*  transform.TransformDirection(nodes[i].Direction);*/
-                nodes[i].Position = Vector3.MoveTowards(nodes[i].Position, new Vector3(pipe.position.x + nodesStartingPosition[i].x, nodes[i].Position.y, nodes[i].Position.z), speed * Time.deltaTime);
-                nodes[i].Direction = Vector3.MoveTowards(nodes[i].Direction, new Vector3(pipe.position.x + nodeStartingDirection[i].x, nodes[i].Direction.y, nodes[i].Direction.z), speed * Time.deltaTime);
+                nodes[i].Position = pipe.position+ new Vector3(nodesStartingPosition[i].x, nodesStartingPosition[i].y, nodesStartingPosition[i].z);
+                nodes[i].Direction = pipe.position+ new Vector3(nodeStartingDirection[i].x, nodeStartingDirection[i].y, nodeStartingDirection[i].z);
             }
+        }
+        private void OnMouseDrag()
+        {
+           
         }
 
         public void GeneratePipe()

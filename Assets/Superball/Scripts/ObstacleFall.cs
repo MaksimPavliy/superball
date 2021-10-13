@@ -15,17 +15,17 @@ namespace Superball
         {
             ObstacleGeneration.instance.AddObstacles(this.gameObject);
 
-            if (transform.position.x <= -3.5f)
+            if (transform.position.x <= -GameSettings.instance.SpawnPos.x)
             {
                 spawnedLeft = true;
             }
 
-            if (transform.position.x >= 3.5f)
+            if (transform.position.x >= GameSettings.instance.SpawnPos.x)
             {
                 spawnedRight = true;
             }
 
-            if (transform.position.y == 9f)
+            if (transform.position.y == GameSettings.instance.SpawnPos.y)
             {
                 spawnedTop = true;
             }
@@ -58,7 +58,7 @@ namespace Superball
         {
             transform.position += new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
 
-            if (transform.position.x >= 6f)
+            if (transform.position.x >= 10f)
                 Destroy(gameObject);
         }
 
@@ -66,7 +66,7 @@ namespace Superball
         {
             transform.position -= new Vector3(fallSpeed * Time.deltaTime, 0f, 0f);
 
-            if (transform.position.x <= -6f)
+            if (transform.position.x <= -10f)
                 Destroy(gameObject);
         }
 
