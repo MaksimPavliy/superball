@@ -162,5 +162,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.01
       objectReference: {fileID: 0}
+    - target: {fileID: 8587021502450211792, guid: 3f8eb9db85a2f6b40a75147187247ff0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53163b3d8c21ceb4c90b6dc8d983fc9f, type: 2}
+    - target: {fileID: 9091282492413373371, guid: 3f8eb9db85a2f6b40a75147187247ff0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 217d9babaf1b97447b923850dc43040f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f8eb9db85a2f6b40a75147187247ff0, type: 3}
