@@ -7012,11 +7012,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Balance
       objectReference: {fileID: 0}
-    - target: {fileID: 5401722689640920027, guid: ab99b666fd4860e4d93950d0d02e01ee,
-        type: 3}
-      propertyPath: jumpsPerTheme
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7470818063435640811, guid: ab99b666fd4860e4d93950d0d02e01ee,
         type: 3}
       propertyPath: m_RootOrder
