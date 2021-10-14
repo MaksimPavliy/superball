@@ -34,7 +34,7 @@ namespace Superball
         {
             base.OnWin();
             LastGameIsWin = true;
-            HCAnalyticsManager.LevelFinish(currLocationInd.ToString());
+            HCAnalyticsManager.LevelFinish(currLocationInd.ToString(), winStarsCount);
         }
 
         protected override void OnLose()

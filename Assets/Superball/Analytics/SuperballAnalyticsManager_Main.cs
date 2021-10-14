@@ -7,25 +7,31 @@ namespace Superball
     {
         public static void LevelStart(string levelNumber)
         {
-            SendFB("Level started", ("level number", levelNumber));
+            //SendFB("Level started", ("level number", levelNumber));
 
-            IncAndSaveCounters(CountersType.level_count);
+            //IncAndSaveCounters(CountersType.level_count);
 
-            LevelStartAM(levelNumber);
+            //LevelStartAM(levelNumber);
+
+            TinySauce.OnGameStarted(levelNumber: levelNumber);
         }
 
         public static void LevelFailed(string levelNumber)
         {
-            SendFB("Level failed", ("level number", levelNumber));
+            //SendFB("Level failed", ("level number", levelNumber));
 
-            LevelFinishAM(EndGameType.lose, levelNumber);
+            //LevelFinishAM(EndGameType.lose, levelNumber);
+
+            TinySauce.OnGameFinished(false, 0, levelNumber: levelNumber);
         }
 
-        public static void LevelFinish(string levelNumber)
+        public static void LevelFinish(string levelNumber, int winStarsCount)
         {
-            SendFB("Level finished", ("level number", levelNumber));
+            //SendFB("Level finished", ("level number", levelNumber));
 
-            LevelFinishAM(EndGameType.win, levelNumber);
+            //LevelFinishAM(EndGameType.win, levelNumber);
+
+            TinySauce.OnGameFinished(true, winStarsCount, levelNumber: levelNumber);
         }
 
         private static void LevelStartAM(string levelNumber)
