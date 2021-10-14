@@ -12,7 +12,7 @@ Shader "Unlit/GradientSpriteShader"
 
 		SubShader{
 		Tags{
-		"Queue" = "Background"
+		"Queue" = "Transparent"
 		"IgnoreProjector" = "True"
 		"RenderType" = "Transparent"
 	}
