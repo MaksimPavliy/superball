@@ -45,6 +45,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -71,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: -2069542039
+  m_SortingLayer: 1
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: b9049a05a4fdf7a41a716033156ea5ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,11 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f4b23fb8423644da12de1b2dfcfc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground: {fileID: 6293899563329087603, guid: ab699c67d5848ae4d9ceb0f91d0c3be1, type: 3}
-  p0: {fileID: 1534520431067439985, guid: f5bd015e083e5e34785bf96986fe7214, type: 3}
-  p1: {fileID: 3908808956603118813, guid: 7b4a6bee2feb5e84eb54dee8e0285a66, type: 3}
-  p2: {fileID: 876595922142152700, guid: 73a8bb300608f3a4ab2e4f281c618c2b, type: 3}
-  p3: {fileID: 1889120112680605431, guid: cd2b53808b0fd2f4aa19bb58226cbd06, type: 3}
-  p4: {fileID: 3811611778434332844, guid: 7501bb9315f688446b36b376b99c92f2, type: 3}
-  t: 0
-  duration: 1.1
+  groundEdge: {fileID: 0}
+  _deathParticles: {fileID: 0}
+  spline: {fileID: 0}
+  jumpCounter: 0

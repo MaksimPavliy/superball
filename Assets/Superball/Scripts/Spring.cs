@@ -10,7 +10,7 @@ namespace Superball
 
         private Vector3 startScale;
         private float startDistance;
-        private float AnchorDistance=>Mathf.Round(staticAnchor.position.x - dynamicAnchor.position.x);
+        private float AnchorDistance=>Mathf.Abs(staticAnchor.position.x - dynamicAnchor.position.x);
         private void Start()
         {
             startScale = scaleParent.localScale;

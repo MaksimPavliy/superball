@@ -22,6 +22,7 @@ Shader "Unlit/GradientSpriteShader"
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass{
+				  ZTest Off
 		CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag

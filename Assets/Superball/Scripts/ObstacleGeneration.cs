@@ -16,6 +16,7 @@ namespace Superball
         private IEnumerator _spawn;
         private List<GameObject> _objects = new List<GameObject>();
 
+        private float maxSpawnX = 3f;
         void Start()
         {
             _spawn = Spawn();
@@ -87,22 +88,22 @@ namespace Superball
             randomOption = Random.Range(0, obstacles.Length);
             previousRandomOption = randomOption;
 
-            firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-0.4f, 0.4f), startY, 2f), Quaternion.identity);
+            firstObstaclePos = Instantiate(obstacles[randomOption], new Vector3(Random.Range(-maxSpawnX, maxSpawnX), startY, 2f), Quaternion.identity);
             firstObstaclePos.transform.SetParent(transform);
 
             while (randomOption == previousRandomOption)
                 randomOption = Random.Range(0, obstacles.Length);
 
-            if (Random.value < 0.5f)
-            {
-                var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, startY, 2f), Quaternion.identity);
-                obs.transform.SetParent(transform);
-            }
-            else
-            {
-                var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, startY, 2f), Quaternion.identity);
-                obs.transform.SetParent(transform);
-            }
+            //if (Random.value < 0.5f)
+            //{
+            //    var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x + 2.5f, startY, 2f), Quaternion.identity);
+            //    obs.transform.SetParent(transform);
+            //}
+            //else
+            //{
+            //    var obs = Instantiate(obstacles[randomOption], new Vector3(firstObstaclePos.transform.position.x - 2.5f, startY, 2f), Quaternion.identity);
+            //    obs.transform.SetParent(transform);
+            //}
         }
 
         private void SideSpawn(float firstObstX, float secondObstX)
@@ -116,8 +117,8 @@ namespace Superball
             while (randomOption == previousRandomOption)
                 randomOption = Random.Range(0, obstacles.Length);
 
-            var obs = Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
-            obs.transform.SetParent(transform);
+            //var obs = Instantiate(obstacles[randomOption], new Vector3(secondObstX, firstObstaclePos.transform.position.y, 2f), Quaternion.identity);
+            //obs.transform.SetParent(transform);
 
         }
     }

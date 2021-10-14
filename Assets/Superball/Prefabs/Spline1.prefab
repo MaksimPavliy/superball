@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes:
-  - position: {x: -1.21, y: 0, z: 1.330834}
-    direction: {x: -1.21, y: 0, z: 1.330834}
+  - position: {x: -1.21, y: 0, z: 1.28}
+    direction: {x: -1.21, y: 0, z: 1.28}
     up: {x: 0, y: 1, z: 0}
     scale: {x: 1, y: 1}
     roll: 0
@@ -66,15 +66,15 @@ MonoBehaviour:
     up: {x: 0, y: 1, z: 0}
     scale: {x: 1, y: 1}
     roll: 0
-  - position: {x: 1.21, y: 0, z: 1.35}
-    direction: {x: 1.21, y: 0, z: 1.35}
+  - position: {x: 1.21, y: 0, z: 1.28}
+    direction: {x: 1.21, y: 0, z: 1.28}
     up: {x: 0, y: 1, z: 0}
     scale: {x: 1, y: 1}
     roll: 0
   curves:
   - n1:
-      position: {x: -1.21, y: 0, z: 1.330834}
-      direction: {x: -1.21, y: 0, z: 1.330834}
+      position: {x: -1.21, y: 0, z: 1.28}
+      direction: {x: -1.21, y: 0, z: 1.28}
       up: {x: 0, y: 1, z: 0}
       scale: {x: 1, y: 1}
       roll: 0
@@ -124,15 +124,15 @@ MonoBehaviour:
       scale: {x: 1, y: 1}
       roll: 0
     n2:
-      position: {x: 1.21, y: 0, z: 1.35}
-      direction: {x: 1.21, y: 0, z: 1.35}
+      position: {x: 1.21, y: 0, z: 1.28}
+      direction: {x: 1.21, y: 0, z: 1.28}
       up: {x: 0, y: 1, z: 0}
       scale: {x: 1, y: 1}
       roll: 0
     Changed:
       m_PersistentCalls:
         m_Calls: []
-  Length: 6.6849675
+  Length: 6.8058014
   isLoop: 0
   CurveChanged:
     m_PersistentCalls:
@@ -608,6 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6853407477300124420}
+  - component: {fileID: -2538782317374449524}
   m_Layer: 0
   m_Name: Spline1
   m_TagString: Untagged
@@ -630,6 +631,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!210 &-2538782317374449524
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6853407477300124443}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 11
 --- !u!1 &6853407478028695104
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using FriendsGamesTools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,12 @@ namespace Superball
         private bool spawnedLeft;
         private bool spawnedRight;
         private bool spawnedTop;
-
+        private float rotationSpeed;
+        private float maxRotation = 60f;
         private void Start()
         {
             ObstacleGeneration.instance.AddObstacles(this.gameObject);
+            rotationSpeed = Utils.Random(-maxRotation, maxRotation);
 
             if (transform.position.x <= -GameSettings.instance.SpawnPos.x)
             {
@@ -52,6 +55,7 @@ namespace Superball
             {
                 BottomMovement();
             }
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
         }
 
         private void RightMovement()

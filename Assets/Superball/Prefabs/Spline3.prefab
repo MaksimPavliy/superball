@@ -868,6 +868,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8496857542267215802}
+  - component: {fileID: -8157597833483217055}
   m_Layer: 0
   m_Name: Spline3
   m_TagString: Untagged
@@ -890,6 +891,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!210 &-8157597833483217055
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496857542267215781}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 11
 --- !u!1 &8496857543517319934
 GameObject:
   m_ObjectHideFlags: 0
