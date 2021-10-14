@@ -12,20 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271691b0af84679488c6613ffc8af495, type: 3}
   m_Name: BuildModeSettings
   m_EditorClassIdentifier: 
-  _mode: 0
-  IOSEnabled: 1
+  _mode: 2
+  IOSEnabled: 0
   AndroidEnabled: 1
-  releaseErrors: 'SHARE:
-
-    ios game name not set
-
-    apple App Id not set
-
-
-    build
-    mode should be release
-
-'
+  releaseErrors: 
   configs:
   - howToApply: 2
     settingName: .gitignore
