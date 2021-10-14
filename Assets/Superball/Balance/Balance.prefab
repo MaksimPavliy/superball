@@ -321,6 +321,6 @@ MonoBehaviour:
   randomSpline: 1
   indexSpline: 0
   sensitivityTouch: 0.5
-  jumpsPerTheme: 10
+  jumpsPerTheme: 5
   obstacleBaseSpeed: 2.5
   obstacleSpawnDelay: 4.2
