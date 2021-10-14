@@ -15,7 +15,8 @@ namespace Superball
         private float counter;
         private IEnumerator _spawn;
         private List<GameObject> _objects = new List<GameObject>();
-
+        private float spawnDelay => SuperballGeneralConfig.instance.obstacleSpawnDelay;
+        private float delayDeviation = 0.1f;
         private float maxSpawnX = 3f;
         void Start()
         {
@@ -63,7 +64,7 @@ namespace Superball
 
         IEnumerator Spawn()
         {
-            for (; ; )
+            while (true)
             {
                 counter = Random.Range(0, 6);
                 if (counter != 2 && counter != 5)
@@ -75,10 +76,7 @@ namespace Superball
                 if (counter == 5f)
                     SideSpawn(9f, 6.5f);
 
-                //counter++;
-                //counter = counter >= 6 ? 0 : counter;
-
-                yield return new WaitForSeconds(4.2f);
+                yield return new WaitForSeconds(Utils.Random(1-delayDeviation,1+delayDeviation)*spawnDelay);
             }
         }
 

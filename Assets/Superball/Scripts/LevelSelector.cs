@@ -16,27 +16,35 @@ namespace Superball
 
         private void Update()
         {
-            ChangeBackground();
+         //   ChangeBackground();
         }
 
-        private void ChangeBackground()
+        public void OnThemeChanged(int index)
         {
+            counter = index % backgrounds.Length;
 
-            if (ball.jumpCounter % 3 != 0)
-            {
-                changed = false;
-            }
-
-            if (ball.jumpCounter % 3 == 0 && changed == false)
-            {
-                counter++;
-                counter = counter > backgrounds.Length - 1 ? 0 : counter;
-
-                changed = true;
-                Vector3 position = background?background.transform.position:Vector3.zero;
-                Destroy(background);
-                background = Instantiate(backgrounds[counter], position, Quaternion.identity);
-            }
+            Vector3 position = background ? background.transform.position : Vector3.zero;
+            Destroy(background);
+            background = Instantiate(backgrounds[counter], position, Quaternion.identity,transform.parent);
         }
+        //private void ChangeBackground()
+        //{
+
+        //    if (ball.jumpCounter % 3 != 0)
+        //    {
+        //        changed = false;
+        //    }
+
+        //    if (ball.jumpCounter % 3 == 0 && changed == false)
+        //    {
+        //        counter++;
+        //        counter = counter > backgrounds.Length - 1 ? 0 : counter;
+
+        //        changed = true;
+        //        Vector3 position = background?background.transform.position:Vector3.zero;
+        //        Destroy(background);
+        //        background = Instantiate(backgrounds[counter], position, Quaternion.identity);
+        //    }
+        //}
     }
 }

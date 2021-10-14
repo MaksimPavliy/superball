@@ -192,7 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e3511cff5b44a9280135bf89c8b477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWinMoney: 52
+  levelWinMoneyBase: 50
+  levelWinMoneyCoef: 0
 --- !u!1 &7470818063435640804
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,3 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraIndex: 0
+  randomSpline: 1
+  indexSpline: 0
+  sensitivityTouch: 0.5
+  jumpsPerTheme: 10
+  obstacleBaseSpeed: 2.5
+  obstacleSpawnDelay: 4.2

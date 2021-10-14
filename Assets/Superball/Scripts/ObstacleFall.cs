@@ -16,6 +16,9 @@ namespace Superball
         private void Start()
         {
             ObstacleGeneration.instance.AddObstacles(this.gameObject);
+            
+            fallSpeed = Utils.Random(0.8f, 1.2f) * SuperballGeneralConfig.instance.obstacleBaseSpeed;
+
             rotationSpeed = Utils.Random(-maxRotation, maxRotation);
 
             if (transform.position.x <= -GameSettings.instance.SpawnPos.x)

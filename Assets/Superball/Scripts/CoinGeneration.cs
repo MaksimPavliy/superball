@@ -24,6 +24,7 @@ namespace Superball
         {
             if (rb.velocity.y > 0 && collision.tag == "leftTube" || rb.velocity.y > 0 && collision.tag == "rightTube")
             {
+                coinAmount = PlayerPrefs.GetInt("Coins");
                 coinAmount = ball.jumpCounter % 5 == 0 ? coinAmount += 3 : coinAmount += 1;
                 PlayerPrefs.SetInt("Coins", coinAmount);
                 //text.text = coinAmount.ToString();

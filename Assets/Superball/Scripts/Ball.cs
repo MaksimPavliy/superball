@@ -28,8 +28,10 @@ namespace Superball
 
         /* private bool InTube => enteredRightTube && enteredLeftTube;*/
 
+        public event Action JumpSucceded;
         bool freeFlight = true;
         private Vector2 tempVelocity;
+
 
         private void Start()
         {
@@ -189,7 +191,8 @@ namespace Superball
             if (collision.CompareTag("leftTube") && _rigidbody.velocity.y > 0 || collision.CompareTag("rightTube") && _rigidbody.velocity.y > 0)
             {
                 //включаем свободный полёт только когда мячик уже покинул землю, чтобы не было повторных коллизий с трубой
-                jumpCounter++;
+                // jumpCounter++;
+                JumpSucceded?.Invoke();
                 freeFlight = true;
                 groundEdge.GetComponent<BoxCollider2D>().enabled = true;
             }
