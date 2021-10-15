@@ -106,6 +106,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _Color: {r: 0.79215693, g: 0.5176471, b: 0.5254902, a: 1}
+    - _Color: {r: 0.9528302, g: 0.6516999, b: 0.66030365, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
