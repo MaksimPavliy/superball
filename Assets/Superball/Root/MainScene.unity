@@ -914,6 +914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TinySauce
       objectReference: {fileID: 0}
+    - target: {fileID: 1384633641988006, guid: 0b960778462d34f7283156e4edafb7a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4464613669252742, guid: 0b960778462d34f7283156e4edafb7a2, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4513,7 +4517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 816.9012, y: -57.35}
+  m_AnchoredPosition: {x: 817.12866, y: -57.35}
   m_SizeDelta: {x: 1988.8, y: 114.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1595794717
@@ -6999,6 +7003,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 32.53589
       objectReference: {fileID: 0}
+    - target: {fileID: 4525741836608172227, guid: 22523beb7fe24e44b99f1ca003ef662c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -79.999985
+      objectReference: {fileID: 0}
     - target: {fileID: 4525741836938753147, guid: 22523beb7fe24e44b99f1ca003ef662c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7343,6 +7352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Balance
+      objectReference: {fileID: 0}
+    - target: {fileID: 5401722689640920027, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: jumpsPerTheme
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7470818063435640811, guid: ab99b666fd4860e4d93950d0d02e01ee,
         type: 3}
