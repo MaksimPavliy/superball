@@ -1,4 +1,5 @@
-﻿using SplineMesh;
+﻿using FriendsGamesTools;
+using SplineMesh;
 using Superball;
 using System;
 using System.Collections;
@@ -11,7 +12,8 @@ namespace Superball
     {
         [SerializeField] private GameObject groundEdge;
         [SerializeField] private ParticleSystem _deathParticles;
-        public Spline spline;
+        private Spline previousSpline;
+        public Spline currentSpline;
         private CurveSample sample;
         private Rigidbody2D _rigidbody;
         private Vector3 gForce = new Vector3(0f, 0f, 9.8f);
@@ -32,9 +34,13 @@ namespace Superball
         bool freeFlight = true;
         private Vector2 tempVelocity;
 
+        private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
+        private float _sensitivityTouch => _config.sensitivityTouch;
+        public float maxOffset = 5.4f;
 
         private void Start()
         {
+            Joystick.instance.Dragged += OnDragged;
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
             EventSignature();
@@ -43,7 +49,7 @@ namespace Superball
         private void EventSignature()
         {
             GameManager.instance.PlayPressed.AddListener(OnPlay);
-            GameManager.instance.LevelComplete.AddListener(LevelDone);
+            GameManager.instance.OnLevelLost.AddListener(LevelDone);
         }
 
         public void OnPlay()
@@ -64,7 +70,7 @@ namespace Superball
         {
             if (!GameManager.instance) return;
             GameManager.instance.PlayPressed.RemoveListener(OnPlay);
-            GameManager.instance.LevelComplete.RemoveListener(LevelDone);
+            GameManager.instance.OnLevelLost.RemoveListener(LevelDone);
         }
 
         private void Update()
@@ -73,7 +79,7 @@ namespace Superball
             if (enteredLeftTube || enteredRightTube)
             {
                 //берём семпл на заданной дистанции
-                sample = spline.GetSampleAtDistance(tubeDistance);
+                sample = currentSpline.GetSampleAtDistance(tubeDistance);
 
                 //двигаем мячик к заданному семплу
                 transform.localPosition = new Vector3(sample.location.x, -sample.location.z, transform.localPosition.z);
@@ -98,7 +104,7 @@ namespace Superball
                 tubeDistance += velocity.magnitude * Time.deltaTime * (enteredLeftTube ? 1 : -1);
 
                 //если дистанция выходит за границы сплайна, покидаем трубу
-                if (tubeDistance >= spline.Length || tubeDistance <= 0)
+                if (tubeDistance >= currentSpline.Length || tubeDistance <= 0)
                 {
                     ExitTube();
                 }
@@ -115,10 +121,11 @@ namespace Superball
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
-        {
+        {   
             if (collision.CompareTag("ground") && groundEdge.GetComponent<BoxCollider2D>().enabled == true)
             {
-                GameManager.instance.OnLevelComplete();
+                GameManager.instance.OnLose();
+                Joystick.instance.Dragged -= OnDragged;
             }
 
             if (collision.CompareTag("leftTube") && velocity.y < 0)
@@ -126,7 +133,7 @@ namespace Superball
                 //входим в трубу только если мы ещё не в ней
                 if (freeFlight)
                 {
-                    EnterTube();
+                    EnterTube(collision);
                     //при входе в левую трубу стартовая дистанция 0
                     tubeDistance = 0;
                     enteredLeftTube = true;
@@ -138,33 +145,48 @@ namespace Superball
                 //входим в трубу только если мы ещё не в ней
                 if (freeFlight)
                 {
-                    EnterTube();
+                    
+                    EnterTube(collision);
                     //при входе в правую трубу стартовая дистанция равна длине трубы
-                    tubeDistance = spline.Length - 0.01f;
+                    tubeDistance = currentSpline.Length - 0.01f;
                     enteredRightTube = true;
                 }
             }
 
             if (collision.CompareTag("obstacle") && GetComponent<CircleCollider2D>().transform.position.y > groundEdge.transform.position.y)
             {
-                GameManager.instance.OnLevelComplete();
+                GameManager.instance.OnLose();
+                Joystick.instance.Dragged -= OnDragged;
+            }
+        }
+
+        private void OnDragged(Vector2 dir)
+        {
+            if (!enteredLeftTube || !enteredRightTube)
+            {
+                var position = transform.position + Vector3.right * dir.x * _sensitivityTouch * Time.deltaTime;
+                /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
+                transform.position = position;
             }
         }
 
         //входим в трубу
-        private void EnterTube()
+        private void EnterTube(Collider2D collision)
         {
+            previousSpline = currentSpline;
+            currentSpline = collision.gameObject.GetComponentInParent<Spline>();
+
             //здесь можно было бы сразу определять, с какой стороны мы влетели в трубу, определив дистанцию ближайшего семпла
             //но для этого нужно немного подтюнить плагин, а нам это сейчас не надо.
-
             groundEdge.GetComponent<BoxCollider2D>().enabled = false;
 
             //костыль - скорость влёта в трубу определяем только в первый раз и используем её дальше для входа и для выхода
             //сделано это для того, чтобы избежать погрешностей, которые полюбому возникнут из-за того, что при входе и выходе
             //мячик никогда не будет чётко в одной и той же точке и скорость будет немного теряться
-            if (inVelocity == Vector3.zero)
+            if (previousSpline != currentSpline)
             {
-                inVelocity = _rigidbody.velocity;
+                inVelocity = new Vector3(0, -8, 0);
+
             }
             //начальная скорость, которую используем для движения по трубе
             velocity = inVelocity;
@@ -184,6 +206,7 @@ namespace Superball
 
             //на выходе из трубы снова включаем силы для ригидбоди и задаём начальную скорость, обратную скорости входа
             _rigidbody.isKinematic = false;
+            inVelocity += inVelocity * 0.2f;
             _rigidbody.velocity = -inVelocity;
         }
         private void OnTriggerExit2D(Collider2D collision)

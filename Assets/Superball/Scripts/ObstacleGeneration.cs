@@ -47,7 +47,7 @@ namespace Superball
 
         private void OnPlay()
         {
-            StartCoroutine(_spawn);
+            /*StartCoroutine(_spawn);*/
         }
 
         private void DoLose()

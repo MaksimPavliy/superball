@@ -113,7 +113,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pipe
       value: 
-      objectReference: {fileID: 6536019399915510665}
+      objectReference: {fileID: 0}
     - target: {fileID: 6481259711891889319, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
       propertyPath: speed
@@ -138,6 +138,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Level0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272116064466195401, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 8135953670887841388, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
         type: 3}
@@ -226,12 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f4b23fb8423644da12de1b2dfcfc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6536019399915510665 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3135187795268538011, guid: ab2e14aa0974d0e489de2c87b2d1ff32,
-    type: 3}
-  m_PrefabInstance: {fileID: 8157980125482816786}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &650531832199780147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8660933299386155553, guid: ab2e14aa0974d0e489de2c87b2d1ff32,

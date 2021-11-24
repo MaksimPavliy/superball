@@ -11,6 +11,7 @@ namespace Superball
     {
         [HideInInspector] public UnityEvent PlayPressed = new UnityEvent();
         [HideInInspector] public UnityEvent LevelComplete = new UnityEvent();
+        [HideInInspector] public UnityEvent OnLevelLost = new UnityEvent();
         [SerializeField] private Ball ball;
         [SerializeField] private LevelSelector selector;
         [SerializeField] private Pipe pipe;
@@ -31,7 +32,7 @@ namespace Superball
             float ratio = camera.aspect;
             float maxBounds = ratio * camera.orthographicSize;
             Debug.Log(maxBounds);
-            pipe.maxOffset = maxBounds*1.2f;
+            /*pipe.maxOffset = maxBounds*1.2f;*/
         }
         private void OnJumpSucceded()
         {
@@ -42,7 +43,7 @@ namespace Superball
                 {
                     themeIndex++;
                     selector.OnThemeChanged(themeIndex);
-                    pipe.OnThemeChanged(themeIndex);
+                    /*pipe.OnThemeChanged(themeIndex);*/
                 }
             }
             AddCoins();
@@ -60,10 +61,18 @@ namespace Superball
         }
         public void OnLevelComplete()
         {
-            GameRoot.instance.Get<SuperballLevelsController>().DoLose();
+            GameRoot.instance.Get<SuperballLevelsController>().DoWin();
             GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
             //FinishScore.instance.UpdateFinishScore();
             LevelComplete?.Invoke();
+            IsPlaying = false;
+        }
+
+        public void OnLose()
+        {
+            GameRoot.instance.Get<SuperballLevelsController>().DoLose();
+            GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
+            OnLevelLost?.Invoke();
             IsPlaying = false;
         }
 
