@@ -27,17 +27,20 @@ namespace Superball
 
         private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
         private bool _randomSpline => _config.randomSpline;
-        
 
+        private bool isRuntimeSpawn;
 
         private void Start()
         {
-            GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
-            /*counter = _config.indexSpline;*/
-            GameManager.instance.LevelComplete.AddListener(DoLose);
-            GetNewSplineNodes();
-            UpdatePipe(position);
-            /*Joystick.instance.Dragged += OnDragged;*/
+            if (!isRuntimeSpawn)
+            {
+                GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
+                /*counter = _config.indexSpline;*/
+                GameManager.instance.LevelComplete.AddListener(DoLose);
+                GetNewSplineNodes();
+                UpdatePipe(position);
+                /*Joystick.instance.Dragged += OnDragged;*/
+            }
         }
 
         private void ClearSpline()
@@ -70,6 +73,19 @@ namespace Superball
             pipe.position = position;
             UpdatePipe();
         }*/
+
+        public void Spawn(Vector3 position)
+        {
+            //GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
+            ///*counter = _config.indexSpline;*/
+            //GameManager.instance.LevelComplete.AddListener(DoLose);
+            //GetNewSplineNodes();
+
+            this.position = new Vector3(position.x, 0, -position.y);
+            //isRuntimeSpawn = true;
+
+            //UpdatePipe(position);
+        }
 
         private void UpdatePipe(Vector3 position)
         {
