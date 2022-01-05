@@ -118,6 +118,13 @@ namespace Superball
         private void FixedUpdate()
         {
             tempVelocity = _rigidbody.velocity;
+            
+            if (!enteredLeftTube || !enteredRightTube)
+            {
+                var position = transform.position + Vector3.right * Joystick.instance.dragDir.x * _sensitivityTouch * Time.deltaTime*20f;
+                /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
+                transform.position = position;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -162,12 +169,12 @@ namespace Superball
 
         private void OnDragged(Vector2 dir)
         {
-            if (!enteredLeftTube || !enteredRightTube)
-            {
-                var position = transform.position + Vector3.right * dir.x * _sensitivityTouch * Time.deltaTime;
-                /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
-                transform.position = position;
-            }
+            //if (!enteredLeftTube || !enteredRightTube)
+            //{
+            //    var position = transform.position + Vector3.right * dir.x * _sensitivityTouch * Time.deltaTime;
+            //    /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
+            //    transform.position = position;
+            //}
         }
 
         //входим в трубу
