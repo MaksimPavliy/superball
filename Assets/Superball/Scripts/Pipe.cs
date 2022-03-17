@@ -1,160 +1,67 @@
-using FriendsGamesTools;
 using SplineMesh;
-using Superball;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Superball
 {
-
     public class Pipe : MonoBehaviour
     {
         public Ball ball;
 
-        [SerializeField] private Transform leftTube;
-        [SerializeField] private Transform rightTube;
-        [SerializeField] private Vector3 position;
+        [SerializeField] private PipeEntrance[] entrances;
 
-        private SplineNode[] nodes;
-        private Vector3[] nodesStartingPosition;
-        private Vector3[] nodeStartingDirection;
+        [SerializeField] private Vector3 position;
         private GameObject currentSpline;
         [SerializeField] private Material[] materials;
+        [SerializeField] private Spline _spline;
         private int counter;
 
         private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
-        private bool _randomSpline => _config.randomSpline;
 
-        private bool isRuntimeSpawn;
+        public CurveSample GetSampleAtDistance(float distance)=>_spline.GetSampleAtDistance(distance);
+        public Vector3 GetSampleWorldPosition(CurveSample sample) =>transform.TransformPoint(sample.location);
+        public Vector3 GetSampleWorldDirection(CurveSample sample) => transform.TransformDirection(sample.tangent.normalized);
+        public float Length=>_spline.Length;
 
-        private void Start()
+        public void HideEntrance()
         {
-            if (!isRuntimeSpawn)
+            foreach (var item in entrances)
             {
-                GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
-                /*counter = _config.indexSpline;*/
-                GameManager.instance.LevelComplete.AddListener(DoLose);
-                GetNewSplineNodes();
-                UpdatePipe(position);
-                /*Joystick.instance.Dragged += OnDragged;*/
+
             }
         }
 
+        public void ShowEntrance(float delay = 0)
+        {
+
+        }
+    
+        private void Start()
+        {
+            GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
+            /*counter = _config.indexSpline;*/
+            /*Joystick.instance.Dragged += OnDragged;*/
+        }
+
+        private void OnValidate()
+        {
+            if (_spline == null) _spline = GetComponentInChildren<Spline>();
+
+        }
         private void ClearSpline()
         {
             Destroy(currentSpline, 1f);
         }
-
-        private void DoLose()
-        {
-           /* Joystick.instance.Dragged -= OnDragged;*/
-        }
-
-        /*private void OnDestroy()
-        {
-            Joystick.instance.Dragged -= OnDragged;
-            if (!GameManager.instance) return;
-            GameManager.instance.LevelComplete.RemoveListener(ClearSpline);
-        }*/
-
         private void Update()
         {
-           /* if (!_randomSpline) return;*/
-         //   ChangePipe();
         }
-
-        /*private void OnDragged(Vector2 dir)
-        {
-            var position = pipe.position + Vector3.right*dir.x * _sensitivityTouch*Time.deltaTime;
-            position.x= Mathf.Clamp(position.x, -maxOffset/2f, maxOffset/2f);
-            pipe.position = position;
-            UpdatePipe();
-        }*/
 
         public void Spawn(Vector3 position)
         {
-            //GetComponentInChildren<SplineMeshTiling>().material = materials[Random.Range(0, materials.Length)];
-            ///*counter = _config.indexSpline;*/
-            //GameManager.instance.LevelComplete.AddListener(DoLose);
-            //GetNewSplineNodes();
+            transform.position = new Vector3(position.x, 0, -position.y);
 
-            this.position = new Vector3(position.x, 0, -position.y);
-            //isRuntimeSpawn = true;
-
-            //UpdatePipe(position);
         }
 
-        private void UpdatePipe(Vector3 position)
-        {
-            leftTube.position += new Vector3(position.x, -position.z, leftTube.position.z);
-            rightTube.position += new Vector3(position.x, -position.z, leftTube.position.z);
-
-            for (int i = 0; i < nodes.Length; i++)
-            {
-                nodes[i].Position = position + new Vector3(nodesStartingPosition[i].x, nodesStartingPosition[i].y, nodesStartingPosition[i].z);
-                nodes[i].Direction = position + new Vector3(nodeStartingDirection[i].x, nodeStartingDirection[i].y, nodeStartingDirection[i].z);
-            }
-        }
-
-        /* public void GeneratePipe()
-         {
-             currentSpline = Instantiate(splines[counter], new Vector3(0f, 0f, 0f), Quaternion.Euler(90f, 0f, 0f),transform.parent);
-             ball.spline = currentSpline.GetComponentInChildren<Spline>();
-
-             GetNewSplineNodes();
-         }*/
-
-        /*public void OnThemeChanged(int index)
-        {
-            counter = index % materials.Length;// counter > splines.Length - 1 ? 0 : counter;
-            Destroy(currentSpline);
-
-            var prefab = Utils.RandomElement(splines);
-            currentSpline = Instantiate(prefab, new Vector3(0f, prefab.transform.position.y, 0f), Quaternion.Euler(90f, 0f, 0f), transform.parent);
-            currentSpline.GetComponentInChildren<SplineMeshTiling>().material = materials[counter];
-
-            ball.spline = currentSpline.GetComponentInChildren<Spline>();
-
-            GetNewSplineNodes();
-            UpdatePipe();
-        }*/
-        //public void ChangePipe()
-        //{
-        //    if (ball.jumpCounter % 3 != 0)
-        //    {
-        //        changed = false;
-        //    }
-
-        //    if (ball.jumpCounter % 3 == 0 && changed == false)
-        //    {
-        //        counter++;
-        //        counter = counter > splines.Length - 1 ? 0 : counter;
-        //        changed = true;
-
-        //        Destroy(currentSpline);
-
-        //        currentSpline = Instantiate(splines[counter], new Vector3(0f, splines[counter].transform.position.y, 0f), Quaternion.Euler(90f, 0f, 0f));
-        //        ball.spline = currentSpline.GetComponentInChildren<Spline>();
-
-        //        GetNewSplineNodes();
-        //    }
-        //}
-
-        private void GetNewSplineNodes()
-        {
-            nodes = GetComponentInChildren<Spline>().nodes.ToArray();
-
-            nodesStartingPosition = new Vector3[nodes.Length];
-            nodeStartingDirection = new Vector3[nodes.Length];
-
-            for (int i = 0; i < nodes.Length; i++)
-            {
-                nodesStartingPosition[i] = nodes[i].Position;
-                nodeStartingDirection[i] = nodes[i].Direction;
-            }
-        }
+       
     }
-}   
+}

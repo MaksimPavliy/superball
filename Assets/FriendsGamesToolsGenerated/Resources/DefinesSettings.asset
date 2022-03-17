@@ -21,7 +21,6 @@ MonoBehaviour:
   - ECS_SKINS
   - UI
   - BUILD_MODES
-  - VS_ATT
   - ECS_LEVEL_BASED
   - PUSH_WRAPPER
   - DEBUG_CONFIG

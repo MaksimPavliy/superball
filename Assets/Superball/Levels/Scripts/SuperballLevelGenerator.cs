@@ -28,19 +28,19 @@ namespace Superball
 
         private void SpawnPipes()
         {
-            int pipeCount = levelConfig.GetPipesCount();
-            Pipe pipePrefab = null;
+            //int pipeCount = levelConfig.GetPipesCount();
+            //Pipe pipePrefab = null;
 
-            for (int i = 0; i < pipeCount; i++)
-            {
-                // Берём рандомный префаб, исключая последний установленый, либо можно просто pipePrefabs[Random.Range(0, pipePrefabs.Count)]
-                pipePrefab = pipePrefabs.Where(p => p != pipePrefab).OrderBy(p => Random.value).First();
-                Vector3 pos = new Vector2(levelConfig.pipesStartSpawnFrom + i * levelConfig.metersPerPipe + Random.Range(-levelConfig.metersPerPipeThreshold, levelConfig.metersPerPipeThreshold),
-                    Random.Range(levelConfig.bottomBound + pipeSize.y * 0.5f, levelConfig.topBound - pipeSize.y * 0.5f));
+            //for (int i = 0; i < pipeCount; i++)
+            //{
+            //    // Берём рандомный префаб, исключая последний установленый, либо можно просто pipePrefabs[Random.Range(0, pipePrefabs.Count)]
+            //    pipePrefab = pipePrefabs.Where(p => p != pipePrefab).OrderBy(p => Random.value).First();
+            //    Vector3 pos = new Vector2(levelConfig.pipesStartSpawnFrom + i * levelConfig.metersPerPipe + Random.Range(-levelConfig.metersPerPipeThreshold, levelConfig.metersPerPipeThreshold),
+            //        Random.Range(levelConfig.bottomBound + pipeSize.y * 0.5f, levelConfig.topBound - pipeSize.y * 0.5f));
 
-                Pipe pipe = Instantiate(pipePrefab, transform);
-                pipe.Spawn(pos);
-            }
+            //    Pipe pipe = Instantiate(pipePrefab, transform);
+            //    pipe.Spawn(pos);
+            //}
         }
 
         private void SpawnObstacles()

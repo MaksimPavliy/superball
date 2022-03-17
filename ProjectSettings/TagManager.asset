@@ -9,6 +9,7 @@ TagManager:
   - rightTube
   - leftTube
   - obstacle
+  - pipeEntrance
   layers:
   - Default
   - TransparentFX
