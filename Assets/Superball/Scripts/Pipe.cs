@@ -19,8 +19,8 @@ namespace Superball
         private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
 
         public CurveSample GetSampleAtDistance(float distance)=>_spline.GetSampleAtDistance(distance);
-        public Vector3 GetSampleWorldPosition(CurveSample sample) =>transform.TransformPoint(sample.location);
-        public Vector3 GetSampleWorldDirection(CurveSample sample) => transform.TransformDirection(sample.tangent.normalized);
+        public Vector3 GetSampleWorldPosition(CurveSample sample) => _spline.transform.TransformPoint(sample.location);
+        public Vector3 GetSampleWorldDirection(CurveSample sample) => _spline.transform.TransformDirection(sample.tangent.normalized);
         public float Length=>_spline.Length;
 
         public void HideEntrance()
@@ -58,7 +58,7 @@ namespace Superball
 
         public void Spawn(Vector3 position)
         {
-            transform.position = new Vector3(position.x, 0, -position.y);
+            transform.position = new Vector3(position.x,position.y);
 
         }
 

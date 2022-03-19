@@ -15,9 +15,7 @@ MonoBehaviour:
   _mode: 2
   IOSEnabled: 0
   AndroidEnabled: 1
-  releaseErrors: 'FGT updates to modules GDPR should be completed
-
-'
+  releaseErrors: 
   configs:
   - howToApply: 2
     settingName: .gitignore

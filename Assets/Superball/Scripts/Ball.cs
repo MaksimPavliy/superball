@@ -1,4 +1,5 @@
 ﻿using FriendsGamesTools;
+using HcUtils;
 using SplineMesh;
 using Superball;
 using System;
@@ -8,7 +9,14 @@ using UnityEngine;
 
 namespace Superball
 {
-    public class Ball : MonoBehaviour
+    public enum BallState
+    {
+        FreeFlight,
+        EnteringPipe,
+        InPipe,
+        LeavingPipe
+    }
+    public class Ball : MonoBehaviour, IControllable
     {
         [SerializeField] private GameObject groundEdge;
         [SerializeField] private ParticleSystem _deathParticles;
@@ -17,18 +25,20 @@ namespace Superball
         private CurveSample sample;
         private Rigidbody2D _rigidbody;
         private Vector3 gForce = new Vector3(0f, 0f, 9.8f);
-        private bool _inTube = false;
+        private bool InPipe=>State==BallState.InPipe;
+        private bool FreeFlight => State == BallState.FreeFlight;
         private Vector3 velocity;
         private Vector3 inVelocity;
         private Vector3 _localGravity;
-
+        public BallState State { private set; get; } = BallState.FreeFlight;
         private float _tubeDistance;
-
+        private CircleCollider2D _collider;
         public int jumpCounter;
 
         /* private bool InTube => enteredRightTube && enteredLeftTube;*/
 
         public event Action JumpSucceded;
+        public event Action<bool> CanControlChanged;
 
         private Vector2 tempVelocity;
 
@@ -39,8 +49,14 @@ namespace Superball
         private float _tubeSpeed;
 
         private bool _touchingTheEntrance = false;
+        private float _minAcceleration;
+        private float _maxAcceleration;
+        private float _minPipeVelocity = 8f;
+        bool _dragged = false;
+
         private void Start()
         {
+            _collider=GetComponent<CircleCollider2D>();
             Joystick.instance.Dragged += OnDragged;
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
@@ -76,87 +92,135 @@ namespace Superball
 
         private void Update()
         {
-            //вручную обрабатываем движение, если мячик находится внутри трубы
-            if (_inTube)
+
+            _touchingTheEntrance = false;
+
+            if (FreeFlight)
             {
-                //берём семпл на заданной дистанции
-                sample = currentPipe.GetSampleAtDistance(_tubeDistance);
-
-                var sampleWorldPosition=currentPipe.GetSampleWorldPosition(sample);
-                var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample);
-                //двигаем мячик к заданному семплу
-                transform.position = sampleWorldPosition;
-
-                //находим вектор направления движения в текущем семпле
-                var direction = sampleWorldDirection;
-
-                //вычисляем ускорение, как проекцию силы тяжести на направление движения
-                //  var acceleration = Vector3.Project(gForce, direction).z;
-                //TODO make length dependency;
-
-                var acceleration = Vector3.Project(_localGravity, direction);
-
-                //   acceleration = _localGravity* _tubeMoveDirectionSign *(_tubeDistance>=currentPipe.Length/2f?1:-1);
-                // acceleration *= (_tubeDistance >= currentPipe.Length / 2f ? 1 : -1);
-                //if (_tuveMoveDirectionSign>1)
-                //    acceleration = direction.z > 0 ? -acceleration : acceleration;
-
-                //else
-                //    acceleration = direction.z > 0 ? acceleration : -acceleration;
-
-                //изменяем скорость, используя ускорение
-                //     velocity += new Vector3(0f, acceleration * Time.deltaTime, 0f);
-                velocity += acceleration * Time.deltaTime;// new Vector3(0f, acceleration * Time.deltaTime, 0f);
-                Debug.Log($"{acceleration} {velocity}");
-              //  velocity = direction * _tubeSpeed;
-                //определяем дистанцию для вычислеия следующего семпла
-                //приплюсовываем если влетел слева и отнимаем, если влетел справа
-                _tubeDistance += velocity.magnitude * Time.deltaTime * _tubeMoveDirectionSign;
-                _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
-                //если дистанция выходит за границы сплайна, покидаем трубу
-                if (_tubeDistance >= currentPipe.Length || _tubeDistance <= 0)
+                // var position = transform.position + Vector3.right * Joystick.instance.dragDir.x * _sensitivityTouch * Time.deltaTime * 20f;
+                if (_dragged)
                 {
-                    ExitTube();
+                    var velocity = _rigidbody.velocity;
+                    velocity.x = Joystick.instance.dragDir.x * _sensitivityTouch * 20f;
+                    _rigidbody.velocity = velocity;
                 }
             }
-            else
+
+            Vector3 sampleWorldPosition;
+            Vector3 sampleWorldDirection;
+            float distanceThreshold = 0;
+            switch (State)
             {
-                velocity = _rigidbody.velocity;
+                case BallState.FreeFlight:
+                    break;
+                case BallState.EnteringPipe:
+                    sample = currentPipe.GetSampleAtDistance(_tubeDistance);
+                    sampleWorldPosition = currentPipe.GetSampleWorldPosition(sample);
+
+                    float delta = inVelocity.magnitude * Time.deltaTime;
+                    float distance = Vector3.Distance(transform.position, sampleWorldPosition);
+                    distanceThreshold = delta - distance;
+                    transform.position = Vector3.MoveTowards(transform.position, sampleWorldPosition, delta);
+
+                    if (Vector3.Distance(transform.position,sampleWorldPosition) == 0)
+                    {
+                        State = BallState.InPipe;
+                        _tubeDistance =_tubeMoveDirectionSign>0? distanceThreshold:(currentPipe.Length-distanceThreshold);
+                     //   goto case BallState.InPipe;
+                    }
+                    break;
+                case BallState.InPipe:
+                    sample = currentPipe.GetSampleAtDistance(_tubeDistance);
+
+                    sampleWorldPosition = currentPipe.GetSampleWorldPosition(sample);
+                    sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample);
+        
+                    transform.position = sampleWorldPosition;
+
+                    var direction = sampleWorldDirection.normalized;
+
+                    float accelerationValue = 0;
+                    float currAcceleration = 0;
+                    Vector3 acceleration;
+
+                    if (_tubeDistance < (currentPipe.Length / 2f))
+                    {
+                        accelerationValue = _tubeDistance / (currentPipe.Length / 2f);
+                        currAcceleration = Mathf.Lerp(_minAcceleration, _maxAcceleration, _tubeMoveDirectionSign > 0 ? accelerationValue : (1 - accelerationValue));
+                    }
+                    else
+                    {
+                        accelerationValue = (_tubeDistance - currentPipe.Length / 2f) / (currentPipe.Length / 2f);
+                        currAcceleration = Mathf.Lerp(_minAcceleration, _maxAcceleration, _tubeMoveDirectionSign > 0 ? (1 - accelerationValue) : accelerationValue);
+                    }
+                  //  Debug.Log(accelerationValue);
+
+                    acceleration = direction * currAcceleration * _tubeMoveDirectionSign;
+
+               //     Debug.Log($"acceleration:{acceleration} velocity:{velocity}");
+
+                    _tubeDistance += velocity.magnitude * Time.deltaTime * _tubeMoveDirectionSign;
+                    _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
+
+                    if (_tubeDistance >= currentPipe.Length || _tubeDistance <= 0)
+                    {
+                        ExitPipe();
+                    }
+                    break;
+                case BallState.LeavingPipe:
+                    if (!CheckPipeEntrance())
+                    {
+                        State = BallState.FreeFlight;
+                        currentPipe = null;
+                      
+                    }
+                    break;
+                default:
+                    velocity = _rigidbody.velocity;
+                    break;
             }
+
         }
 
         private void FixedUpdate()
         {
-            _touchingTheEntrance = false;
-               tempVelocity = _rigidbody.velocity;
-            
-            if (!_inTube)
-            {
-                var position = transform.position + Vector3.right * Joystick.instance.dragDir.x * _sensitivityTouch * Time.deltaTime*20f;
-                /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
-                transform.position = position;
-            }
+            tempVelocity = _rigidbody.velocity;
+
+          
         }
 
+        private bool CheckPipeEntrance()
+        {
+            var colliders=Physics2D.OverlapCircleAll(transform.position, _collider.radius);
+            foreach (var col in colliders)
+            {
+                if (col.CompareTag("pipeEntrance"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.CompareTag("pipeEntrance"))
-            {
-                _touchingTheEntrance = true;
-            }
+            //if (collision.CompareTag("pipeEntrance"))
+            //{
+            //    _touchingTheEntrance = true;
+            //}
         }
       
         private void OnTriggerEnter2D(Collider2D collision)
-        {   
+        {
             //if (collision.CompareTag("ground") && groundEdge.GetComponent<BoxCollider2D>().enabled == true)
             //{
             //    GameManager.instance.OnLose();
             //    Joystick.instance.Dragged -= OnDragged;
             //}
 
+            Debug.Log("Collision");
             if (collision.CompareTag("pipeEntrance"))// && velocity.y < 0)
             {
-                if (!currentPipe)
+                if (FreeFlight)
                 {
                     //входим в трубу только если мы ещё не в ней
                     EnterTube(collision);
@@ -164,97 +228,82 @@ namespace Superball
 
                 }
             }
-
-            //if (collision.CompareTag("rightTube") && velocity.y < 0)
-            //{
-            //    //входим в трубу только если мы ещё не в ней
-            //    if (freeFlight)
-            //    {
-                    
-            //        EnterTube(collision);
-            //        //при входе в правую трубу стартовая дистанция равна длине трубы
-            //        tubeDistance = currentPipe.Length - 0.01f;
-                   
-            //    }
-            //}
-
-            if (collision.CompareTag("obstacle") && GetComponent<CircleCollider2D>().transform.position.y > groundEdge.transform.position.y)
+            if (collision.CompareTag("obstacle"))
             {
                 GameManager.instance.OnLose();
+                OnDragEnded();
                 Joystick.instance.Dragged -= OnDragged;
             }
         }
 
-        private void OnDragged(Vector2 dir)
+        public void OnDragged(Vector2 dir)
         {
-            //if (!enteredLeftTube || !enteredRightTube)
-            //{
-            //    var position = transform.position + Vector3.right * dir.x * _sensitivityTouch * Time.deltaTime;
-            //    /*position.x = Mathf.Clamp(position.x, -maxOffset * 1.5f, maxOffset * 1.5f);*/
-            //    transform.position = position;
-            //}
+            _dragged = true;
         }
 
-        //входим в трубу
         private void EnterTube(Collider2D collision)
         {
-            var pipeEntrance=collision.gameObject.GetComponent<PipeEntrance>();
+          
+             State = BallState.EnteringPipe;
+
+             var pipeEntrance=collision.gameObject.GetComponent<PipeEntrance>();
             _localGravity = _rigidbody.velocity.normalized * gForce.magnitude;
 
-            previousPipe = currentPipe;
             currentPipe = pipeEntrance.Pipe;
             _tubeMoveDirectionSign = pipeEntrance.DirectionSign;
-            _inTube = true;
             _tubeDistance = _tubeMoveDirectionSign > 0 ? 0 : currentPipe.Length;
-            //здесь можно было бы сразу определять, с какой стороны мы влетели в трубу, определив дистанцию ближайшего семпла
-            //но для этого нужно немного подтюнить плагин, а нам это сейчас не надо.
+
             groundEdge.GetComponent<BoxCollider2D>().enabled = false;
             _tubeSpeed = _rigidbody.velocity.magnitude;
 
-            //костыль - скорость влёта в трубу определяем только в первый раз и используем её дальше для входа и для выхода
-            //сделано это для того, чтобы избежать погрешностей, которые полюбому возникнут из-за того, что при входе и выходе
-            //мячик никогда не будет чётко в одной и той же точке и скорость будет немного теряться
-            //if (previousPipe != currentPipe)
-            //{
-            //    inVelocity = new Vector3(0, -8, 0);
 
-            //}
-            //начальная скорость, которую используем для движения по трубе
-          //  inVelocity = new Vector3(0, -8, 0);
-            velocity = _rigidbody.velocity;
+            sample = currentPipe.GetSampleAtDistance(_tubeDistance);
+          
 
+            var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized* _tubeMoveDirectionSign;
+            var velocityModule = _rigidbody.velocity.magnitude;
+            if (velocityModule < _minPipeVelocity) velocityModule =  _minPipeVelocity;
+            velocity = sampleWorldDirection * velocityModule;
+            inVelocity = velocity;
+            _minAcceleration = velocity.magnitude;
+            _maxAcceleration = _minAcceleration * 1.5f;
+            Debug.Log($"TUBE START; velocity:{velocity}; _minAcceleration: {_minAcceleration}; _maxAcceleration: {_maxAcceleration}");
             //во время движения по труде нам не нужно влияние физики на мячик
-            _rigidbody.isKinematic = true;
+            _rigidbody.simulated = false;
 
             ScoreManager.instance.UpdateScore();
         }
-        IEnumerator AwaitLeavingPipe()
-        {
-            yield return new WaitUntil(() => !_touchingTheEntrance);
-            Debug.Log("LEaving Pipe");
-            currentPipe = null;
-        }
         //выход из трубы
-        private void ExitTube()
+        private void ExitPipe()
         {
-            _inTube = false;
-
+            OnDragEnded();
+            State = BallState.LeavingPipe;
+            _touchingTheEntrance = true;
+            Debug.Log("Leave pipe");
             //на выходе из трубы снова включаем силы для ригидбоди и задаём начальную скорость, обратную скорости входа
-            _rigidbody.isKinematic = false;
+            _rigidbody.simulated = true;
             //   inVelocity += inVelocity * 0.2f;
-            _rigidbody.velocity = velocity * _tubeMoveDirectionSign * 1.1f;
-            StartCoroutine(AwaitLeavingPipe());
+
+            sample = currentPipe.GetSampleAtDistance(_tubeDistance);
+
+            var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized;
+            // velocity = sampleWorldDirection * _rigidbody.velocity.magnitude;
+            var outVelocity = _tubeMoveDirectionSign * 1.05f * inVelocity.magnitude * sampleWorldDirection;
+            if (currentPipe == previousPipe)
+            {
+                outVelocity *= 1.2f;
+            }
+            _rigidbody.velocity = outVelocity;
+
+            previousPipe = currentPipe;
+            Joystick.instance.ResetDrag();
+
+            //  StartCoroutine(AwaitLeavingPipe());
         }
-        private void OnTriggerExit2D(Collider2D collision)
+
+        public void OnDragEnded()
         {
-            //if (collision.CompareTag("pipeEntrance") && _rigidbody.velocity.y > 0)
-            //{
-            //    //включаем свободный полёт только когда мячик уже покинул землю, чтобы не было повторных коллизий с трубой
-            //    // jumpCounter++;
-            //    JumpSucceded?.Invoke();
-            //    freeFlight = true;
-            //    groundEdge.GetComponent<BoxCollider2D>().enabled = true;
-            //}
+            _dragged = false;
         }
     }
 }

@@ -1,6 +1,7 @@
 using FriendsGamesTools;
 using FriendsGamesTools.ECSGame;
 using FriendsGamesTools.ECSGame.Player.Money;
+using HcUtils;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -70,6 +71,7 @@ namespace Superball
 
         public void OnLose()
         {
+            CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoLose();
             GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
             OnLevelLost?.Invoke();
