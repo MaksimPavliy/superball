@@ -42,11 +42,12 @@ namespace Superball
         /// </summary>
         public float metersPerPipeThreshold = 3;
 
-        private int GetLevelIndex()
+        public int GetLevelIndex()
         {
             return SuperballRoot.instance.Get<SuperballLevelsController>().currLocationInd;
         }
 
+      
         public float GetLevelLength()
         {
             int levelIndex = GetLevelIndex();

@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 3270919078540449004}
   - component: {fileID: 1227885132793870547}
   - component: {fileID: 1752533271921493988}
-  - component: {fileID: 2769464528260219760}
   m_Layer: 0
   m_Name: BaseLevel
   m_TagString: Untagged
@@ -116,19 +115,6 @@ MonoBehaviour:
   selector: {fileID: 6030521224689950062}
   pipe: {fileID: 0}
   camera: {fileID: 1332746260841485511}
---- !u!114 &2769464528260219760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602628528176895940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: add622a55bdc41646aa69b13d4d90383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingLevelNode: {fileID: 0}
 --- !u!1 &723735128778518156
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,13 +960,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 6898406803026256586}
   entrances: []
-  position: {x: 0, y: 0, z: 0}
   materials:
   - {fileID: 2100000, guid: 5d55392e27414d8429cd0dcd240687ee, type: 2}
   - {fileID: 2100000, guid: 6f33a7a94c386ab449f62f3d2abc2f5a, type: 2}
   - {fileID: 2100000, guid: 191fb285ffafd584eb5a6f2f7c7b8685, type: 2}
   - {fileID: 2100000, guid: 7bbd402f1eedb324d90ec12478d95629, type: 2}
   _spline: {fileID: 0}
+  _bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!1 &3888359679576585109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,13 +1218,20 @@ MonoBehaviour:
   - {fileID: 2728492035411423637, guid: b9be5232c5a26434a8b7a85d0c7d4c67, type: 3}
   - {fileID: 2728492035411423637, guid: 28de0b74791a48048933d01cb41ee669, type: 3}
   - {fileID: 2728492035411423637, guid: 93dea4786c48204419a0e0d52af8620a, type: 3}
-  pipeSize: {x: 4, y: 4}
+  _pipesParent: {fileID: 5906358770753232963}
   finishPrefab: {fileID: 3422175729283049719, guid: fdb6a3e63f331224d89184bf06d4219f,
     type: 3}
   _groundSprite: {fileID: 8657752481151329097}
   _groundSpikes: {fileID: 764282835856876907}
-  _layerHillsPrefabs: []
-  _layerParents: []
+  _coinPrefab: {fileID: 243663674345548236, guid: 09723d422c2bc334090a6af3b6b5793a,
+    type: 3}
+  _obstaclePrefabs:
+  - {fileID: 2862043563397807664, guid: 38399fb73e336714cb45587a5b0e1eee, type: 3}
+  - {fileID: 8866818821485174940, guid: e0fe78ed0a8dbc14f9535c52d24964a2, type: 3}
+  - {fileID: 5680680996311660779, guid: 6a6ab3f75ba24594484ecc2a6c6b4769, type: 3}
+  - {fileID: 515227648248434830, guid: acb358d862fc6134f90b342f488d8b39, type: 3}
+  - {fileID: 1890105061272754598, guid: f33e2e8d24689e043b88fd7bd59df4c6, type: 3}
+  - {fileID: 3216353793120015564, guid: c7b1baccdb7fa844fb21048142f23f7b, type: 3}
 --- !u!1 &4485163813840755924
 GameObject:
   m_ObjectHideFlags: 0

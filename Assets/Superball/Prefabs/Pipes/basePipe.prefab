@@ -233,14 +233,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 0}
-  entrances: []
-  position: {x: 1, y: 0, z: -11}
+  entrances:
+  - {fileID: 7173290558306047422}
+  - {fileID: 1813982140925384714}
   materials:
   - {fileID: 2100000, guid: 5d55392e27414d8429cd0dcd240687ee, type: 2}
   - {fileID: 2100000, guid: 6f33a7a94c386ab449f62f3d2abc2f5a, type: 2}
   - {fileID: 2100000, guid: 191fb285ffafd584eb5a6f2f7c7b8685, type: 2}
   - {fileID: 2100000, guid: 7bbd402f1eedb324d90ec12478d95629, type: 2}
   _spline: {fileID: 0}
+  _bounds:
+    serializedVersion: 2
+    x: -1
+    y: -0.5
+    width: 2
+    height: 2.34
 --- !u!1 &7168615216459574195
 GameObject:
   m_ObjectHideFlags: 0

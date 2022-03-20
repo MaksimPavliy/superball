@@ -104,6 +104,9 @@ namespace Superball
                     velocity.x = Joystick.instance.dragDir.x * _sensitivityTouch * 20f;
                     _rigidbody.velocity = velocity;
                 }
+                //var velocity = _rigidbody.velocity;
+                //velocity.x = Joystick.instance.dragDir.x * _sensitivityTouch * 20f;
+                //_rigidbody.velocity = velocity;
             }
 
             Vector3 sampleWorldPosition;
@@ -227,13 +230,21 @@ namespace Superball
                     //при входе в левую трубу стартовая дистанция 0
 
                 }
-            }
-            if (collision.CompareTag("obstacle"))
+            } else if (collision.CompareTag("obstacle"))
             {
                 GameManager.instance.OnLose();
                 OnDragEnded();
                 Joystick.instance.Dragged -= OnDragged;
             }
+            else if (collision.CompareTag("coin"))
+            {
+               var coin=collision.GetComponent<Coin>();
+                if (coin.Collect())
+                {
+
+                }
+            }
+           
         }
 
         public void OnDragged(Vector2 dir)
@@ -291,7 +302,7 @@ namespace Superball
             var outVelocity = _tubeMoveDirectionSign * 1.05f * inVelocity.magnitude * sampleWorldDirection;
             if (currentPipe == previousPipe)
             {
-                outVelocity *= 1.2f;
+                outVelocity *= 1.18f;
             }
             _rigidbody.velocity = outVelocity;
 

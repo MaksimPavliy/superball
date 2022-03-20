@@ -1424,6 +1424,26 @@ PrefabInstance:
       propertyPath: _spline
       value: 
       objectReference: {fileID: 1397856906591761229}
+    - target: {fileID: 5085260254409715842, guid: a99c01a262d43d647946ed3bd9457398,
+        type: 3}
+      propertyPath: _bounds.x
+      value: -1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085260254409715842, guid: a99c01a262d43d647946ed3bd9457398,
+        type: 3}
+      propertyPath: _bounds.y
+      value: -1.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085260254409715842, guid: a99c01a262d43d647946ed3bd9457398,
+        type: 3}
+      propertyPath: _bounds.width
+      value: 3.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085260254409715842, guid: a99c01a262d43d647946ed3bd9457398,
+        type: 3}
+      propertyPath: _bounds.height
+      value: 3.38
+      objectReference: {fileID: 0}
     - target: {fileID: 5743452732506634440, guid: a99c01a262d43d647946ed3bd9457398,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 783133844011094713}
   - component: {fileID: 7889543720833671852}
+  - component: {fileID: 4820270411010534053}
   m_Layer: 0
   m_Name: obs_base
   m_TagString: obstacle
@@ -44,6 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac0aa27d3f3b7042aa11601de318c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4820270411010534053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138475126967270821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1b5381131e9204a930fd23a84b889e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _patrolOffset: {x: 0, y: 3, z: 0}
+  _speed: 1
 --- !u!1 &9200967028648981404
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ TagManager:
   - leftTube
   - obstacle
   - pipeEntrance
+  - tubeEntrance
+  - coin
   layers:
   - Default
   - TransparentFX

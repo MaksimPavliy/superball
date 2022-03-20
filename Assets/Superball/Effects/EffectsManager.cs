@@ -45,9 +45,14 @@ public class EffectsList
 public class EffectsManager : MonoBehaviourHasInstance<EffectsManager>
 {
     [SerializeField] private EffectsList defaultEffect;
+    [SerializeField] private EffectsList addCoinEffect;
 
     private ParticleSystem PlayEffect(EffectsList effect, Vector3 position)
     {
         return effect.PlayEffect(position);
+    }
+    public ParticleSystem PlayAddCoint(Vector3 position)
+    {
+        return addCoinEffect.PlayEffect(position);
     }
 }
