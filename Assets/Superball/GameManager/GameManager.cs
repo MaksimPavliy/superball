@@ -33,6 +33,7 @@ namespace Superball
             float ratio = camera.aspect;
             float maxBounds = ratio * camera.orthographicSize;
             Debug.Log(maxBounds);
+   
             /*pipe.maxOffset = maxBounds*1.2f;*/
         }
         private void OnJumpSucceded()
@@ -53,15 +54,19 @@ namespace Superball
         {
             IsPlaying = true;
             PlayPressed?.Invoke();
+            SuperballMoneyView.instance.gameObject.SetActive(false);
         }
 
-        private void AddCoins()
+        public void AddCoins()
         {
-            CoinsAmount = ball.jumpCounter % 5 == 0 ? CoinsAmount += 3 : CoinsAmount += 1;
+            CoinsAmount++;
+           // CoinsAmount = ball.jumpCounter % 5 == 0 ? CoinsAmount += 3 : CoinsAmount += 1;
           //  PlayerPrefs.SetInt("Coins", CoinsAmount);
         }
         public void OnLevelComplete()
         {
+            SuperballMoneyView.instance.gameObject.SetActive(true);
+            CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoWin();
             GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
             //FinishScore.instance.UpdateFinishScore();
@@ -71,6 +76,7 @@ namespace Superball
 
         public void OnLose()
         {
+            SuperballMoneyView.instance.gameObject.SetActive(true);
             CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoLose();
             GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);

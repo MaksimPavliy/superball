@@ -7,7 +7,7 @@ namespace Superball
     {
         protected override (bool win, bool lose) CheckWinLose() => (false, false);
         SuperballMoneyConfig moneyConfig => SuperballMoneyConfig.instance;
-        public override int levelWinMoney => moneyConfig.levelWinMoneyBase + currLocationInd * moneyConfig.levelWinMoneyCoef;
+        public override int levelWinMoney => moneyConfig.levelWinMoneyBase + GameManager.instance.CoinsAmount;
 #if ADS
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
 #endif

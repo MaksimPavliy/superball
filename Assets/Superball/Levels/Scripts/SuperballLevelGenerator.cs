@@ -105,7 +105,7 @@ namespace Superball
                     patrol.SetProgressOffset(Random.value);
                 }
 
-                if (pos.x >= levelLength)
+                if (pos.x >= levelLength- minPipeDistanceRandom.x/2f)
                 {
                     return;
                 }

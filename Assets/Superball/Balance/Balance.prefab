@@ -140,11 +140,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - ico: {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
+  - ico: {fileID: 21300000, guid: 2b901a9df40a38c41bd866135c7dc3da, type: 3}
     startUnlocked: 1
-  - ico: {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
+  - ico: {fileID: 21300000, guid: a9132f65df069bc4883975ac47c2e684, type: 3}
     startUnlocked: 0
-  - ico: {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
+  - ico: {fileID: 21300000, guid: 8dfca4ae539c30f409d0f75224f3bb12, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: a9132f65df069bc4883975ac47c2e684, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: a000df8be8b31e440b78009bece5ec48, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: 0406621cb019a984cb6ab4a26e2c094a, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: b12caef839d05aa4d826d093cb3a01cf, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: 93d4ab928a58c814abec798b691fdf42, type: 3}
+    startUnlocked: 0
+  - ico: {fileID: 21300000, guid: bcceff566a4cfa648bddbcaa63ee12e0, type: 3}
     startUnlocked: 0
 --- !u!1 &3870379172287372395
 GameObject:

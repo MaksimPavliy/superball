@@ -42,7 +42,7 @@ namespace HcUtils
             }
         }
 
-        private void OnDestroy() => skinController.Unsubscribe(SetSkin);
+        private void OnDestroy() => skinController?.Unsubscribe(SetSkin);
         void SetSkin(int ind) => skinSettable.SetSkin(ind);
     }
 }

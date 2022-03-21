@@ -1,10 +1,7 @@
 ﻿using FriendsGamesTools;
 using HcUtils;
 using SplineMesh;
-using Superball;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Superball
@@ -25,7 +22,7 @@ namespace Superball
         private CurveSample sample;
         private Rigidbody2D _rigidbody;
         private Vector3 gForce = new Vector3(0f, 0f, 9.8f);
-        private bool InPipe=>State==BallState.InPipe;
+        private bool InPipe => State == BallState.InPipe;
         private bool FreeFlight => State == BallState.FreeFlight;
         private Vector3 velocity;
         private Vector3 inVelocity;
@@ -53,10 +50,12 @@ namespace Superball
         private float _maxAcceleration;
         private float _minPipeVelocity = 8f;
         bool _dragged = false;
+        float _angularVelocity = 0;
+        bool _finished = false;
 
         private void Start()
         {
-            _collider=GetComponent<CircleCollider2D>();
+            _collider = GetComponent<CircleCollider2D>();
             Joystick.instance.Dragged += OnDragged;
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.simulated = false;
@@ -72,6 +71,7 @@ namespace Superball
         public void OnPlay()
         {
             _rigidbody.simulated = true;
+            _rigidbody.angularVelocity = -1000f;
         }
 
         public void LevelDone()
@@ -92,21 +92,21 @@ namespace Superball
 
         private void Update()
         {
-
+          
             _touchingTheEntrance = false;
-
+            if (_finished) return;
             if (FreeFlight)
             {
                 // var position = transform.position + Vector3.right * Joystick.instance.dragDir.x * _sensitivityTouch * Time.deltaTime * 20f;
                 if (_dragged)
                 {
+                    var dragDir = Joystick.instance.dragDir;
                     var velocity = _rigidbody.velocity;
-                    velocity.x = Joystick.instance.dragDir.x * _sensitivityTouch * 20f;
+                    velocity.x = dragDir.x * _sensitivityTouch * 20f;
                     _rigidbody.velocity = velocity;
-                }
-                //var velocity = _rigidbody.velocity;
-                //velocity.x = Joystick.instance.dragDir.x * _sensitivityTouch * 20f;
-                //_rigidbody.velocity = velocity;
+                    _rigidbody.angularVelocity = Mathf.Clamp(Mathf.Abs(dragDir.x * 1000f),600f,1500f)*Mathf.Sign(-dragDir.x);
+                 }
+
             }
 
             Vector3 sampleWorldPosition;
@@ -124,12 +124,12 @@ namespace Superball
                     float distance = Vector3.Distance(transform.position, sampleWorldPosition);
                     distanceThreshold = delta - distance;
                     transform.position = Vector3.MoveTowards(transform.position, sampleWorldPosition, delta);
-
-                    if (Vector3.Distance(transform.position,sampleWorldPosition) == 0)
+                    transform.Rotate(Vector3.forward, _angularVelocity * Time.deltaTime);
+                    if (Vector3.Distance(transform.position, sampleWorldPosition) == 0)
                     {
                         State = BallState.InPipe;
-                        _tubeDistance =_tubeMoveDirectionSign>0? distanceThreshold:(currentPipe.Length-distanceThreshold);
-                     //   goto case BallState.InPipe;
+                        _tubeDistance = _tubeMoveDirectionSign > 0 ? distanceThreshold : (currentPipe.Length - distanceThreshold);
+                        //   goto case BallState.InPipe;
                     }
                     break;
                 case BallState.InPipe:
@@ -137,7 +137,7 @@ namespace Superball
 
                     sampleWorldPosition = currentPipe.GetSampleWorldPosition(sample);
                     sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample);
-        
+
                     transform.position = sampleWorldPosition;
 
                     var direction = sampleWorldDirection.normalized;
@@ -156,15 +156,15 @@ namespace Superball
                         accelerationValue = (_tubeDistance - currentPipe.Length / 2f) / (currentPipe.Length / 2f);
                         currAcceleration = Mathf.Lerp(_minAcceleration, _maxAcceleration, _tubeMoveDirectionSign > 0 ? (1 - accelerationValue) : accelerationValue);
                     }
-                  //  Debug.Log(accelerationValue);
+                    //  Debug.Log(accelerationValue);
 
                     acceleration = direction * currAcceleration * _tubeMoveDirectionSign;
 
-               //     Debug.Log($"acceleration:{acceleration} velocity:{velocity}");
+                    //     Debug.Log($"acceleration:{acceleration} velocity:{velocity}");
 
                     _tubeDistance += velocity.magnitude * Time.deltaTime * _tubeMoveDirectionSign;
                     _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
-
+                    transform.Rotate(Vector3.forward, _angularVelocity * Time.deltaTime);
                     if (_tubeDistance >= currentPipe.Length || _tubeDistance <= 0)
                     {
                         ExitPipe();
@@ -175,7 +175,7 @@ namespace Superball
                     {
                         State = BallState.FreeFlight;
                         currentPipe = null;
-                      
+
                     }
                     break;
                 default:
@@ -189,12 +189,13 @@ namespace Superball
         {
             tempVelocity = _rigidbody.velocity;
 
-          
+
         }
 
         private bool CheckPipeEntrance()
         {
-            var colliders=Physics2D.OverlapCircleAll(transform.position, _collider.radius);
+            if (_finished) return false;
+            var colliders = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
             foreach (var col in colliders)
             {
                 if (col.CompareTag("pipeEntrance"))
@@ -204,14 +205,7 @@ namespace Superball
             }
             return false;
         }
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            //if (collision.CompareTag("pipeEntrance"))
-            //{
-            //    _touchingTheEntrance = true;
-            //}
-        }
-      
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             //if (collision.CompareTag("ground") && groundEdge.GetComponent<BoxCollider2D>().enabled == true)
@@ -219,8 +213,17 @@ namespace Superball
             //    GameManager.instance.OnLose();
             //    Joystick.instance.Dragged -= OnDragged;
             //}
+            if (_finished) return;
 
-            Debug.Log("Collision");
+            if (collision.CompareTag("Finish"))
+            {
+
+                _finished = true;
+                GameManager.instance.OnLevelComplete();
+                _rigidbody.AddForce(Vector2.right * 1000f);
+       
+            }
+   
             if (collision.CompareTag("pipeEntrance"))// && velocity.y < 0)
             {
                 if (FreeFlight)
@@ -230,7 +233,8 @@ namespace Superball
                     //при входе в левую трубу стартовая дистанция 0
 
                 }
-            } else if (collision.CompareTag("obstacle"))
+            }
+            else if (collision.CompareTag("obstacle"))
             {
                 GameManager.instance.OnLose();
                 OnDragEnded();
@@ -238,13 +242,13 @@ namespace Superball
             }
             else if (collision.CompareTag("coin"))
             {
-               var coin=collision.GetComponent<Coin>();
+                var coin = collision.GetComponent<Coin>();
                 if (coin.Collect())
                 {
 
                 }
             }
-           
+
         }
 
         public void OnDragged(Vector2 dir)
@@ -254,10 +258,10 @@ namespace Superball
 
         private void EnterTube(Collider2D collision)
         {
-          
-             State = BallState.EnteringPipe;
 
-             var pipeEntrance=collision.gameObject.GetComponent<PipeEntrance>();
+            State = BallState.EnteringPipe;
+
+            var pipeEntrance = collision.gameObject.GetComponent<PipeEntrance>();
             _localGravity = _rigidbody.velocity.normalized * gForce.magnitude;
 
             currentPipe = pipeEntrance.Pipe;
@@ -269,11 +273,11 @@ namespace Superball
 
 
             sample = currentPipe.GetSampleAtDistance(_tubeDistance);
-          
 
-            var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized* _tubeMoveDirectionSign;
+
+            var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized * _tubeMoveDirectionSign;
             var velocityModule = _rigidbody.velocity.magnitude;
-            if (velocityModule < _minPipeVelocity) velocityModule =  _minPipeVelocity;
+            if (velocityModule < _minPipeVelocity) velocityModule = _minPipeVelocity;
             velocity = sampleWorldDirection * velocityModule;
             inVelocity = velocity;
             _minAcceleration = velocity.magnitude;
@@ -283,6 +287,7 @@ namespace Superball
             _rigidbody.simulated = false;
 
             ScoreManager.instance.UpdateScore();
+            _angularVelocity = Mathf.Abs(_rigidbody.angularVelocity)* -pipeEntrance.DirectionSign;
         }
         //выход из трубы
         private void ExitPipe()
@@ -305,7 +310,7 @@ namespace Superball
                 outVelocity *= 1.18f;
             }
             _rigidbody.velocity = outVelocity;
-
+            _rigidbody.angularVelocity = _angularVelocity;
             previousPipe = currentPipe;
             Joystick.instance.ResetDrag();
 
