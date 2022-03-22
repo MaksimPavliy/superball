@@ -131,8 +131,9 @@ namespace SplineMesh {
             for (int i = 0; i < nodes.Count - 1; i++) {
                 SplineNode n = nodes[i];
                 SplineNode next = nodes[i + 1];
-
-                CubicBezierCurve curve = new CubicBezierCurve(n, next);
+                int lastCurveIndex = curves.Count;
+                float distance = GetCurveDistance(lastCurveIndex);
+                CubicBezierCurve curve = new CubicBezierCurve(n, next, distance);
                 curve.Changed.AddListener(UpdateAfterCurveChanged);
                 curves.Add(curve);
             }
@@ -148,6 +149,16 @@ namespace SplineMesh {
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
+        private float GetCurveDistance(int toIndex)
+        {
+            float distance = 0;
+            if (toIndex == 0) return 0;
+            for (int i = 0;i < curves.Count  && i < toIndex; i++)
+            {
+                distance += curves[i].Length;
+            }
+            return distance;
+        }
         public CurveSample GetSampleAtDistance(float d) {
             if (d < 0 || d > Length)
                 throw new ArgumentException(string.Format("Distance must be between 0 and spline length ({0}). Given distance was {1}.", Length, d));
@@ -174,7 +185,9 @@ namespace SplineMesh {
             nodes.Add(node);
             if (nodes.Count != 1) {
                 SplineNode previousNode = nodes[nodes.IndexOf(node) - 1];
-                CubicBezierCurve curve = new CubicBezierCurve(previousNode, node);
+                int lastCurveIndex = curves.Count;
+                float distance = GetCurveDistance(lastCurveIndex);
+                CubicBezierCurve curve = new CubicBezierCurve(previousNode, node, distance);
                 curve.Changed.AddListener(UpdateAfterCurveChanged);
                 curves.Add(curve);
             }
@@ -202,8 +215,8 @@ namespace SplineMesh {
             nodes.Insert(index, node);
 
             curves[index - 1].ConnectEnd(node);
-
-            CubicBezierCurve curve = new CubicBezierCurve(node, nextNode);
+            float distance = GetCurveDistance(index);
+            CubicBezierCurve curve = new CubicBezierCurve(node, nextNode, distance);
             curve.Changed.AddListener(UpdateAfterCurveChanged);
             curves.Insert(index, curve);
             RaiseNodeListChanged(new ListChangedEventArgs<SplineNode>() {

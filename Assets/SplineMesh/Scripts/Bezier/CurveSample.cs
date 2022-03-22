@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh
+{
     /// <summary>
     /// Imutable class containing all data about a point on a cubic bezier curve.
     /// </summary>
@@ -18,15 +15,18 @@ namespace SplineMesh {
         public readonly float distanceInCurve;
         public readonly float timeInCurve;
         public readonly CubicBezierCurve curve;
-
+        public readonly float distanceInSpline;
         private Quaternion rotation;
 
         /// <summary>
         /// Rotation is a look-at quaternion calculated from the tangent, roll and up vector. Mixing non zero roll and custom up vector is not advised.
         /// </summary>
-        public Quaternion Rotation {
-            get {
-                if (rotation == Quaternion.identity) {
+        public Quaternion Rotation
+        {
+            get
+            {
+                if (rotation == Quaternion.identity)
+                {
                     var upVector = Vector3.Cross(tangent, Vector3.Cross(Quaternion.AngleAxis(roll, Vector3.forward) * up, tangent).normalized);
                     rotation = Quaternion.LookRotation(tangent, upVector);
                 }
@@ -34,7 +34,8 @@ namespace SplineMesh {
             }
         }
 
-        public CurveSample(Vector3 location, Vector3 tangent, Vector3 up, Vector2 scale, float roll, float distanceInCurve, float timeInCurve, CubicBezierCurve curve) {
+        public CurveSample(Vector3 location, Vector3 tangent, Vector3 up, Vector2 scale, float roll, float distanceInCurve, float timeInCurve, float distanceInSpline, CubicBezierCurve curve)
+        {
             this.location = location;
             this.tangent = tangent;
             this.up = up;
@@ -43,11 +44,14 @@ namespace SplineMesh {
             this.distanceInCurve = distanceInCurve;
             this.timeInCurve = timeInCurve;
             this.curve = curve;
+            this.distanceInSpline = distanceInSpline;
             rotation = Quaternion.identity;
         }
 
-        public override bool Equals(object obj) {
-            if (obj == null || GetType() != obj.GetType()) {
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
                 return false;
             }
             CurveSample other = (CurveSample)obj;
@@ -61,15 +65,18 @@ namespace SplineMesh {
 
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return base.GetHashCode();
         }
 
-        public static bool operator ==(CurveSample cs1, CurveSample cs2) {
+        public static bool operator ==(CurveSample cs1, CurveSample cs2)
+        {
             return cs1.Equals(cs2);
         }
 
-        public static bool operator !=(CurveSample cs1, CurveSample cs2) {
+        public static bool operator !=(CurveSample cs1, CurveSample cs2)
+        {
             return !cs1.Equals(cs2);
         }
 
@@ -80,7 +87,8 @@ namespace SplineMesh {
         /// <param name="b"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static CurveSample Lerp(CurveSample a, CurveSample b, float t) {
+        public static CurveSample Lerp(CurveSample a, CurveSample b, float t)
+        {
             return new CurveSample(
                 Vector3.Lerp(a.location, b.location, t),
                 Vector3.Lerp(a.tangent, b.tangent, t).normalized,
@@ -89,10 +97,12 @@ namespace SplineMesh {
                 Mathf.Lerp(a.roll, b.roll, t),
                 Mathf.Lerp(a.distanceInCurve, b.distanceInCurve, t),
                 Mathf.Lerp(a.timeInCurve, b.timeInCurve, t),
+                   Mathf.Lerp(a.distanceInSpline, b.distanceInSpline, t),
                 a.curve);
         }
 
-        public MeshVertex GetBent(MeshVertex vert) {
+        public MeshVertex GetBent(MeshVertex vert)
+        {
             var res = new MeshVertex(vert.position, vert.normal, vert.uv);
 
             // application of scale

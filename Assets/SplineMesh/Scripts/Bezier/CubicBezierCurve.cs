@@ -21,6 +21,7 @@ namespace SplineMesh {
         private readonly List<CurveSample> samples = new List<CurveSample>(STEP_COUNT);
 
         public SplineNode n1, n2;
+        private readonly float startDistance;
 
         /// <summary>
         /// Length of the curve in world unit.
@@ -37,11 +38,12 @@ namespace SplineMesh {
         /// </summary>
         /// <param name="n1"></param>
         /// <param name="n2"></param>
-        public CubicBezierCurve(SplineNode n1, SplineNode n2) {
+        public CubicBezierCurve(SplineNode n1, SplineNode n2, float startDistance) {
             this.n1 = n1;
             this.n2 = n2;
             n1.Changed += ComputeSamples;
             n2.Changed += ComputeSamples;
+            this.startDistance = startDistance;
             ComputeSamples(null, null);
         }
 
@@ -145,6 +147,7 @@ namespace SplineMesh {
                 GetRoll(time),
                 distance,
                 time,
+                startDistance+distance,
                 this);
         }
 

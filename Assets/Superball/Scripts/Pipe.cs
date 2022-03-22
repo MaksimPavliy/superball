@@ -30,7 +30,8 @@ namespace Superball
 
         private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
 
-        public CurveSample GetSampleAtDistance(float distance)=>_spline.GetSampleAtDistance(distance);
+        public CurveSample GetSampleAtDistance(float distance) => _spline.GetSampleAtDistance(distance);
+        public CurveSample GetClosestSample(Vector3 position) => _spline.GetProjectionSample(_spline.transform.InverseTransformPoint(position) );
         public Vector3 GetSampleWorldPosition(CurveSample sample) => _spline.transform.TransformPoint(sample.location);
         public Vector3 GetSampleWorldDirection(CurveSample sample) => _spline.transform.TransformDirection(sample.tangent.normalized);
         public PipeEntrance[] Entrances => entrances;

@@ -61,8 +61,8 @@ namespace Superball
             int pipeCount = levelConfig.GetPipesCount();
             Pipe pipePrefab = null;
 
-            Vector2 minPipeDistanceRandom = new Vector2(4, -5);
-            Vector2 maxPipeDistanceRandom = new Vector2(7, 5);
+            Vector2 minPipeDistanceRandom = new Vector2(5, -5);
+            Vector2 maxPipeDistanceRandom = new Vector2(10, 5);
 
             Vector2 perPipeIncreaseMin = new Vector2(0.1f, 0.1f);
             Vector2 perPipeIncreaseMax = new Vector2(0.2f, 0.5f);
