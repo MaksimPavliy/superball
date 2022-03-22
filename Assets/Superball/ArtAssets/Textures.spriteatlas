@@ -85,12 +85,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ca6ebb5a6267f19489290a3f7df9d268, type: 3}
   - {fileID: 21300000, guid: ba071bfac8480354b96ad486ddd28298, type: 3}
   - {fileID: 21300000, guid: 8699c24b68722b14f97eacbc8785aa15, type: 3}
+  - {fileID: 21300000, guid: 1fe2517b59ced424191bba0451f6259e, type: 3}
   - {fileID: 21300000, guid: a000df8be8b31e440b78009bece5ec48, type: 3}
   - {fileID: 21300000, guid: 2bf746fb5210e0646babc398687acb41, type: 3}
   - {fileID: 21300000, guid: 0406621cb019a984cb6ab4a26e2c094a, type: 3}
   - {fileID: 21300000, guid: 8bfa896c3253930429dabe45484f7833, type: 3}
   - {fileID: 21300000, guid: 578c20ac45cb33249b02f857e43e3420, type: 3}
   - {fileID: 21300000, guid: 4d32c4eccc6d3cc4ea44448621fded9b, type: 3}
+  - {fileID: 21300000, guid: 04b45ceccac3b9d499bd4a88babd474e, type: 3}
   - {fileID: 21300000, guid: 72ae085d26255c7418fc33ebe3504b8c, type: 3}
   - {fileID: 21300000, guid: 2b901a9df40a38c41bd866135c7dc3da, type: 3}
   - {fileID: 21300000, guid: dac2f64e73065ed49837e24c495d924e, type: 3}
@@ -123,12 +125,14 @@ SpriteAtlas:
   - spikes_1
   - skin_marble_purple
   - skin_dantist
+  - pipe0
   - skin_eye
   - spikes_2
   - skin_pop_it
   - skin_easter_egg
   - tube_part
   - skin_quarter_dollar_eagle_v2
+  - pipe_circle
   - skin_watermelon_slice
   - skin_white_ball
   - spring_part
