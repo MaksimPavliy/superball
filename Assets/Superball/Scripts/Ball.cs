@@ -303,7 +303,7 @@ namespace Superball
             EnteredPipe?.Invoke();
             if (currentPipe == previousPipe)
             {
-                _outVelocityMultiplier = samePipeSpeedMultiplier;
+                _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
                 SamePipeEntered?.Invoke();
             }
             else
