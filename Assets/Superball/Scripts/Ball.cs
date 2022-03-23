@@ -303,7 +303,7 @@ namespace Superball
             EnteredPipe?.Invoke();
             if (currentPipe == previousPipe)
             {
-                _outVelocityMultiplier = 2f;
+                _outVelocityMultiplier = samePipeSpeedMultiplier;
                 SamePipeEntered?.Invoke();
             }
             else
@@ -330,7 +330,7 @@ namespace Superball
 
             var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized;
             // velocity = sampleWorldDirection * _rigidbody.velocity.magnitude;
-            var outVelocity = _tubeMoveDirectionSign  * _inVelocityModule*_outVelocityMultiplier * sampleWorldDirection;
+            var outVelocity = _tubeMoveDirectionSign  * _inVelocityModule*_outVelocityMultiplier * sampleWorldDirection*1.2f;
 
             _rigidbody.velocity = outVelocity;
             _rigidbody.angularVelocity = _angularVelocity;
