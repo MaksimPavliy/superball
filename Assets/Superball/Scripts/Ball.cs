@@ -38,8 +38,7 @@ namespace Superball
         public event Action<bool> CanControlChanged;
 
 
-        private SuperballGeneralConfig _config => SuperballGeneralConfig.instance;
-        private float _sensitivityTouch => _config.sensitivityTouch;
+        private BallConfig BallConfig => BallConfig.instance;
         public float maxOffset = 5.4f;
         private int _tubeMoveDirectionSign = 1;
         private float _tubeSpeed;
@@ -48,7 +47,7 @@ namespace Superball
         private float _minAcceleration;
         private float _maxAcceleration;
         private float _minPipeVelocity = 5f;
-        
+
         bool _dragged = false;
         float _angularVelocity = 0;
         bool _finished = false;
@@ -78,7 +77,7 @@ namespace Superball
         public void LevelDone()
         {
             ParticleSystem ps = Instantiate(_deathParticles, transform.position, Quaternion.identity);
-           // ps.gameObject.transform.up = tempVelocity.normalized;
+            // ps.gameObject.transform.up = tempVelocity.normalized;
             ps.Play();
             Destroy(gameObject);
             Destroy(ps.gameObject, 2f);
@@ -93,7 +92,7 @@ namespace Superball
 
         private void Update()
         {
-          
+
             _touchingTheEntrance = false;
             if (_finished) return;
             if (FreeFlight)
@@ -103,10 +102,10 @@ namespace Superball
                 {
                     var dragDir = Joystick.instance.dragDir;
                     var velocity = _rigidbody.velocity;
-                    velocity.x = dragDir.x * _sensitivityTouch * 20f;
+                    velocity.x = dragDir.x * BallConfig.controlSensitity;
                     _rigidbody.velocity = velocity;
-                    _rigidbody.angularVelocity = Mathf.Clamp(Mathf.Abs(dragDir.x * 1000f),600f,1500f)*Mathf.Sign(-dragDir.x);
-                 }
+                    _rigidbody.angularVelocity = Mathf.Clamp(Mathf.Abs(dragDir.x * 1000f), 600f, 1500f) * Mathf.Sign(-dragDir.x);
+                }
 
             }
 
@@ -121,7 +120,7 @@ namespace Superball
                     sample = currentPipe.GetSampleAtDistance(_tubeDistance);
                     sampleWorldPosition = currentPipe.GetSampleWorldPosition(sample);
 
-                    float delta = inVelocity.magnitude*2f * Time.deltaTime;
+                    float delta = inVelocity.magnitude * 2f * Time.deltaTime;
                     float distance = Vector3.Distance(transform.position, sampleWorldPosition);
                     distanceThreshold = delta - distance;
                     transform.position = Vector3.MoveTowards(transform.position, sampleWorldPosition, delta);
@@ -131,9 +130,6 @@ namespace Superball
                         State = BallState.InPipe;
                         var closestSample = currentPipe.GetClosestSample(transform.position);
                         _tubeDistance = closestSample.distanceInSpline;
-                        Debug.Log(_tubeDistance);
-                      //  _tubeDistance = _tubeMoveDirectionSign > 0 ? distanceThreshold : (currentPipe.Length - distanceThreshold);
-                        //   goto case BallState.InPipe;
                     }
                     break;
                 case BallState.InPipe:
@@ -153,28 +149,24 @@ namespace Superball
                     if (_tubeDistance < (currentPipe.Length / 2f))
                     {
                         accelerationValue = _tubeDistance / (currentPipe.Length / 2f);
-                        currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, accelerationValue):
-                            Mathf.Lerp(_minAcceleration* _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (1-accelerationValue));
+                        currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, accelerationValue) :
+                            Mathf.Lerp(_minAcceleration * _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (accelerationValue));
                     }
                     else
                     {
                         accelerationValue = (_tubeDistance - currentPipe.Length / 2f) / (currentPipe.Length / 2f);
 
 
-                        currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration* _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (1 - accelerationValue)) :
-                         Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, accelerationValue);
-                            
-                        
-                    
-                       // _outVelocityMultiplier
+                        currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration * _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (1 - accelerationValue)) :
+                         Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, 1-accelerationValue);
+
                     }
-                    //  Debug.Log(accelerationValue);
 
                     acceleration = direction * currAcceleration * _tubeMoveDirectionSign;
-                    velocity += acceleration*Time.deltaTime;
+                    velocity += acceleration * Time.deltaTime;
                     _velocityModule += currAcceleration * Time.deltaTime;
                     //     Debug.Log($"acceleration:{acceleration} velocity:{velocity}");
-                    Debug.Log($"{velocity} {acceleration}");
+                    Debug.Log($"value:{accelerationValue} currAcc{currAcceleration} vel:{velocity} resAcc:{acceleration}");
                     _tubeDistance += _velocityModule * Time.deltaTime * _tubeMoveDirectionSign;
                     _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
                     transform.Rotate(Vector3.forward, _angularVelocity * Time.deltaTime);
@@ -198,7 +190,7 @@ namespace Superball
 
         }
 
- 
+
         private bool CheckPipeEntrance()
         {
             if (_finished) return false;
@@ -224,9 +216,9 @@ namespace Superball
                 CanControlChanged?.Invoke(false);
                 GameManager.instance.OnLevelComplete();
                 _rigidbody.AddForce(Vector2.right * 1000f);
-       
+
             }
-   
+
             if (collision.CompareTag("pipeEntrance"))// && velocity.y < 0)
             {
                 if (FreeFlight)
@@ -286,20 +278,20 @@ namespace Superball
             inVelocity = velocity;
             _minAcceleration = velocity.magnitude;
             _maxAcceleration = _minAcceleration * 1.2f;
-            Debug.Log($"TUBE START; velocity:{velocity}; _minAcceleration: {_minAcceleration}; _maxAcceleration: {_maxAcceleration}");
+
             //во время движения по труде нам не нужно влияние физики на мячик
             _rigidbody.simulated = false;
 
             ScoreManager.instance.UpdateScore();
-            _angularVelocity = Mathf.Clamp(Mathf.Abs(_rigidbody.angularVelocity),1000,10000)* -pipeEntrance.DirectionSign;
+            _angularVelocity = Mathf.Clamp(Mathf.Abs(_rigidbody.angularVelocity), 1000, 10000) * -pipeEntrance.DirectionSign;
 
             State = BallState.InPipe;
             var closestSample = currentPipe.GetClosestSample(transform.position);
             _tubeDistance = closestSample.distanceInSpline;
             Debug.Log(_tubeDistance);
-           
-            _outVelocityMultiplier = currentPipe == previousPipe?3f:1f;
-         
+
+            _outVelocityMultiplier = currentPipe == previousPipe ? 3f : 1f;
+
         }
         //выход из трубы
         private void ExitPipe()
@@ -328,7 +320,7 @@ namespace Superball
 
         public void OnDragEnded()
         {
-            _dragged = false ;
+            _dragged = false;
         }
     }
 }

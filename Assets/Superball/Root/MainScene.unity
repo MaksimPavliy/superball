@@ -7242,28 +7242,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 1960826944}
     m_Modifications:
     - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: topBound
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: lengthInc
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: bottomBound
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: startLength
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: metersPerPipe
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2040808075, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
-      propertyPath: pipesStartSpawnFrom
-      value: 6
+      propertyPath: pipeBiasY_perLevelIncrement_min
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7470818063435640804, guid: ab99b666fd4860e4d93950d0d02e01ee,
         type: 3}
@@ -7324,6 +7304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804915220599632588, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: controlSensitity
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}

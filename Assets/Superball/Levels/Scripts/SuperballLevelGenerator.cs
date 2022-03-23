@@ -58,23 +58,22 @@ namespace Superball
             _lastPipePostion = new Vector3(1, 0, 0);
             float levelLength = levelConfig.GetLevelLength();
             int levelIndex = levelConfig.GetLevelIndex();
-            int pipeCount = levelConfig.GetPipesCount();
             Pipe pipePrefab = null;
 
-            Vector2 minPipeDistanceRandom = new Vector2(5, -5);
-            Vector2 maxPipeDistanceRandom = new Vector2(10, 5);
+            Vector2 minPipeDistanceRandom = new Vector2(levelConfig.pipeBiasX_Base_min, levelConfig.pipeBiasY_Base_min);
+            Vector2 maxPipeDistanceRandom = new Vector2(levelConfig.pipeBiasX_Base_max, levelConfig.pipeBiasY_Base_max);
 
-            Vector2 perPipeIncreaseMin = new Vector2(0.1f, 0.1f);
-            Vector2 perPipeIncreaseMax = new Vector2(0.2f, 0.5f);
+            Vector2 perPipeIncreaseMin = new Vector2(levelConfig.pipeBiasX_perPipeIncrement_min, levelConfig.pipeBiasY_perPipeIncrement_min);
+            Vector2 perPipeIncreaseMax = new Vector2(levelConfig.pipeBiasX_perPipeIncrement_max, levelConfig.pipeBiasY_perPipeIncrement_max);
 
-            Vector2 perLevelIncreaseMin = new Vector2(0.0f, 0.0f);
-            Vector2 perLevelIncreaseMax = new Vector2(0.2f, 0.7f);
+            Vector2 perLevelIncreaseMin = new Vector2(levelConfig.pipeBiasX_perPipeIncrement_min, levelConfig.pipeBiasY_perPipeIncrement_min);
+            Vector2 perLevelIncreaseMax = new Vector2(levelConfig.pipeBiasX_perPipeIncrement_max, levelConfig.pipeBiasY_perPipeIncrement_max);
 
-            Vector2 maxPipeDistance = new Vector2(20, 25);
+            Vector2 maxPipeDistance = new Vector2(levelConfig.pipeBiasX_limit, levelConfig.pipeBiasY_limit);
 
-            float _minObtacleSpeed = 1f;
-            float _maxObstacleSpeed = 1.5f + levelLength / 7f;
-            float _obstacleChance =levelIndex<3?0:Mathf.Clamp(0.1f + 0.05f * levelIndex, 0, 0.7f);
+            float _minObtacleSpeed = levelConfig.obstaclePatrolSpeed_min;
+            float _maxObstacleSpeed = levelIndex * levelConfig.obstaclePatrolSpeed_max_coef;
+            float _obstacleChance = levelConfig.GetObstacleChance(levelIndex);
 
            int pipesCount = 0;
             while (pipesCount < 100000)
@@ -88,7 +87,7 @@ namespace Superball
 
                 Vector3 pos = _lastPipePostion + offset;
                 pos.x = Mathf.Clamp(pos.x, _lastPipePostion.x + minPipeDistanceRandom.x, 1000);
-                pos.y = Mathf.Clamp(pos.y, levelConfig.bottomBound, levelConfig.topBound);
+                pos.y = Mathf.Clamp(pos.y, levelConfig.pipeBound_bottom, levelConfig.pipeBound_top);
 
                 bool createObstacle = Random.value <_obstacleChance;
                 if (createObstacle)

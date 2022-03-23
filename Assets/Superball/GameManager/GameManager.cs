@@ -25,7 +25,6 @@ namespace Superball
         public int CoinsAmount { private set; get; } = 0;
         public bool IsPlaying { get => isPlaying; set => isPlaying = value; }
         private SuperballGeneralConfig Config => SuperballGeneralConfig.instance;
-        private bool ChangeSpline => Config.randomSpline;
 
         private void Start()
         {
@@ -39,15 +38,6 @@ namespace Superball
         private void OnJumpSucceded()
         {
             jumpCounter++;
-            if(jumpCounter % Config.jumpsPerTheme == 0)
-            {
-                if (ChangeSpline)
-                {
-                    themeIndex++;
-                    selector.OnThemeChanged(themeIndex);
-                    /*pipe.OnThemeChanged(themeIndex);*/
-                }
-            }
             AddCoins();
         }
         public void OnPlay()

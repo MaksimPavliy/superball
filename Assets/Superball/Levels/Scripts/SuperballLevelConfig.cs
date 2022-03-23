@@ -7,41 +7,44 @@ namespace Superball
 {
     public class SuperballLevelConfig : BalanceSettings<SuperballLevelConfig>
     {
-        /// <summary>
-        /// Стартовая длина уровна
-        /// </summary>
         public float startLength = 100;
 
-        /// <summary>
-        /// Инкременте длины за каждый уровнеь
-        /// </summary>
         public float lengthInc = 100;
 
-        /// <summary>
-        /// Спаунить трубы начиная с этой позиции
-        /// </summary>
-        public float pipesStartSpawnFrom = 25;
+        public float pipeBiasX_Base_min = 7;
+        public float pipeBiasX_Base_max = 7;
+        public float pipeBiasY_Base_min = -12;
+        public float pipeBiasY_Base_max = 5;
 
-        /// <summary>
-        /// Верхняя граница для рандома
-        /// </summary>
-        public float topBound = 15;
+        public float pipeBiasX_perPipeIncrement_min = 0.1f;
+        public float pipeBiasX_perPipeIncrement_max = 0.2f;
+        public float pipeBiasY_perPipeIncrement_min = 0.1f;
+        public float pipeBiasY_perPipeIncrement_max = 0.5f;
 
-        /// <summary>
-        /// Нижняя граница  для рандома
-        /// </summary>
-        public float bottomBound = 15;
+        public float pipeBiasX_perLevelIncrement_min = 0.0f;
+        public float pipeBiasX_perLevelIncrement_max = 0.2f;
+        public float pipeBiasY_perLevelIncrement_min = 0.0f;
+        public float pipeBiasY_perLevelIncrement_max = 0.7f;
 
-        /// <summary>
-        /// Интервал спауна труб
-        /// </summary>
-        public float metersPerPipe = 7;
+        public float pipeBiasX_limit = 20;
+        public float pipeBiasY_limit = 25;
 
-        /// <summary>
-        /// Порог интервала спауна труб
-        /// </summary>
-        public float metersPerPipeThreshold = 3;
+        public float obstaclePatrolSpeed_min = 1f;
+        public float obstaclePatrolSpeed_max_coef = 0.14f;
+        public float obstaclesStartLevel = 4;
+        public float obstacleChance_offset = 0.1f;
+        public float obstacleChance_coef = 0.05f;
+        public float obstacleChance_clampMin = 0f;
+        public float obstacleChance_clampMax = 0.7f;
 
+        public float pipeBound_top = 100;
+        public float pipeBound_bottom = 2;
+
+        public float GetObstacleChance(int levelIndex)
+        {
+            return levelIndex < (obstaclesStartLevel - 1) ?
+                0 : Mathf.Clamp(obstacleChance_offset + obstacleChance_coef * levelIndex, obstacleChance_clampMin, obstacleChance_clampMax);
+        }
         public int GetLevelIndex()
         {
             return SuperballRoot.instance.Get<SuperballLevelsController>().currLocationInd;
@@ -55,9 +58,5 @@ namespace Superball
             return instance.startLength + levelIndex * lengthInc;// - (((levelIndex) / 5) * 150); //Декремент пока закомментим
         }
 
-        public int GetPipesCount()
-        {
-            return Mathf.RoundToInt((GetLevelLength() - pipesStartSpawnFrom) / instance.metersPerPipe);
-        }
     }
 }

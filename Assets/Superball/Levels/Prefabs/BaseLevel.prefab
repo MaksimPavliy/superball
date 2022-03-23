@@ -1215,6 +1215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pipePrefabs:
   - {fileID: 2728492035411423637, guid: b9be5232c5a26434a8b7a85d0c7d4c67, type: 3}
+  - {fileID: 2728492035411423637, guid: 28de0b74791a48048933d01cb41ee669, type: 3}
+  - {fileID: 2728492035411423637, guid: 93dea4786c48204419a0e0d52af8620a, type: 3}
   _pipesParent: {fileID: 5906358770753232963}
   finishPrefab: {fileID: 3422175729283049719, guid: fdb6a3e63f331224d89184bf06d4219f,
     type: 3}

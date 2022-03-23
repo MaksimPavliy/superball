@@ -43,13 +43,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0478d4521f9775144bd2f41bbda91a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLength: 50
-  lengthInc: 50
-  pipesStartSpawnFrom: 5
-  topBound: 15
-  bottomBound: 4
-  metersPerPipe: 7
-  metersPerPipeThreshold: 3
+  startLength: 15
+  lengthInc: 10
+  pipeBiasX_Base_min: 7
+  pipeBiasX_Base_max: 7
+  pipeBiasY_Base_min: -12
+  pipeBiasY_Base_max: 5
+  pipeBiasX_perPipeIncrement_min: 0.1
+  pipeBiasX_perPipeIncrement_max: 0.2
+  pipeBiasY_perPipeIncrement_min: 0.1
+  pipeBiasY_perPipeIncrement_max: 0.5
+  pipeBiasX_perLevelIncrement_min: 0
+  pipeBiasX_perLevelIncrement_max: 0.2
+  pipeBiasY_perLevelIncrement_min: 0
+  pipeBiasY_perLevelIncrement_max: 0.7
+  pipeBiasX_limit: 20
+  pipeBiasY_limit: 25
+  obstaclePatrolSpeed_min: 1
+  obstaclePatrolSpeed_max_coef: 0.14
+  obstaclesStartLevel: 4
+  obstacleChance_offset: 0.1
+  obstacleChance_coef: 0.05
+  obstacleChance_clampMin: 0
+  obstacleChance_clampMax: 0.7
+  pipeBound_top: 100
+  pipeBound_bottom: 2
 --- !u!1 &183105470944372673
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +114,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceBase: 200
   priceMul: 2
+--- !u!1 &2044014746687101606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7799714765292175144}
+  - component: {fileID: 7804915220599632588}
+  m_Layer: 0
+  m_Name: BallConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7799714765292175144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044014746687101606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7470818063435640811}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7804915220599632588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044014746687101606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57465fcc40f12bd45ad276bda4a78bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlSensitity: 20
 --- !u!1 &3280794377683250495
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +350,7 @@ Transform:
   - {fileID: 2555181155472067764}
   - {fileID: 188754996823289159}
   - {fileID: 2040808074}
+  - {fileID: 7799714765292175144}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -381,9 +444,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraIndex: 0
-  randomSpline: 1
-  indexSpline: 0
-  sensitivityTouch: 0.35
-  jumpsPerTheme: 1
-  obstacleBaseSpeed: 2.5
-  obstacleSpawnDelay: 4.2
