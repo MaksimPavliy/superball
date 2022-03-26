@@ -155,28 +155,18 @@ namespace Superball
                     if (_tubeDistance < (currentPipe.Length / 2f))
                     {
                         progressValue = _tubeDistance / (currentPipe.Length / 2f);
-                        //currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, accelerationValue) :
-                        //    Mathf.Lerp(_minAcceleration * _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (accelerationValue));
+                 
 
                         _pipeVelocity = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, progressValue) :
-                            Mathf.Lerp(_inVelocityModule * _outVelocityMultiplier, _pipeMiddleVelocity, (progressValue));
+                            Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, (progressValue));
                     }
                     else
                     {
                         progressValue = (_tubeDistance - currentPipe.Length / 2f) / (currentPipe.Length / 2f);
 
-
-                        //currAcceleration = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_minAcceleration * _outVelocityMultiplier, _maxAcceleration * _outVelocityMultiplier, (1 - accelerationValue)) :
-                        // Mathf.Lerp(_minAcceleration, _maxAcceleration * _outVelocityMultiplier, 1 - accelerationValue);
-
-                        _pipeVelocity = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_inVelocityModule* _outVelocityMultiplier, _pipeMiddleVelocity, 1-progressValue) :
+                        _pipeVelocity = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, 1-progressValue) :
                            Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, (1-progressValue));
                     }
-
-                    //acceleration = direction * currAcceleration * _tubeMoveDirectionSign;
-                    ////velocity += acceleration * Time.deltaTime;
-                    //_inVelocityModule += currAcceleration * Time.deltaTime;
-                    //     Debug.Log($"acceleration:{acceleration} velocity:{velocity}");
                     Debug.Log($"value:{progressValue} velModule:{_pipeVelocity} vel:{velocity}");
                     _tubeDistance += _pipeVelocity * Time.deltaTime * _tubeMoveDirectionSign;
                     _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
@@ -271,6 +261,10 @@ namespace Superball
             _localGravity = _rigidbody.velocity.normalized * gForce.magnitude;
 
             currentPipe = pipeEntrance.Pipe;
+
+            _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
+            SamePipeEntered?.Invoke();
+
             _tubeMoveDirectionSign = pipeEntrance.DirectionSign;
             _tubeDistance = _tubeMoveDirectionSign > 0 ? 0 : currentPipe.Length;
 
@@ -282,14 +276,14 @@ namespace Superball
 
 
             var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized * _tubeMoveDirectionSign;
-            var velocityModule = _rigidbody.velocity.magnitude;
+            var velocityModule = _rigidbody.velocity.magnitude* _outVelocityMultiplier;
             if (velocityModule < _minPipeVelocity) velocityModule = _minPipeVelocity;
             velocity = sampleWorldDirection * velocityModule;
             _inVelocityModule = velocityModule;
             inVelocity = velocity;
             _minAcceleration = velocity.magnitude;
             _maxAcceleration = _minAcceleration * 1.2f;
-            _pipeMiddleVelocity = _inVelocityModule * 1.5f;
+            _pipeMiddleVelocity = _inVelocityModule * 1.3f;
             //во время движения по труде нам не нужно влияние физики на мячик
             _rigidbody.simulated = false;
 
@@ -301,16 +295,7 @@ namespace Superball
             _tubeDistance = closestSample.distanceInSpline;
             Debug.Log(_tubeDistance);
             EnteredPipe?.Invoke();
-            if (currentPipe == previousPipe)
-            {
-                _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
-                SamePipeEntered?.Invoke();
-            }
-            else
-            {
-                _outVelocityMultiplier = 1f;
-
-            }
+          
            
 
 
@@ -330,7 +315,7 @@ namespace Superball
 
             var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized;
             // velocity = sampleWorldDirection * _rigidbody.velocity.magnitude;
-            var outVelocity = _tubeMoveDirectionSign  * _inVelocityModule*_outVelocityMultiplier * sampleWorldDirection*1.2f;
+            var outVelocity = _tubeMoveDirectionSign  * _inVelocityModule * sampleWorldDirection;
 
             _rigidbody.velocity = outVelocity;
             _rigidbody.angularVelocity = _angularVelocity;
