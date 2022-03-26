@@ -34,7 +34,7 @@ namespace Superball
         {
             ApplyGround();
             SpawnPipes();
-            SpawnObstacles();
+           // SpawnObstacles();
             SpawnFinish();
             SpawnCoins();
         }

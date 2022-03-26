@@ -21,7 +21,7 @@ namespace Superball
         public Pipe currentPipe = null;
         private CurveSample sample;
         private Rigidbody2D _rigidbody;
-        private Vector3 gForce = new Vector3(0f, 0f, 9.8f);
+        private Vector3 gForce = new Vector3(0f, 0f, 8f);
         private bool InPipe => State == BallState.InPipe;
         private bool FreeFlight => State == BallState.FreeFlight;
         private Vector3 velocity;
@@ -262,8 +262,8 @@ namespace Superball
 
             currentPipe = pipeEntrance.Pipe;
 
-            _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
-            SamePipeEntered?.Invoke();
+         
+         
 
             _tubeMoveDirectionSign = pipeEntrance.DirectionSign;
             _tubeDistance = _tubeMoveDirectionSign > 0 ? 0 : currentPipe.Length;
@@ -276,14 +276,29 @@ namespace Superball
 
 
             var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized * _tubeMoveDirectionSign;
-            var velocityModule = _rigidbody.velocity.magnitude* _outVelocityMultiplier;
-            if (velocityModule < _minPipeVelocity) velocityModule = _minPipeVelocity;
-            velocity = sampleWorldDirection * velocityModule;
-            _inVelocityModule = velocityModule;
-            inVelocity = velocity;
-            _minAcceleration = velocity.magnitude;
-            _maxAcceleration = _minAcceleration * 1.2f;
-            _pipeMiddleVelocity = _inVelocityModule * 1.3f;
+
+            if (currentPipe != previousPipe)
+            {
+                inVelocity = gForce.magnitude * sampleWorldDirection;
+            }
+            else
+            {
+                inVelocity *= BallConfig.instance.samePipeSpeedMultiplier;
+                SamePipeEntered?.Invoke();
+            }
+            _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
+
+            //var velocityModule = _rigidbody.velocity.magnitude* _outVelocityMultiplier;
+            //if (velocityModule < _minPipeVelocity) velocityModule = _minPipeVelocity;
+            //velocity = sampleWorldDirection * velocityModule;
+            //_inVelocityModule = velocityModule;
+            //inVelocity = velocity;
+            //_minAcceleration = velocity.magnitude;
+            //_maxAcceleration = _minAcceleration * 1.2f;
+            _inVelocityModule = inVelocity.magnitude;
+            _pipeMiddleVelocity = _inVelocityModule * 1.1f;
+
+
             //во время движения по труде нам не нужно влияние физики на мячик
             _rigidbody.simulated = false;
 
@@ -315,7 +330,7 @@ namespace Superball
 
             var sampleWorldDirection = currentPipe.GetSampleWorldDirection(sample).normalized;
             // velocity = sampleWorldDirection * _rigidbody.velocity.magnitude;
-            var outVelocity = _tubeMoveDirectionSign  * _inVelocityModule * sampleWorldDirection;
+            var outVelocity = _tubeMoveDirectionSign  * inVelocity.magnitude * sampleWorldDirection;
 
             _rigidbody.velocity = outVelocity;
             _rigidbody.angularVelocity = _angularVelocity;
