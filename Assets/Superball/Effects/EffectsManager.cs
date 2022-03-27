@@ -48,6 +48,7 @@ public class EffectsManager : MonoBehaviourHasInstance<EffectsManager>
     [SerializeField] private EffectsList defaultEffect;
     [SerializeField] private EffectsList addCoinEffect;
     [SerializeField] private IncomeText incomeText;
+    [SerializeField] private EffectsList finishBlow;
 
     private ParticleSystem PlayEffect(EffectsList effect, Vector3 position)
     {
@@ -56,6 +57,10 @@ public class EffectsManager : MonoBehaviourHasInstance<EffectsManager>
     public ParticleSystem PlayAddCoint(Vector3 position)
     {
         return addCoinEffect.PlayEffect(position);
+    }
+    public ParticleSystem PlayFinishBlow(Vector3 position)
+    {
+        return finishBlow.PlayEffect(position);
     }
     public IncomeText PlayIncomeText(int count,Vector3 position)
     {

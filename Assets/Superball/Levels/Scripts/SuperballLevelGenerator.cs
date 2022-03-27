@@ -95,7 +95,11 @@ namespace Superball
             float _maxObstacleSpeed = levelIndex * levelConfig.obstaclePatrolSpeed_max_coef;
             float _obstacleChance = levelConfig.GetObstacleChance(levelIndex);
 
-           int pipesCount = 0;
+            int pipesCount = 0;
+
+            int startRotatorLevel = 4;
+          
+            bool addRotator = _levelLength >= startRotatorLevel;
             while (pipesCount < 100000)
             {
 
@@ -142,6 +146,12 @@ namespace Superball
                 //    Random.Range(levelConfig.bottomBound + pipeSize.y * 0.5f, levelConfig.topBound - pipeSize.y * 0.5f));
 
                 Pipe pipe = Instantiate(pipePrefab, _pipesParent);
+                float rotatorChance = 0.0f + levelIndex * 0.05f;
+                if(addRotator && Utils.Random(0,1f) <= rotatorChance)
+                {
+                    var rotator=pipe.gameObject.AddComponent<PipeRotator>();
+                    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0,1f)< 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
+                }
                 pipe.Spawn(pos);
                 _lastPipePostion = pos;
                 _pipes.Add(pipe);

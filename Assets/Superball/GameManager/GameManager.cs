@@ -28,7 +28,7 @@ namespace Superball
 
         private void Start()
         {
-            ball.JumpSucceded += OnJumpSucceded;
+          //  ball.JumpSucceded += OnJumpSucceded;
             float ratio = camera.aspect;
             float maxBounds = ratio * camera.orthographicSize;
             Debug.Log(maxBounds);

@@ -1,7 +1,9 @@
-﻿using FriendsGamesTools;
+﻿using DG.Tweening;
+using FriendsGamesTools;
 using HcUtils;
 using SplineMesh;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Superball
@@ -208,6 +210,23 @@ namespace Superball
             return false;
         }
 
+        private IEnumerator FinishRoutine()
+        {
+            _rigidbody.isKinematic = true;
+          //  _rigidbody.velocity = Vector3.zero;
+            yield return new WaitForSeconds(0.2f);
+            //yield return new WaitForFixedUpdate();
+            //yield return new WaitForEndOfFrame();
+           Vector3 _startPos = transform.position;
+            CameraSwitch.instance.DisablePursuit();
+            transform.DOShakePosition(1f, 0.1f, 10, 90, false, false) ;
+            EffectsManager.instance.PlayFinishBlow(_startPos);
+            yield return new WaitForSeconds(1f);
+            transform.DOMove(_startPos + Vector3.up * 50f, 2f);
+
+            GameManager.instance.OnLevelComplete();
+
+        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (_finished) return;
@@ -217,8 +236,9 @@ namespace Superball
 
                 _finished = true;
                 CanControlChanged?.Invoke(false);
-                GameManager.instance.OnLevelComplete();
-                _rigidbody.AddForce(Vector2.right * 1000f);
+             
+            //    _rigidbody.AddForce(Vector2.right * 1000f);
+                StartCoroutine(FinishRoutine());
 
             }
 
@@ -243,7 +263,7 @@ namespace Superball
                 var coin = collision.GetComponent<Coin>();
                 if (coin.Collect())
                 {
-
+                    GameManager.instance.AddCoins();
                 }
             }
 
@@ -293,18 +313,10 @@ namespace Superball
             }
             _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
 
-            //var velocityModule = _rigidbody.velocity.magnitude* _outVelocityMultiplier;
-            //if (velocityModule < _minPipeVelocity) velocityModule = _minPipeVelocity;
-            //velocity = sampleWorldDirection * velocityModule;
-            //_inVelocityModule = velocityModule;
-            //inVelocity = velocity;
-            //_minAcceleration = velocity.magnitude;
-            //_maxAcceleration = _minAcceleration * 1.2f;
+         
             _inVelocityModule = inVelocity.magnitude;
             _pipeMiddleVelocity = _inVelocityModule * 1.1f;
 
-
-            //во время движения по труде нам не нужно влияние физики на мячик
             _rigidbody.simulated = false;
 
             ScoreManager.instance.UpdateScore();

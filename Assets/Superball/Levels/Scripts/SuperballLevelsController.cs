@@ -11,7 +11,7 @@ namespace Superball
 #if ADS
         public override float levelWinX3Chance => moneyConfig.levelWinX3Chance;
 #endif
-        public override int winStarsCount => Utils.Random(0, 1f) <= 0.7f ? 3 : 2;
+        public override int winStarsCount => 3;// Utils.Random(0, 1f) <= 0.7f ? 3 : 2;
         public bool LastGameIsWin { private set; get; } = false;
         public override void RestartLocation()
         {
