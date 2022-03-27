@@ -1,4 +1,5 @@
 using FriendsGamesTools;
+using HcUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ public class EffectsManager : MonoBehaviourHasInstance<EffectsManager>
 {
     [SerializeField] private EffectsList defaultEffect;
     [SerializeField] private EffectsList addCoinEffect;
+    [SerializeField] private IncomeText incomeText;
 
     private ParticleSystem PlayEffect(EffectsList effect, Vector3 position)
     {
@@ -54,5 +56,11 @@ public class EffectsManager : MonoBehaviourHasInstance<EffectsManager>
     public ParticleSystem PlayAddCoint(Vector3 position)
     {
         return addCoinEffect.PlayEffect(position);
+    }
+    public IncomeText PlayIncomeText(int count,Vector3 position)
+    {
+        var text = Instantiate(incomeText, transform);
+        text.Play($"x{count}", position, Vector3.forward, true);
+        return text;
     }
 }

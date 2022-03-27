@@ -7,6 +7,8 @@ namespace Superball
 {
     public class SuperballLevelGenerator : MonoBehaviour
     {
+        [SerializeField] private GameObject _finish;
+
         [SerializeField] private List<Pipe> pipePrefabs;
         [SerializeField] private Transform _pipesParent;
 
@@ -24,6 +26,12 @@ namespace Superball
 
         private List<Pipe> _pipes;
         [SerializeField] private List<Obstacle> _obstaclePrefabs;
+
+        [SerializeField] private bool _setFinish = true;
+        [SerializeField] private bool _spawnPipes = true;
+        [SerializeField] private bool _spawnObstacles = true;
+        [SerializeField] private bool _spawnCoins = true;
+        private float _levelLength = 0;
         private void Start()
         {
             _pipes = _pipesParent.GetComponentsInChildren<Pipe>().ToList();
@@ -32,16 +40,28 @@ namespace Superball
 
         public void Generate()
         {
+            if (_setFinish)
+            {
+                SetFinish();
+            }
+            
+            _levelLength = _finish.transform.position.x;
+
             ApplyGround();
-            SpawnPipes();
-           // SpawnObstacles();
-            SpawnFinish();
-            SpawnCoins();
+            if (_spawnPipes)
+            {
+                SpawnPipes();
+            }
+
+            if (_spawnCoins)
+            {
+                SpawnCoins();
+            }
         }
 
         private void ApplyGround()
         {
-            float levelLength = levelConfig.GetLevelLength();
+            float levelLength = _levelLength;
             float groundLength = levelLength + _groundAdditionalSpace * 2f;
             _groundSprite.size = new Vector2(_groundSprite.size.x, groundLength);
             var groundPosition = _groundSprite.transform.position;
@@ -56,7 +76,7 @@ namespace Superball
         private void SpawnPipes()
         {
             _lastPipePostion = new Vector3(1, 0, 0);
-            float levelLength = levelConfig.GetLevelLength();
+            float levelLength = _levelLength;
             int levelIndex = levelConfig.GetLevelIndex();
             Pipe pipePrefab = null;
 
@@ -84,24 +104,31 @@ namespace Superball
                 offset += new Vector3(Utils.Random(perLevelIncreaseMin.x, perLevelIncreaseMax.x * levelIndex), Utils.Random(perLevelIncreaseMin.y, perLevelIncreaseMax.y) * levelIndex);
                 offset.x = Mathf.Clamp(offset.x, -1000, maxPipeDistance.x);
                 offset.x = Mathf.Clamp(offset.y, -1000, maxPipeDistance.y);
+            
 
                 Vector3 pos = _lastPipePostion + offset;
                 pos.x = Mathf.Clamp(pos.x, _lastPipePostion.x + minPipeDistanceRandom.x, 1000);
                 pos.y = Mathf.Clamp(pos.y, levelConfig.pipeBound_bottom, levelConfig.pipeBound_top);
-
-                bool createObstacle = Random.value <_obstacleChance;
-                if (createObstacle)
+                if (pipesCount == 0)
                 {
-                    var obsOffset = Vector3.right * 3f + Vector3.up * (-5f);
-                    pos.x += obsOffset.x;
-                    var obsPos = _lastPipePostion + (pos - _lastPipePostion) / 2f;
-                    var prefab = Utils.RandomElement(_obstaclePrefabs);
-                    var obs = Instantiate(prefab, transform);
-                    obs.transform.position = obsPos;
-                    var patrol = obs.GetComponent<PatrolBehaviour>();
-                    patrol.SetPatrolOffset(new Vector3(0,Mathf.Clamp((pos-_lastPipePostion).y+Random.value*4f,4f,1000),0));
-                    patrol.SetSpeed(Utils.Random(_minObtacleSpeed, _maxObstacleSpeed));
-                    patrol.SetProgressOffset(Random.value);
+                    pos.y = Mathf.Clamp(pos.y, _lastPipePostion.y + 5f, 10000);
+                }
+                if (_spawnObstacles)
+                {
+                    bool createObstacle = Random.value < _obstacleChance;
+                    if (createObstacle)
+                    {
+                        var obsOffset = Vector3.right * 3f + Vector3.up * (-5f);
+                        pos.x += obsOffset.x;
+                        var obsPos = _lastPipePostion + (pos - _lastPipePostion) / 2f;
+                        var prefab = Utils.RandomElement(_obstaclePrefabs);
+                        var obs = Instantiate(prefab, transform);
+                        obs.transform.position = obsPos;
+                        var patrol = obs.GetComponent<PatrolBehaviour>();
+                        patrol.SetPatrolOffset(new Vector3(0, Mathf.Clamp((pos - _lastPipePostion).y + Random.value * 4f, 4f, 1000), 0));
+                        patrol.SetSpeed(Utils.Random(_minObtacleSpeed, _maxObstacleSpeed));
+                        patrol.SetProgressOffset(Random.value);
+                    }
                 }
 
                 if (pos.x >= levelLength- minPipeDistanceRandom.x/2f)
@@ -155,15 +182,9 @@ namespace Superball
 
             }
         }
-        private void SpawnObstacles()
+        private void SetFinish()
         {
-            //Тоже самое, что с трубами
-        }
-
-        private void SpawnFinish()
-        {
-            GameObject finish = Instantiate(finishPrefab, transform);
-            finish.transform.position = new Vector2(levelConfig.GetLevelLength(), 0);
+            _finish.transform.position = new Vector2(levelConfig.GetLevelLength(), 0);
         }
     }
 }

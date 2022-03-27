@@ -59,6 +59,8 @@ namespace Superball
         public event Action EnteredPipe;
         public event Action LeftPipe;
         public event Action SamePipeEntered;
+
+        int _samePipeInRow = 0;
         private void Start()
         {
             _collider = GetComponent<CircleCollider2D>();
@@ -280,11 +282,14 @@ namespace Superball
             if (currentPipe != previousPipe)
             {
                 inVelocity = gForce.magnitude * sampleWorldDirection;
+                _samePipeInRow = 1;
             }
             else
             {
+                _samePipeInRow++;
                 inVelocity *= BallConfig.instance.samePipeSpeedMultiplier;
                 SamePipeEntered?.Invoke();
+                EffectsManager.instance.PlayIncomeText(_samePipeInRow, currentPipe.transform.position + Vector3.up * 2);
             }
             _outVelocityMultiplier = BallConfig.instance.samePipeSpeedMultiplier;
 
