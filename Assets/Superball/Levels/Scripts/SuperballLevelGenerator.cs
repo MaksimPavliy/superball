@@ -31,6 +31,7 @@ namespace Superball
         [SerializeField] private bool _spawnPipes = true;
         [SerializeField] private bool _spawnObstacles = true;
         [SerializeField] private bool _spawnCoins = true;
+        [SerializeField] private Transform _ceiling;
         private float _levelLength = 0;
         private void Start()
         {
