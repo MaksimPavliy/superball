@@ -88,11 +88,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a69a6c8600521c14487233da0780d9a1, type: 3}
   - {fileID: 21300000, guid: 142c7a37414fbeb45ba7e4b580172495, type: 3}
   - {fileID: 21300000, guid: 4b2dbca7b95db4647bed41868a856410, type: 3}
+  - {fileID: 21300000, guid: 619960b7edd651e44bd8b5e3bc5b1990, type: 3}
+  - {fileID: 21300000, guid: ed0cf9c763c41d84ca5a070d20b17bf4, type: 3}
   - {fileID: 21300000, guid: 77afd7f751c0b6b47be4bb0c91289124, type: 3}
   - {fileID: 21300000, guid: 039fb908a5fe66f44aeff7f44edf6787, type: 3}
   - {fileID: 21300000, guid: 24214538c1f487242b5b6a6cec74f5d9, type: 3}
   - {fileID: 21300000, guid: a85dce388d203ef4f8e812f16aee1843, type: 3}
   - {fileID: 21300000, guid: 74e194c84651e204aaa123e93bd3ca09, type: 3}
+  - {fileID: 21300000, guid: 786e3cd828525c74787bb926a7872b6c, type: 3}
   - {fileID: 21300000, guid: 3f9dede8c839dd945971951ae0905ed0, type: 3}
   - {fileID: 21300000, guid: 8fc01c293b05cf543a57cdce8df04ab4, type: 3}
   - {fileID: 21300000, guid: eae319491b9138440905f97e4ec99af3, type: 3}
@@ -103,11 +106,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 08c4347aa3fd8e445a6822df6733b2f3, type: 3}
   - {fileID: 21300000, guid: cb150b3bb78fa014980fd5c6547d5c0b, type: 3}
   - {fileID: 21300000, guid: 7fb6c75b184ed494c927d968f48dcfed, type: 3}
+  - {fileID: 21300000, guid: 569e617be176ed14eb2bb68cdc1e1527, type: 3}
   - {fileID: 21300000, guid: 1cd9327b1c5b1e14b9bf0ff1a49cf4b3, type: 3}
+  - {fileID: 21300000, guid: c0d70a8b5c3c90549869f3d21a300fa9, type: 3}
   - {fileID: 21300000, guid: eae8f3ebe25aafe43a5cd2db132aeb02, type: 3}
   - {fileID: 21300000, guid: f340c4ebb108c2f4ca3f10cf63bab83b, type: 3}
   - {fileID: 21300000, guid: eaf9547c923018143aa7eaa172db2f43, type: 3}
   - {fileID: 21300000, guid: d86e27ddbed82454c93516ac0e39aa7c, type: 3}
+  - {fileID: 21300000, guid: 81972cdd19ec6e549a6f8f102d9d00ac, type: 3}
   - {fileID: 21300000, guid: 1e071a0e1279f4f49a9e7d745772f338, type: 3}
   - {fileID: 21300000, guid: 4bb0d89e90a4b954d9150fe46d19ebd3, type: 3}
   - {fileID: 21300000, guid: e42379fe0ee63ad409443e02c1694dc5, type: 3}
@@ -142,11 +148,14 @@ SpriteAtlas:
   - moneyFrame
   - modal_transparent
   - button_green
+  - tutor_center
+  - tutor_left
   - icon_settings_vibration
   - button_yellow
   - loader
   - icon_skins
   - modal_tab
+  - ballLeft
   - modal_header
   - slot_selection
   - icon_star_slot
@@ -157,11 +166,14 @@ SpriteAtlas:
   - cross
   - button_blue
   - brogressBar
+  - arrow
   - button_blue
+  - speed_icon
   - icon_settings
   - slot_unavailable
   - button_gray
   - icon_slot_selection
+  - tutor_right
   - icon_share
   - icon_rate
   - icon_ad

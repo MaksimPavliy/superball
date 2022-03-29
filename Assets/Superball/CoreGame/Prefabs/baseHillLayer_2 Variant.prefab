@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321972329207562722}
   - component: {fileID: 9199492869157175313}
+  - component: {fileID: 7673743857081541008}
   m_Layer: 0
   m_Name: HIll (1)
   m_TagString: Untagged
@@ -83,6 +84,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7673743857081541008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792151986761746248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2bd0c21d28fa5445b44c53e6979915d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  _colors:
+  - {r: 0.36078432, g: 0.8039216, b: 1, a: 1}
+  - {r: 0.61825913, g: 0.8962264, b: 0.36694553, a: 1}
+  - {r: 0.6562862, g: 0.35922036, b: 0.8773585, a: 1}
+  - {r: 0.7075472, g: 0.2571373, b: 0.13616943, a: 1}
 --- !u!1001 &1059411839026009481
 PrefabInstance:
   m_ObjectHideFlags: 0

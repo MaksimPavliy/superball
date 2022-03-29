@@ -10,6 +10,8 @@ namespace Superball
         public float startLength = 100;
 
         public float lengthInc = 100;
+        public float maxLevelHeight = 200;
+        
 
         public float pipeBiasX_Base_min = 7;
         public float pipeBiasX_Base_max = 7;

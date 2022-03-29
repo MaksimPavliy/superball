@@ -319,7 +319,7 @@ namespace Superball
 
             _rigidbody.simulated = false;
 
-            ScoreManager.instance.UpdateScore();
+         //   ScoreManager.instance.UpdateScore();
             _angularVelocity = Mathf.Clamp(Mathf.Abs(_rigidbody.angularVelocity), 1000, 10000) * -pipeEntrance.DirectionSign;
 
             State = BallState.InPipe;

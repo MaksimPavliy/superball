@@ -45,9 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLength: 15
   lengthInc: 10
+  maxLevelHeight: 200
   pipeBiasX_Base_min: 7
   pipeBiasX_Base_max: 7
-  pipeBiasY_Base_min: -12
+  pipeBiasY_Base_min: -3
   pipeBiasY_Base_max: 5
   pipeBiasX_perPipeIncrement_min: 0.1
   pipeBiasX_perPipeIncrement_max: 0.2
@@ -55,7 +56,7 @@ MonoBehaviour:
   pipeBiasY_perPipeIncrement_max: 0.5
   pipeBiasX_perLevelIncrement_min: 0
   pipeBiasX_perLevelIncrement_max: 0.2
-  pipeBiasY_perLevelIncrement_min: 0
+  pipeBiasY_perLevelIncrement_min: 0.1
   pipeBiasY_perLevelIncrement_max: 0.7
   pipeBiasX_limit: 20
   pipeBiasY_limit: 25
@@ -157,7 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57465fcc40f12bd45ad276bda4a78bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlSensitity: 20
+  controlSensitity: 10
+  samePipeSpeedMultiplier: 1.2
 --- !u!1 &3280794377683250495
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ MonoBehaviour:
     startUnlocked: 0
   - ico: {fileID: 21300000, guid: 8dfca4ae539c30f409d0f75224f3bb12, type: 3}
     startUnlocked: 0
-  - ico: {fileID: 21300000, guid: a9132f65df069bc4883975ac47c2e684, type: 3}
+  - ico: {fileID: 21300000, guid: b12caef839d05aa4d826d093cb3a01cf, type: 3}
     startUnlocked: 0
   - ico: {fileID: 21300000, guid: a000df8be8b31e440b78009bece5ec48, type: 3}
     startUnlocked: 0

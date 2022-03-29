@@ -18,7 +18,7 @@ namespace Superball
         [SerializeField] private Pipe pipe;
         [SerializeField] private new Camera camera;
         private bool isPlaying;
-        private int _score => ScoreManager.instance.Score;
+        //private int _score => ScoreManager.instance.Score;
 
         private int jumpCounter = 0;
         private int themeIndex = 0;
@@ -32,7 +32,8 @@ namespace Superball
             float ratio = camera.aspect;
             float maxBounds = ratio * camera.orthographicSize;
             Debug.Log(maxBounds);
-   
+
+            ThemeSet.instance.ActivateSet(SuperballRoot.instance.levels.currLocationInd%4);
             /*pipe.maxOffset = maxBounds*1.2f;*/
         }
         private void OnJumpSucceded()
@@ -58,7 +59,7 @@ namespace Superball
             SuperballMoneyView.instance.gameObject.SetActive(true);
             CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoWin();
-            GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
+        //    GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
             //FinishScore.instance.UpdateFinishScore();
             LevelComplete?.Invoke();
             IsPlaying = false;
@@ -69,14 +70,14 @@ namespace Superball
             SuperballMoneyView.instance.gameObject.SetActive(true);
             CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoLose();
-            GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
+         //   GameRoot.instance.Get<HightScoreController>().TrySaveScore(_score);
             OnLevelLost?.Invoke();
             IsPlaying = false;
         }
 
         public void OnReset()
         {
-            ScoreManager.instance.ClearScore();
+           // ScoreManager.instance.ClearScore();
         }
     }
 }

@@ -32,7 +32,10 @@ namespace Superball
         [SerializeField] private bool _spawnObstacles = true;
         [SerializeField] private bool _spawnCoins = true;
         [SerializeField] private Transform _ceiling;
+        [SerializeField] private Transform _leftWall;
         private float _levelLength = 0;
+        private float _groundLength = 0;
+        private float _highestPipeHeight = 0;
         private void Start()
         {
             _pipes = _pipesParent.GetComponentsInChildren<Pipe>().ToList();
@@ -48,7 +51,7 @@ namespace Superball
             
             _levelLength = _finish.transform.position.x;
 
-            ApplyGround();
+            ApplyBounds();
             if (_spawnPipes)
             {
                 SpawnPipes();
@@ -58,21 +61,39 @@ namespace Superball
             {
                 SpawnCoins();
             }
+            ApplyCeiling();
         }
 
-        private void ApplyGround()
+        private void ApplyBounds()
         {
             float levelLength = _levelLength;
-            float groundLength = levelLength + _groundAdditionalSpace * 2f;
-            _groundSprite.size = new Vector2(_groundSprite.size.x, groundLength);
+            _groundLength = levelLength + _groundAdditionalSpace * 2f;
+            _groundSprite.size = new Vector2(_groundSprite.size.x, _groundLength);
             var groundPosition = _groundSprite.transform.position;
             groundPosition.x = levelLength / 2f;
             _groundSprite.transform.position = groundPosition;
 
-            _groundSpikes.size = new Vector2(groundLength, _groundSpikes.size.y);
+            _groundSpikes.size = new Vector2(_groundLength, _groundSpikes.size.y);
             _groundSpikes.transform.position = new Vector3(levelLength / 2f, 0, 0);
             var collider = _groundSpikes.GetComponent<BoxCollider2D>();
-            collider.size = new Vector2(groundLength, collider.size.y);
+            collider.size = new Vector2(_groundLength, collider.size.y);
+
+            _leftWall.transform.position -= Vector3.right * (_groundAdditionalSpace);
+        }
+
+        private void ApplyCeiling()
+        {
+            _highestPipeHeight = 0;
+            foreach (var p in _pipes)
+            {
+                if(p.transform.position.y> _highestPipeHeight)
+                {
+                    _highestPipeHeight = p.transform.position.y;
+                }
+            }
+            var ceilingHeight = Mathf.Clamp(_highestPipeHeight + 13f, 0, levelConfig.maxLevelHeight);
+            _ceiling.transform.position = _groundSpikes.transform.position + Vector3.up * ceilingHeight;
+            _ceiling.transform.localScale = new Vector3(_groundLength-_groundAdditionalSpace, _ceiling.transform.localScale.y, 1);
         }
         private void SpawnPipes()
         {
@@ -156,7 +177,7 @@ namespace Superball
                 pipe.Spawn(pos);
                 _lastPipePostion = pos;
                 _pipes.Add(pipe);
-
+                
 
             }
         }

@@ -68,14 +68,14 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 1
+    - _Scale: 2.16
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.7830189, g: 0.06278926, b: 0.3014139, a: 1}
-    - _Color2: {r: 0.9622642, g: 0.78626174, b: 0.013616921, a: 1}
+    - _Color: {r: 0.61459595, g: 0.9811321, b: 0.79797614, a: 1}
+    - _Color2: {r: 0.15418297, g: 0.35108316, b: 0.6698113, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

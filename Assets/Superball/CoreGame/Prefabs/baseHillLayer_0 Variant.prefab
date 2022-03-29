@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3366765420164506193}
   - component: {fileID: 4398493393347089702}
+  - component: {fileID: 6334788627029051813}
   m_Layer: 0
   m_Name: HillLayer0
   m_TagString: Untagged
@@ -83,6 +84,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6334788627029051813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992596155774140897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2bd0c21d28fa5445b44c53e6979915d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  _colors:
+  - {r: 0.07058824, g: 0.7058824, b: 1, a: 1}
+  - {r: 0.3042931, g: 0.8301887, b: 0.15977213, a: 1}
+  - {r: 0.5228087, g: 0.18431373, b: 0.77254903, a: 1}
+  - {r: 0.8207547, g: 0.38670427, b: 0.22764327, a: 1}
 --- !u!1001 &2554529011374407670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 4873342736567066047, guid: bc7a93c1ba60de541b2761ec808136ea,
         type: 3}
       propertyPath: m_Name
-      value: baseHillLayer_0
+      value: baseHillLayer_0 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8296295084112877198, guid: bc7a93c1ba60de541b2761ec808136ea,
         type: 3}
