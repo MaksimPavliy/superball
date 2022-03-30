@@ -4,6 +4,7 @@ using HcUtils;
 using SplineMesh;
 using System;
 using System.Collections;
+using TweenFunctions;
 using UnityEngine;
 
 namespace Superball
@@ -112,9 +113,13 @@ namespace Superball
                 {
                     var dragDir = Joystick.instance.dragDir;
                     var velocity = _rigidbody.velocity;
-                    velocity.x = dragDir.x * BallConfig.controlSensitity;
-                    _rigidbody.velocity = velocity;
-                    _rigidbody.angularVelocity = Mathf.Clamp(Mathf.Abs(dragDir.x * 1000f), 600f, 1500f) * Mathf.Sign(-dragDir.x);
+
+
+                    // var easeX =BallConfig.joystickSmooth? (Easing.EaseOut(Mathf.Abs(dragDir.x), EasingType.Cubic) * Mathf.Sign(dragDir.x)) : dragDir.x;
+                    var easeX = dragDir.x;
+                    velocity.x = easeX * BallConfig.controlSensitity;
+                    _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity,velocity, BallConfig.strafeVelocity * Time.deltaTime);
+                    _rigidbody.angularVelocity = Mathf.Clamp(Mathf.Abs(easeX * 1000f), 600f, 1500f) * Mathf.Sign(-easeX);
                 }
 
             }
@@ -171,7 +176,7 @@ namespace Superball
                         _pipeVelocity = _tubeMoveDirectionSign > 0 ? Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, 1-progressValue) :
                            Mathf.Lerp(_inVelocityModule, _pipeMiddleVelocity, (1-progressValue));
                     }
-                    Debug.Log($"value:{progressValue} velModule:{_pipeVelocity} vel:{velocity}");
+                 //   Debug.Log($"value:{progressValue} velModule:{_pipeVelocity} vel:{velocity}");
                     _tubeDistance += _pipeVelocity * Time.deltaTime * _tubeMoveDirectionSign;
                     _tubeDistance = Mathf.Clamp(_tubeDistance, 0, currentPipe.Length);
                     transform.Rotate(Vector3.forward, _angularVelocity * Time.deltaTime);

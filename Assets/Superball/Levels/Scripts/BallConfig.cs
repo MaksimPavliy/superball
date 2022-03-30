@@ -6,5 +6,8 @@ namespace Superball
     {
         public float controlSensitity = 100f;
         public float samePipeSpeedMultiplier = 2f;
-    }
+        public bool showJoystick = false;
+        public int joystickMaxDistance = 300;
+        public float strafeVelocity = 30;
+   }
 }

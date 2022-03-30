@@ -3120,7 +3120,7 @@ PrefabInstance:
     - target: {fileID: 731747865215234362, guid: dbed13a5952e44ec9b4fbaf5ecf7acb4,
         type: 3}
       propertyPath: maxDistance
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1191504265980405816, guid: dbed13a5952e44ec9b4fbaf5ecf7acb4,
         type: 3}
@@ -3344,20 +3344,19 @@ MonoBehaviour:
   _images:
   - {fileID: 1018466366}
   - {fileID: 1018466365}
---- !u!114 &1018466368
+  _joystick: {fileID: 1018466371}
+--- !u!114 &1018466371 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 731747865215234362, guid: dbed13a5952e44ec9b4fbaf5ecf7acb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1018466361}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018466363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e208a31eea9af459164497c381c362, type: 3}
+  m_Script: {fileID: 11500000, guid: d0f0c241b377aca4bb47abecf28bbd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  relativeOffset: 0
 --- !u!1 &1064539354
 GameObject:
   m_ObjectHideFlags: 0
@@ -7394,6 +7393,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1960826944}
     m_Modifications:
+    - target: {fileID: 5401722689640920027, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: showJoystick
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7223800338235609400, guid: ab99b666fd4860e4d93950d0d02e01ee,
         type: 3}
       propertyPath: items.Array.data[6].ico
@@ -7459,6 +7463,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804915220599632588, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: showJoystick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804915220599632588, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: joystickSmooth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804915220599632588, guid: ab99b666fd4860e4d93950d0d02e01ee,
+        type: 3}
+      propertyPath: controlSensitity
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab99b666fd4860e4d93950d0d02e01ee, type: 3}
