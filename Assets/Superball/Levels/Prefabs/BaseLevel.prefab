@@ -748,7 +748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2757818613222815288}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.8647, y: 1.1756, z: 17}
+  m_LocalPosition: {x: -0.0609, y: 1.1756, z: 20}
   m_LocalScale: {x: 0.049500022, y: 0.047056645, z: 1}
   m_Children: []
   m_Father: {fileID: 8475776171249626296}
@@ -800,7 +800,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 451.25516, y: 512.62256}
+  m_Size: {x: 451.25516, y: 473.2834}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -959,7 +959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3378371596580090311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2830271202408500137}
@@ -1342,7 +1342,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4485163813840755924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2830271202408500137}
@@ -1410,24 +1410,25 @@ MonoBehaviour:
   - _prefab: {fileID: 6976662961648165449, guid: a8807c646a081294b982d5917f76cc54,
       type: 3}
     _layerParent: {fileID: 1787601992469939664}
-    _offsetMultiplier: 1
-    _minDelta: 5
+    _offsetMultiplier: 0
+    _minDelta: 6
     _maxDelta: 10
-    _count: 30
+    _count: 5
   - _prefab: {fileID: 338222348830097332, guid: e5191080e5a72c24abd37333685dba57,
       type: 3}
     _layerParent: {fileID: 5255120932260207344}
-    _offsetMultiplier: 1
-    _minDelta: 5
+    _offsetMultiplier: -0.2
+    _minDelta: 4
     _maxDelta: 10
-    _count: 30
+    _count: 5
   - _prefab: {fileID: 5553604723081365558, guid: 58418da887d263e4a891767d004a14ee,
       type: 3}
     _layerParent: {fileID: 811316116486640596}
-    _offsetMultiplier: 1
-    _minDelta: 3
+    _offsetMultiplier: -0.4
+    _minDelta: 4
     _maxDelta: 6
-    _count: 40
+    _count: 5
+  _bgCamera: {fileID: 8475776171249626296}
 --- !u!1 &4806151595918071664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,7 +1454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4806151595918071664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2830271202408500137}

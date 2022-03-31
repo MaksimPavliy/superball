@@ -171,7 +171,8 @@ namespace Superball
                 float rotatorChance = 0.0f + levelIndex * 0.05f;
                 if(addRotator && Utils.Random(0,1f) <= rotatorChance)
                 {
-                    var rotator=pipe.gameObject.AddComponent<PipeRotator>();
+                    var rotator=pipe.gameObject.GetComponent<PipeRotator>();
+                    rotator.enabled = true;
                     rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0,1f)< 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
                 }
                 pipe.Spawn(pos);

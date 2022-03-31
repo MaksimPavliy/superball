@@ -12,6 +12,7 @@ TagManager:
   - pipeEntrance
   - tubeEntrance
   - coin
+  - dangerBg
   layers:
   - Default
   - TransparentFX

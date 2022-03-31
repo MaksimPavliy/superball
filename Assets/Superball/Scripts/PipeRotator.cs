@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Superball
@@ -10,6 +11,7 @@ namespace Superball
         [SerializeField] private float _rotationTime = 0.3f;
         [SerializeField] private float _rotationAngle = 90;
         [SerializeField] private float _timeOffset = 0;
+        [SerializeField] private Transform _arrows;
         private float _rotation;
         public void Init(float interval,float angle,float rotationTime,float timeOffset=0)
         {
@@ -20,6 +22,7 @@ namespace Superball
         }
         private void Start()
         {
+            _arrows.gameObject.SetActive(true);
             StartCoroutine(RotationRoutine());
         }
         private IEnumerator RotationRoutine()
