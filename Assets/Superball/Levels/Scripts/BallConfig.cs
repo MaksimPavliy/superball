@@ -9,5 +9,6 @@ namespace Superball
         public bool showJoystick = false;
         public int joystickMaxDistance = 300;
         public float strafeVelocity = 30;
+        public bool resetJoystickInPipe = false;
    }
 }

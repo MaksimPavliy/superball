@@ -357,7 +357,15 @@ namespace Superball
             _rigidbody.velocity = outVelocity;
             _rigidbody.angularVelocity = _angularVelocity;
             previousPipe = currentPipe;
-            Joystick.instance.ResetDrag();
+             
+          
+            if (BallConfig.instance.resetJoystickInPipe)
+            {
+                Joystick.instance.ResetDrag();
+            }  else
+            {
+                _dragged = true;
+            }
 
             LeftPipe?.Invoke();
             //  StartCoroutine(AwaitLeavingPipe());

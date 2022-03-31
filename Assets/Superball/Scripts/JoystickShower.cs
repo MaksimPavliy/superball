@@ -8,6 +8,9 @@ namespace Superball
     {
         [SerializeField] private Image[] _images;
         [SerializeField] private Joystick _joystick;
+        [SerializeField] private Transform _originTr;
+        [SerializeField] private Transform _pointerTr;
+        [SerializeField] private Transform _joyBg;
         private void Update()
         {
             _joystick.maxDistance = BallConfig.instance.joystickMaxDistance;
@@ -15,6 +18,15 @@ namespace Superball
             {
                 _images[i].enabled = BallConfig.instance.showJoystick;
             }
+        }
+        private void LateUpdate()
+        {
+            var pos= _pointerTr.position;
+            pos.y = _originTr.position.y;
+            _originTr.rotation = Quaternion.identity;
+            _pointerTr.position = pos;
+            _joyBg.position=_originTr.position;
+            
         }
     }
 }
