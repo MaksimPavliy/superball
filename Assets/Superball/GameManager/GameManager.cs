@@ -17,6 +17,8 @@ namespace Superball
         [SerializeField] private LevelSelector selector;
         [SerializeField] private Pipe pipe;
         [SerializeField] private new Camera camera;
+        [SerializeField] private SuperballLevelGenerator _levelGenerator;
+        [SerializeField] private FinishLine _finishLine;
         private bool isPlaying;
         //private int _score => ScoreManager.instance.Score;
 
@@ -35,6 +37,18 @@ namespace Superball
 
             ThemeSet.instance.ActivateSet(SuperballRoot.instance.levels.currLocationInd%4);
             /*pipe.maxOffset = maxBounds*1.2f;*/
+
+            _levelGenerator.Generate();
+            DistanceSlider.instance.SetMaxDistance(_finishLine.transform.position.x);
+            DistanceSlider.instance.SetPassedDistance(ball.transform.position.x);
+            DistanceSlider.instance.SetLevelText($"Level {GameRoot.instance.Get<SuperballLevelsController>().currLocationInd + 1}");
+        }
+        private void Update()
+        {
+            if (ball)
+            {
+                DistanceSlider.instance.SetPassedDistance(ball.transform.position.x);
+            }
         }
         private void OnJumpSucceded()
         {

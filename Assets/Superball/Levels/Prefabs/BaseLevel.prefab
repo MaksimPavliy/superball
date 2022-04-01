@@ -113,6 +113,8 @@ MonoBehaviour:
   selector: {fileID: 6030521224689950062}
   pipe: {fileID: 0}
   camera: {fileID: 1332746260841485511}
+  _levelGenerator: {fileID: 3660763062628092196}
+  _finishLine: {fileID: 7715328094989424882}
 --- !u!1 &723735128778518156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +1991,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5292652985793115895}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7715328094989424882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2477294113829187077, guid: fdb6a3e63f331224d89184bf06d4219f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5292652985793115895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353610083562610176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03a09f979f16804b96d19bb1da9c1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6951420670194247299
 PrefabInstance:
   m_ObjectHideFlags: 0

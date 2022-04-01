@@ -36,14 +36,11 @@ namespace Superball
         private float _levelLength = 0;
         private float _groundLength = 0;
         private float _highestPipeHeight = 0;
-        private void Start()
-        {
-            _pipes = _pipesParent.GetComponentsInChildren<Pipe>().ToList();
-            Generate();
-        }
 
         public void Generate()
         {
+            _pipes = _pipesParent.GetComponentsInChildren<Pipe>().ToList();
+
             if (_setFinish)
             {
                 SetFinish();
