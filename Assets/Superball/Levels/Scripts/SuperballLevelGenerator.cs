@@ -45,7 +45,7 @@ namespace Superball
             {
                 SetFinish();
             }
-            
+
             _levelLength = _finish.transform.position.x;
 
             ApplyBounds();
@@ -83,14 +83,14 @@ namespace Superball
             _highestPipeHeight = 0;
             foreach (var p in _pipes)
             {
-                if(p.transform.position.y> _highestPipeHeight)
+                if (p.transform.position.y > _highestPipeHeight)
                 {
                     _highestPipeHeight = p.transform.position.y;
                 }
             }
             var ceilingHeight = Mathf.Clamp(_highestPipeHeight + 13f, 0, levelConfig.maxLevelHeight);
             _ceiling.transform.position = _groundSpikes.transform.position + Vector3.up * ceilingHeight;
-            _ceiling.transform.localScale = new Vector3(_groundLength-_groundAdditionalSpace, _ceiling.transform.localScale.y, 1);
+            _ceiling.transform.localScale = new Vector3(_groundLength - _groundAdditionalSpace, _ceiling.transform.localScale.y, 1);
         }
         private void SpawnPipes()
         {
@@ -116,9 +116,9 @@ namespace Superball
 
             int pipesCount = 0;
 
-            int startRotatorLevel = 4;
-          
-            bool addRotator = _levelLength >= startRotatorLevel;
+            int startRotatorLevel = 7;
+
+
             while (pipesCount < 100000)
             {
 
@@ -127,7 +127,7 @@ namespace Superball
                 offset += new Vector3(Utils.Random(perLevelIncreaseMin.x, perLevelIncreaseMax.x * levelIndex), Utils.Random(perLevelIncreaseMin.y, perLevelIncreaseMax.y) * levelIndex);
                 offset.x = Mathf.Clamp(offset.x, -1000, maxPipeDistance.x);
                 offset.x = Mathf.Clamp(offset.y, -1000, maxPipeDistance.y);
-            
+
 
                 Vector3 pos = _lastPipePostion + offset;
                 pos.x = Mathf.Clamp(pos.x, _lastPipePostion.x + minPipeDistanceRandom.x, 1000);
@@ -154,7 +154,7 @@ namespace Superball
                     }
                 }
 
-                if (pos.x >= levelLength- minPipeDistanceRandom.x/2f)
+                if (pos.x >= levelLength - minPipeDistanceRandom.x / 2f)
                 {
                     return;
                 }
@@ -165,17 +165,29 @@ namespace Superball
                 //    Random.Range(levelConfig.bottomBound + pipeSize.y * 0.5f, levelConfig.topBound - pipeSize.y * 0.5f));
 
                 Pipe pipe = Instantiate(pipePrefab, _pipesParent);
-                float rotatorChance = 0.0f + levelIndex * 0.05f;
-                if(addRotator && Utils.Random(0,1f) <= rotatorChance)
-                {
-                    var rotator=pipe.gameObject.GetComponent<PipeRotator>();
-                    rotator.enabled = true;
-                    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0,1f)< 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
-                }
+                //float rotatorChance = 0.0f + levelIndex * 0.05f;
+                //if(addRotator && Utils.Random(0,1f) <= rotatorChance)
+                //{
+                //    var rotator=pipe.gameObject.GetComponent<PipeRotator>();
+                //    rotator.enabled = true;
+                //    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0,1f)< 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
+                //}
                 pipe.Spawn(pos);
                 _lastPipePostion = pos;
                 _pipes.Add(pipe);
-                
+
+
+            }
+            bool addRotator = levelIndex >= startRotatorLevel;
+            if (addRotator)
+            {
+                var rotatorPart = _pipes.Where(x => _pipes.IndexOf(x) > 0).ToList().RandomElement();
+                if (rotatorPart)
+                {
+                    var rotator = rotatorPart.gameObject.GetComponent<PipeRotator>();
+                    rotator.enabled = true;
+                    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0, 1f) < 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
+                }
 
             }
         }

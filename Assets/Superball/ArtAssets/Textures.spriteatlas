@@ -64,6 +64,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: e4c2220049f15b747b082b82db799c34, type: 3}
   - {fileID: 21300000, guid: fbecbd5075fb33045bf24b1089ee741d, type: 3}
+  - {fileID: 21300000, guid: 15d71a60ae0c77943be633ee371ed630, type: 3}
   - {fileID: 21300000, guid: c2386bf1f006b3a4095fe9210bc6d320, type: 3}
   - {fileID: 21300000, guid: 83931b12f9bd3bc42a082a42b1f851bc, type: 3}
   - {fileID: 21300000, guid: 93d4ab928a58c814abec798b691fdf42, type: 3}
@@ -107,6 +108,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - spikes_5
   - cbg_spike
+  - curvedArrow
   - skin_marble_rainbow
   - strafe_gradient
   - skin_sushi
