@@ -6,7 +6,7 @@ namespace Superball
 {
     public class Pipe : MonoBehaviour
     {
-        public Ball ball;
+        public int typeIndex;
 
         [SerializeField] private PipeEntrance[] entrances;
         [SerializeField] private Material[] materials;

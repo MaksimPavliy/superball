@@ -1,4 +1,5 @@
 using FriendsGamesTools;
+using FriendsGamesTools.ECSGame;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -36,31 +37,65 @@ namespace Superball
         private float _levelLength = 0;
         private float _groundLength = 0;
         private float _highestPipeHeight = 0;
-
+        private LevelGeneratorController GeneratorController;
         public void Generate()
         {
+            GeneratorController = SuperballRoot.instance.Get<LevelGeneratorController>();
             _pipes = _pipesParent.GetComponentsInChildren<Pipe>().ToList();
-
-            if (_setFinish)
-            {
-                SetFinish();
-            }
-
+            SetFinish();
             _levelLength = _finish.transform.position.x;
-
             ApplyBounds();
-            if (_spawnPipes)
+            if (GeneratorController.GenerateNewLevel)
             {
+                GeneratorController.ClearLevelObjectsData();
                 SpawnPipes();
+                SpawnCoins();
+
+                GeneratorController.SetCurrentLevelAsGenerated();
+            }
+            else
+            {
+                foreach (var pipe in _pipes)
+                {
+                    Destroy(pipe.gameObject);
+
+                }
+                _pipes.Clear();
+                LoadLevel();
+
             }
 
-            if (_spawnCoins)
-            {
-                SpawnCoins();
-            }
             ApplyCeiling();
+
         }
 
+        private void LoadLevel()
+        {
+            var pipesEntities = GeneratorController.GetPipes();
+
+            foreach (var pipe in pipesEntities)
+            {
+                var data=pipe.GetComponentData<PipeData>();
+               var p= CreatePipe(data.position, data.typeIndex);
+                if (pipe.HasComponent<RotatorData>())
+                {
+                    var rotatorData=pipe.GetComponentData<RotatorData>();
+                    AddPipeRotator(p, rotatorData.interval, rotatorData.angle, rotatorData.rotationTime, rotatorData.timeOffset);
+                }
+            }
+
+            var coinsData = GeneratorController.GetLevelCoinsData();
+            foreach (var data in coinsData)
+            {
+                CreateCoin(data.position);
+            }
+
+            var obstacles = GeneratorController.GetObstaclesData();
+            foreach (var data in obstacles)
+            {
+                CreateObstacle(data.position, data.typeIndex, data.patrolOffset, data.speed, data.progressOffset);
+            }
+        }
         private void ApplyBounds()
         {
             float levelLength = _levelLength;
@@ -116,7 +151,7 @@ namespace Superball
 
             int pipesCount = 0;
 
-            int startRotatorLevel = 7;
+            int startRotatorLevel = 3;
 
 
             while (pipesCount < 100000)
@@ -144,52 +179,94 @@ namespace Superball
                         var obsOffset = Vector3.right * 3f + Vector3.up * (-5f);
                         pos.x += obsOffset.x;
                         var obsPos = _lastPipePostion + (pos - _lastPipePostion) / 2f;
-                        var prefab = Utils.RandomElement(_obstaclePrefabs);
-                        var obs = Instantiate(prefab, transform);
-                        obs.transform.position = obsPos;
-                        var patrol = obs.GetComponent<PatrolBehaviour>();
-                        patrol.SetPatrolOffset(new Vector3(0, Mathf.Clamp((pos - _lastPipePostion).y + Random.value * 4f, 4f, 1000), 0));
-                        patrol.SetSpeed(Utils.Random(_minObtacleSpeed, _maxObstacleSpeed));
-                        patrol.SetProgressOffset(Random.value);
+
+                        var patrolOffset = new Vector3(0, Mathf.Clamp((pos - _lastPipePostion).y + Random.value * 4f, 4f, 1000), 0);
+                        var partrolSpeed = Utils.Random(_minObtacleSpeed, _maxObstacleSpeed);
+                        var progressOffset = Random.value;
+                        int typeIndex = Utils.RandomInd(_obstaclePrefabs);
+                        CreateObstacle(obsPos, typeIndex, patrolOffset, partrolSpeed, progressOffset);
+                        GeneratorController.CreateObstacle(obsPos, typeIndex, patrolOffset, progressOffset, partrolSpeed);
                     }
                 }
 
                 if (pos.x >= levelLength - minPipeDistanceRandom.x / 2f)
                 {
-                    return;
+                    break;
                 }
 
-                pipePrefab = Utils.RandomElement(pipePrefabs);
+                int typeInd = Utils.RandomInd(pipePrefabs);
+
+
+                CreatePipe(pos, typeInd);
+
                 pipesCount++;
-                // Vector3 pos = new Vector2(levelConfig.pipesStartSpawnFrom + i * levelConfig.metersPerPipe + Random.Range(-levelConfig.metersPerPipeThreshold, levelConfig.metersPerPipeThreshold),
-                //    Random.Range(levelConfig.bottomBound + pipeSize.y * 0.5f, levelConfig.topBound - pipeSize.y * 0.5f));
-
-                Pipe pipe = Instantiate(pipePrefab, _pipesParent);
-                //float rotatorChance = 0.0f + levelIndex * 0.05f;
-                //if(addRotator && Utils.Random(0,1f) <= rotatorChance)
-                //{
-                //    var rotator=pipe.gameObject.GetComponent<PipeRotator>();
-                //    rotator.enabled = true;
-                //    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0,1f)< 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
-                //}
-                pipe.Spawn(pos);
                 _lastPipePostion = pos;
-                _pipes.Add(pipe);
-
-
             }
+
+
+
+
             bool addRotator = levelIndex >= startRotatorLevel;
-            if (addRotator)
+            var rotatorPipe = _pipes.Where(x => _pipes.IndexOf(x) > 0).ToList().RandomElement();
+            for (int i = 0; i < _pipes.Count; i++)
             {
-                var rotatorPart = _pipes.Where(x => _pipes.IndexOf(x) > 0).ToList().RandomElement();
-                if (rotatorPart)
+                var e = GeneratorController.CreatePipe(i, _pipes[i].transform.position, _pipes[i].typeIndex);
+                if (addRotator && (rotatorPipe == _pipes[i]))
                 {
-                    var rotator = rotatorPart.gameObject.GetComponent<PipeRotator>();
+                    var rotator = rotatorPipe.gameObject.GetComponent<PipeRotator>();
                     rotator.enabled = true;
-                    rotator.Init(5 + Utils.Random(-1f, 1f), (Utils.Random(0, 1f) < 0.5f ? 1 : -1) * 90, 0.3f, Utils.Random(0, 1f));
-                }
+                    float rotatorInterval = 5 + Utils.Random(-1f, 1f);
+                    float rotatorAngle = (Utils.Random(0, 1f) < 0.5f ? 1 : -1) * 90;
+                    float rotationTime = Utils.Random(0, 1f);
+                    float rotationTimeOffset = 0;
 
+                    AddPipeRotator(rotatorPipe, rotatorInterval, rotatorAngle, rotationTime, rotationTimeOffset);
+                    GeneratorController.AddPipeRotator(e, rotatorInterval, rotatorAngle, rotationTime, rotationTimeOffset);
+                }
             }
+
+            //if (addRotator)
+            //{
+
+            //    if (rotatorPipe)
+            //    {
+
+            //     //   var pipeEntity = GeneratorController.CreatePipe(rotatorPipe.transform.position, 0);
+
+            //    }
+
+            //}
+        }
+
+        private void AddPipeRotator(Pipe pipe, float rotatorInterval, float rotatorAngle, float rotationTime, float rotationTimeOffset)
+        {
+            var rotator = pipe.gameObject.GetComponent<PipeRotator>();
+            rotator.enabled = true;
+            rotator.Init(rotatorInterval, rotatorAngle, rotationTime, rotationTimeOffset);
+        }
+        public void CreateObstacle(Vector3 position, int typeIndex, Vector3 patrolOffset, float speed, float progressOffset)
+        {
+            var prefab = _obstaclePrefabs[typeIndex];
+            var obs = Instantiate(prefab, transform);
+            obs.transform.position = position;
+            var patrol = obs.GetComponent<PatrolBehaviour>();
+            patrol.SetPatrolOffset(patrolOffset);
+            patrol.SetSpeed(speed);
+            patrol.SetProgressOffset(progressOffset);
+        }
+        public Pipe CreatePipe(Vector3 position, int typeIndex)
+        {
+            var pipePrefab = pipePrefabs[typeIndex];
+            Pipe pipe = Instantiate(pipePrefab, _pipesParent);
+            pipe.Spawn(position);
+            _pipes.Add(pipe);
+            return pipe;
+        }
+        private Coin CreateCoin(Vector3 position)
+        {
+            var coin = Instantiate(_coinPrefab, transform);
+            coin.transform.position = position;
+            return coin;
         }
         private void SpawnCoins()
         {
@@ -214,15 +291,13 @@ namespace Superball
                             continue;
                         }
                     }
-                    var coin = Instantiate(_coinPrefab, transform);
-                    _coins.Add(coin);
-                    coin.transform.position = pos;
-
+                    _coins.Add(CreateCoin(pos));
+                    GeneratorController.CreateCoin(pos);
                     _lastPos = pos;
                 }
-
-
             }
+
+
         }
         private void SetFinish()
         {

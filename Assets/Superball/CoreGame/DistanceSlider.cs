@@ -17,6 +17,8 @@ namespace Superball
         private float _passedDistance = 30;
         private float Ratio => _passedDistance / _maxDistance;
         private float _parentLength;
+        public void Show()=>_shownParent.SetActive(true);
+        public void Hide() => _shownParent.SetActive(false);
         private void Start()
         {
             _parentLength = _wholeDistanceParent.rect.width;

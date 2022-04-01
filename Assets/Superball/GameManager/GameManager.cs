@@ -42,6 +42,7 @@ namespace Superball
             DistanceSlider.instance.SetMaxDistance(_finishLine.transform.position.x);
             DistanceSlider.instance.SetPassedDistance(ball.transform.position.x);
             DistanceSlider.instance.SetLevelText($"Level {GameRoot.instance.Get<SuperballLevelsController>().currLocationInd + 1}");
+            DistanceSlider.instance.Show();
         }
         private void Update()
         {
@@ -77,10 +78,12 @@ namespace Superball
             //FinishScore.instance.UpdateFinishScore();
             LevelComplete?.Invoke();
             IsPlaying = false;
+            DistanceSlider.instance.Hide();
         }
 
         public void OnLose()
         {
+            DistanceSlider.instance.Hide();
             SuperballMoneyView.instance.gameObject.SetActive(true);
             CameraSwitch.instance.DisablePursuit();
             GameRoot.instance.Get<SuperballLevelsController>().DoLose();
