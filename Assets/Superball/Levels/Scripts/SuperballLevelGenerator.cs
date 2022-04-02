@@ -258,6 +258,7 @@ namespace Superball
                     if (_validPos)
                     {
                         var pipe = CreatePipe(pos, typeInd);
+                        GeneratorController.CreatePipe(_pipes.IndexOf(pipe), pos, typeInd);
                         SpawnCoinsArc(10, pipe.Entrances[0].transform.position, pipe.Entrances[1].transform.position, Utils.Random(1.5f, 2.5f));
 
                         //var closestRightPipe=GetClosestPipeToTheRight(pipe);
