@@ -64,6 +64,9 @@ namespace Superball
         public event Action SamePipeEntered;
 
         int _samePipeInRow = 0;
+
+        float _minHapticDuration = 0.25f;
+        float _lastHapticTime = 0;
         private void Start()
         {
             _collider = GetComponent<CircleCollider2D>();
@@ -200,7 +203,6 @@ namespace Superball
 
         }
 
-
         private bool CheckPipeEntrance()
         {
             if (_finished) return false;
@@ -224,10 +226,12 @@ namespace Superball
             //yield return new WaitForEndOfFrame();
            Vector3 _startPos = transform.position;
             CameraSwitch.instance.DisablePursuit();
+            Haptic.Vibrate(HapticType.Medium);
             transform.DOShakePosition(1f, 0.1f, 10, 90, false, false) ;
             EffectsManager.instance.PlayFinishBlow(_startPos);
             yield return new WaitForSeconds(1f);
             transform.DOMove(_startPos + Vector3.up * 50f, 2f);
+            Haptic.Vibrate(HapticType.Heavy);
 
             GameManager.instance.OnLevelComplete();
 
@@ -244,6 +248,7 @@ namespace Superball
              
             //    _rigidbody.AddForce(Vector2.right * 1000f);
                 StartCoroutine(FinishRoutine());
+
 
             }
 
@@ -262,6 +267,7 @@ namespace Superball
                 GameManager.instance.OnLose();
                 OnDragEnded();
                 CanControlChanged?.Invoke(false);
+                Haptic.Vibrate(HapticType.Heavy);
             }
             else if (collision.CompareTag("coin"))
             {
@@ -269,6 +275,7 @@ namespace Superball
                 if (coin.Collect())
                 {
                     GameManager.instance.AddCoins();
+                    Haptic.Vibrate(HapticType.Light);
                 }
             }
 
@@ -281,7 +288,7 @@ namespace Superball
 
         private void EnterTube(Collider2D collision)
         {
-
+            Haptic.Vibrate(HapticType.Light);
             State = BallState.InPipe;
 
             var pipeEntrance = collision.gameObject.GetComponent<PipeEntrance>();
@@ -331,14 +338,13 @@ namespace Superball
             var closestSample = currentPipe.GetClosestSample(transform.position);
             _tubeDistance = closestSample.distanceInSpline;
             EnteredPipe?.Invoke();
-          
-           
-
-
         }
         //выход из трубы
+
+        
         private void ExitPipe()
         {
+            Haptic.Vibrate(HapticType.Medium);
             OnDragEnded();
             State = BallState.LeavingPipe;
             _touchingTheEntrance = true;
