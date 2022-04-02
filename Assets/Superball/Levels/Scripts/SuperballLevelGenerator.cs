@@ -244,7 +244,8 @@ namespace Superball
             for (int i = 0; i < _maxSecondaryPipes; i++)
             {
                 bool _created = false;
-                while (!_created)
+                int iterationsCount = 0;
+                while (!_created && iterationsCount<1000)
                 {
                     _validPos = true;
                     var pos = new Vector3(Utils.Random(min.x, max.x), Utils.Random(min.y, max.y), 0);
@@ -269,6 +270,7 @@ namespace Superball
                         _created = true;
                         break;
                     }
+                    iterationsCount++;
                 }
             }
         }
