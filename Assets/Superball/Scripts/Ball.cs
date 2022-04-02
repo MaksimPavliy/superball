@@ -330,7 +330,6 @@ namespace Superball
             State = BallState.InPipe;
             var closestSample = currentPipe.GetClosestSample(transform.position);
             _tubeDistance = closestSample.distanceInSpline;
-            Debug.Log(_tubeDistance);
             EnteredPipe?.Invoke();
           
            

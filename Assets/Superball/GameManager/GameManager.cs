@@ -33,8 +33,6 @@ namespace Superball
           //  ball.JumpSucceded += OnJumpSucceded;
             float ratio = camera.aspect;
             float maxBounds = ratio * camera.orthographicSize;
-            Debug.Log(maxBounds);
-
             ThemeSet.instance.ActivateSet(SuperballRoot.instance.levels.currLocationInd%4);
             /*pipe.maxOffset = maxBounds*1.2f;*/
 

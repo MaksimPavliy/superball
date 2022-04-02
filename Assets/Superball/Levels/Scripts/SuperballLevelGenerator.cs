@@ -38,6 +38,7 @@ namespace Superball
         private float _groundLength = 0;
         private float _highestPipeHeight = 0;
         private LevelGeneratorController GeneratorController;
+        bool _forceGenerate = false;
         public void Generate()
         {
             GeneratorController = SuperballRoot.instance.Get<LevelGeneratorController>();
@@ -45,12 +46,12 @@ namespace Superball
             SetFinish();
             _levelLength = _finish.transform.position.x;
             ApplyBounds();
-            if (GeneratorController.GenerateNewLevel)
+            if (GeneratorController.GenerateNewLevel || _forceGenerate)
             {
                 GeneratorController.ClearLevelObjectsData();
                 SpawnPipes();
                 SpawnCoins();
-
+                SpawnSecondaryPipes();
                 GeneratorController.SetCurrentLevelAsGenerated();
             }
             else
@@ -75,11 +76,11 @@ namespace Superball
 
             foreach (var pipe in pipesEntities)
             {
-                var data=pipe.GetComponentData<PipeData>();
-               var p= CreatePipe(data.position, data.typeIndex);
+                var data = pipe.GetComponentData<PipeData>();
+                var p = CreatePipe(data.position, data.typeIndex);
                 if (pipe.HasComponent<RotatorData>())
                 {
-                    var rotatorData=pipe.GetComponentData<RotatorData>();
+                    var rotatorData = pipe.GetComponentData<RotatorData>();
                     AddPipeRotator(p, rotatorData.interval, rotatorData.angle, rotatorData.rotationTime, rotatorData.timeOffset);
                 }
             }
@@ -198,14 +199,9 @@ namespace Superball
 
 
                 CreatePipe(pos, typeInd);
-
                 pipesCount++;
                 _lastPipePostion = pos;
             }
-
-
-
-
             bool addRotator = levelIndex >= startRotatorLevel;
             var rotatorPipe = _pipes.Where(x => _pipes.IndexOf(x) > 0).ToList().RandomElement();
             for (int i = 0; i < _pipes.Count; i++)
@@ -224,20 +220,75 @@ namespace Superball
                     GeneratorController.AddPipeRotator(e, rotatorInterval, rotatorAngle, rotationTime, rotationTimeOffset);
                 }
             }
-
-            //if (addRotator)
-            //{
-
-            //    if (rotatorPipe)
-            //    {
-
-            //     //   var pipeEntity = GeneratorController.CreatePipe(rotatorPipe.transform.position, 0);
-
-            //    }
-
-            //}
         }
 
+        private void SpawnSecondaryPipes()
+        {
+            int typeInd = Utils.RandomInd(pipePrefabs);
+
+            Vector2 min = new Vector2(_pipes[0].transform.position.x, _pipes[0].transform.position.y);
+
+            _highestPipeHeight = 0;
+            foreach (var p in _pipes)
+            {
+                if (p.transform.position.y > _highestPipeHeight)
+                {
+                    _highestPipeHeight = p.transform.position.y;
+                }
+            }
+            Vector2 max = new Vector2(_levelLength, _highestPipeHeight);
+
+            int _maxSecondaryPipes = Mathf.Clamp((int)(_pipes.Count / 1.5f), 1, 200);
+
+            bool _validPos = false;
+            for (int i = 0; i < _maxSecondaryPipes; i++)
+            {
+                bool _created = false;
+                while (!_created)
+                {
+                    _validPos = true;
+                    var pos = new Vector3(Utils.Random(min.x, max.x), Utils.Random(min.y, max.y), 0);
+                    for (int j = 0; j < _pipes.Count; j++)
+                    {
+                        if (Vector3.Distance(pos, _pipes[j].transform.position) < 8f)
+                        {
+                            _validPos = false;
+                        }
+                    }
+                    if (_validPos)
+                    {
+                        var pipe = CreatePipe(pos, typeInd);
+                        SpawnCoinsArc(10, pipe.Entrances[0].transform.position, pipe.Entrances[1].transform.position, Utils.Random(1.5f, 2.5f));
+
+                        //var closestRightPipe=GetClosestPipeToTheRight(pipe);
+                        //if (closestRightPipe)
+                        //{
+                        //    SpawnCoinsArc(10, pipe.Entrances[1].transform.position, closestRightPipe.Entrances[0].transform.position, Utils.Random(1.5f, 2.5f));
+                        //}
+                        _created = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private Pipe GetClosestPipeToTheRight(Pipe curPipe)
+        {
+            Pipe resultPipe = null;
+            float minDistance = 100500;
+            for (int i = 0; i < _pipes.Count; i++)
+            {
+                if (curPipe == _pipes[i]) continue;
+                if (_pipes[i].transform.position.x < curPipe.transform.position.x + 5f) continue;
+                var dist = Vector3.Distance(_pipes[i].transform.position, curPipe.transform.position);
+                if (dist < minDistance)
+                {
+                    minDistance=dist;
+                       resultPipe = _pipes[i];
+                }
+            }
+            return resultPipe;
+        }
         private void AddPipeRotator(Pipe pipe, float rotatorInterval, float rotatorAngle, float rotationTime, float rotationTimeOffset)
         {
             var rotator = pipe.gameObject.GetComponent<PipeRotator>();
@@ -268,34 +319,58 @@ namespace Superball
             coin.transform.position = position;
             return coin;
         }
+
+        public void SpawnCoinsArc(int count, Vector3 _startPoint, Vector3 _endPoint, float jumpMultiplier)
+        {
+            Vector3 _lastPos = Vector3.zero;
+            List<Coin> _coins = new List<Coin>();
+            for (int j = 1; j < count; j++)
+            {
+
+                float t = j * jumpMultiplier / count;
+                var pos = GameSettings.instance.GetTrajectoryPoint(_startPoint, _endPoint, t, jumpMultiplier);
+                if (j > 1)
+                {
+                    if ((_lastPos - pos).magnitude < 0.7f)
+                    {
+                        continue;
+                    }
+                }
+                _coins.Add(CreateCoin(pos));
+                GeneratorController.CreateCoin(pos);
+                _lastPos = pos;
+            }
+        }
         private void SpawnCoins()
         {
             for (int i = 1; i < _pipes.Count; i++)
             {
                 var pt1 = _pipes[i - 1].Entrances[1];
                 var pt2 = _pipes[i].Entrances[0];
-                float _distance = 0;
-                Vector3 _lastPos = Vector3.zero;
-                int count = 10;
-                List<Coin> _coins = new List<Coin>();
-                float jumpMultiplier = 1.7f;
-                for (int j = 1; j < count; j++)
-                {
 
-                    float t = j * jumpMultiplier / count;
-                    var pos = GameSettings.instance.GetTrajectoryPoint(pt1.transform.position, pt2.transform.position, t, jumpMultiplier);
-                    if (j > 1)
-                    {
-                        if ((_lastPos - pos).magnitude < 0.7f)
-                        {
-                            continue;
-                        }
-                    }
-                    _coins.Add(CreateCoin(pos));
-                    GeneratorController.CreateCoin(pos);
-                    _lastPos = pos;
-                }
+                SpawnCoinsArc(10, pt1.transform.position, pt2.transform.position, 1.7f);
+                //float _distance = 0;
+                //Vector3 _lastPos = Vector3.zero;
+                //int count = 10;
+                //List<Coin> _coins = new List<Coin>();
+                //float jumpMultiplier = 1.7f;
+                //for (int j = 1; j < count; j++)
+                //{
+
+                //    float t = j * jumpMultiplier / count;
+                //    var pos = GameSettings.instance.GetTrajectoryPoint(pt1.transform.position, pt2.transform.position, t, jumpMultiplier);
+                //    if (j > 1)
+                //    {
+                //        if ((_lastPos - pos).magnitude < 0.7f)
+                //        {
+                //            continue;
+                //        }
+                //    }
+                //    _coins.Add(CreateCoin(pos));
+                //    GeneratorController.CreateCoin(pos);
+                //    _lastPos = pos;
             }
+
 
 
         }
