@@ -152,7 +152,7 @@ namespace Superball
 
             int pipesCount = 0;
 
-            int startRotatorLevel = 3;
+            int startRotatorLevel = 7;
 
 
             while (pipesCount < 100000)
