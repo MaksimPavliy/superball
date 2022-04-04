@@ -17,8 +17,8 @@ PlayerSettings:
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
-  m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashScreen: 0
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 0.5
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -265,7 +265,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      m_Icon: {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -273,8 +273,8 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 0}
+      - {fileID: 0}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -305,7 +305,7 @@ PlayerSettings:
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 0}
       m_Width: 192
       m_Height: 192
       m_Kind: 1
@@ -341,7 +341,7 @@ PlayerSettings:
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 0}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
@@ -379,115 +379,105 @@ PlayerSettings:
   - m_BuildTarget: iPhone
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 180
       m_Height: 180
       m_Kind: 0
       m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 120
       m_Height: 120
       m_Kind: 0
       m_SubKind: iPhone
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 167
       m_Height: 167
       m_Kind: 0
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 152
       m_Height: 152
       m_Kind: 0
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 76
       m_Height: 76
       m_Kind: 0
       m_SubKind: iPad
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 120
       m_Height: 120
       m_Kind: 3
       m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 80
       m_Height: 80
       m_Kind: 3
       m_SubKind: iPhone
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 80
       m_Height: 80
       m_Kind: 3
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 40
       m_Height: 40
       m_Kind: 3
       m_SubKind: iPad
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 87
       m_Height: 87
       m_Kind: 1
       m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 58
       m_Height: 58
       m_Kind: 1
       m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 29
       m_Height: 29
       m_Kind: 1
       m_SubKind: iPhone
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 58
       m_Height: 58
       m_Kind: 1
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 29
       m_Height: 29
       m_Kind: 1
       m_SubKind: iPad
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 60
       m_Height: 60
       m_Kind: 2
       m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 40
       m_Height: 40
       m_Kind: 2
       m_SubKind: iPhone
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 40
       m_Height: 40
       m_Kind: 2
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 20
       m_Height: 20
       m_Kind: 2
       m_SubKind: iPad
     - m_Textures:
-      - {fileID: 2800000, guid: 40d3cde8805c0704f99d155be0b82e7b, type: 3}
+      - {fileID: 2800000, guid: b4d31cd3db17a874088f0d8d2b17dcda, type: 3}
       m_Width: 1024
       m_Height: 1024
       m_Kind: 4
@@ -815,10 +805,10 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;SHARE;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;SDKs;EDITOR_TOOLS;HAPTIC;STORE_UPLOAD
-    4: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;SHARE;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;SDKs;EDITOR_TOOLS;HAPTIC;STORE_UPLOAD
-    7: VS_ATT;UTILS;FACEBOOK_DISABLED;ECS_PLAYER;SHARE;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;SDKs;EDITOR_TOOLS;HAPTIC;STORE_UPLOAD
-    13: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;SHARE;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;SDKs;EDITOR_TOOLS;HAPTIC;STORE_UPLOAD
+    1: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;STORE_UPLOAD;SDKs;EDITOR_TOOLS;HAPTIC
+    4: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;STORE_UPLOAD;SDKs;EDITOR_TOOLS;HAPTIC
+    7: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;VS_ATT;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;STORE_UPLOAD;SDKs;EDITOR_TOOLS;HAPTIC
+    13: UTILS;FACEBOOK_DISABLED;ECS_PLAYER;ECS_LOCATIONS;ECS_SKINS;UI;BUILD_MODES;UNITY_POST_PROCESSING_STACK_V2;ECS_LEVEL_BASED;PUSH_WRAPPER;DEBUG_CONFIG;ECS_GAMEROOT;DEBUG_TOOLS;ECS_GAME_TIME;PLUGINS;ECS_PLAYER_MONEY;SETTINGS;TOUCHES;RATE_APP_BASIC;DEBUG_PANEL;DEBUG_LOGS;SCREENSHOTS;PUSH_MANAGER;ECSGame;PUSH;WINDOWS;DEBUG_PERFORMANCE;HC_TEMPLATE;ECS_SKIN_MONEY;STORE_UPLOAD;SDKs;EDITOR_TOOLS;HAPTIC
     19: UNITY_POST_PROCESSING_STACK_V2
     21: UNITY_POST_PROCESSING_STACK_V2
     25: UNITY_POST_PROCESSING_STACK_V2

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BuildModeSettings
   m_EditorClassIdentifier: 
   _mode: 2
-  IOSEnabled: 0
-  AndroidEnabled: 1
+  IOSEnabled: 1
+  AndroidEnabled: 0
   releaseErrors: 
   configs:
   - howToApply: 2
