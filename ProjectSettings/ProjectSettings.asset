@@ -150,7 +150,7 @@ PlayerSettings:
     iPhone: com.friendsgamesincubator.superball
   buildNumber:
     Standalone: 0
-    iPhone: 5
+    iPhone: 6
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 100000
@@ -784,7 +784,7 @@ PlayerSettings:
   ps4IncludedModules: []
   ps4attribVROutputEnabled: 0
   monoEnv: 
-  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: 40d3cde8805c0704f99d155be0b82e7b,
+  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: b4d31cd3db17a874088f0d8d2b17dcda,
     type: 3}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
   blurSplashScreenBackground: 0
