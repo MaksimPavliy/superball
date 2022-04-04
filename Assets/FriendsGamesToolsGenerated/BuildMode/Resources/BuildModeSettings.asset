@@ -23,3 +23,5 @@ MonoBehaviour:
     settingName: .gitattributes
   - howToApply: 2
     settingName: DEPENDENCY_MANAGER_KILLING
+  - howToApply: 2
+    settingName: BUILD_ARCHITECTURES
